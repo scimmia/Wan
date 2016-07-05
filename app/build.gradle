@@ -26,9 +26,13 @@ dependencies {
 
     apt 'com.jakewharton:butterknife-compiler:8.1.0'
     compile 'com.android.support:appcompat-v7:23.4.0'
+    compile 'com.android.support:design:23.4.0'
     compile 'com.github.paolorotolo:appintro:4.0.0'
     compile 'com.github.bumptech.glide:glide:3.7.0'
     compile 'com.squareup:otto:1.3.8'
     compile 'com.jakewharton:butterknife:8.1.0'
     compile 'com.android.support:support-v4:23.4.0'
+    compile 'com.ashokvarma.android:bottom-navigation-bar:1.3.0'
+    compile 'me.yokeyword:fragmentation:0.7.7'
+    compile 'com.orhanobut:logger:1.15'
 }

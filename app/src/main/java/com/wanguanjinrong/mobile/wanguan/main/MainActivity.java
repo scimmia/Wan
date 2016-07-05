@@ -1,64 +1,33 @@
 package com.wanguanjinrong.mobile.wanguan.main;
 
-import android.content.Context;
 import android.os.Bundle;
-import android.support.design.widget.TabLayout;
-import android.support.v4.app.Fragment;
-import android.support.v4.app.FragmentManager;
-import android.support.v4.app.FragmentPagerAdapter;
-import android.support.v4.view.ViewPager;
-import android.support.v7.app.AppCompatActivity;
-import butterknife.BindView;
-import butterknife.ButterKnife;
 import com.wanguanjinrong.mobile.wanguan.R;
-import com.wanguanjinrong.mobile.wanguan.login.DefaultFragment;
+import me.yokeyword.fragmentation.SupportActivity;
+import me.yokeyword.fragmentation.anim.DefaultHorizontalAnimator;
+import me.yokeyword.fragmentation.anim.FragmentAnimator;
 
-public class MainActivity extends AppCompatActivity {
+import java.util.ArrayList;
 
-    @BindView(R.id.viewpager)
-    ViewPager viewPager;
-    @BindView(R.id.sliding_tabs)
-    android.support.design.widget.TabLayout tabLayout;
-
-    private SimpleFragmentPagerAdapter pagerAdapter;
+public class MainActivity extends SupportActivity {
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
-        ButterKnife.bind(this);
-
-        pagerAdapter = new SimpleFragmentPagerAdapter(getSupportFragmentManager(), this);
-        viewPager.setAdapter(pagerAdapter);
-        tabLayout.setupWithViewPager(viewPager);
-        tabLayout.setTabMode(TabLayout.MODE_FIXED);
+        if (savedInstanceState == null) {
+            loadRootFragment(R.id.fl_container, MainFragment.newInstance());
+        }
     }
 
-    class SimpleFragmentPagerAdapter extends FragmentPagerAdapter {
+    @Override
+    public void onBackPressedSupport() {
+        // 对于 4个类别的主Fragment内的回退back逻辑,已经在其onBackPressedSupport里各自处理了
+        super.onBackPressedSupport();
+    }
 
-        final int PAGE_COUNT = 3;
-        private String tabTitles[] = new String[]{"tab1","tab2","tab3"};
-        private int layouts[] = new int[]{R.layout.slider_a,R.layout.slider_b,R.layout.slider_c};
-        private Context context;
-
-        public SimpleFragmentPagerAdapter(FragmentManager fm, Context context) {
-            super(fm);
-            this.context = context;
-        }
-
-        @Override
-        public Fragment getItem(int position) {
-            return DefaultFragment.newInstance(layouts[position]);
-        }
-
-        @Override
-        public int getCount() {
-            return PAGE_COUNT;
-        }
-
-        @Override
-        public CharSequence getPageTitle(int position) {
-            return tabTitles[position];
-        }
+    @Override
+    public FragmentAnimator onCreateFragmentAnimator() {
+        // 设置横向(和安卓4.x动画相同)
+        return new DefaultHorizontalAnimator();
     }
 }

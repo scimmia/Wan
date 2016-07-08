@@ -3,4 +3,29 @@
 
     <!-- TODO: Remove or change this placeholder text -->
     <string name="hello_blank_fragment">Hello blank fragment</string>
+    <string name="huoqi_buy">加入</string>
+    <string name="huoqi_sell">赎回</string>
+    <string name="huoqi_title_jieshao">活期介绍</string>
+    <string name="huoqi_title_chakan">查看</string>
+    <string name="huoqi_title_lilv">年化利率</string>
+    <string name="huoqi_title_shouyi">万份收益</string>
+    <string name="huoqi_title_tese_a">随存随取</string>
+    <string name="huoqi_title_tese_b">100元起投</string>
+    <string name="huoqi_title_tese_c">本息保险</string>
+    <string name="huoqi_title_jiaru_a">今日加入</string>
+    <string name="huoqi_title_jiaru_b">明日计息</string>
+    <string name="huoqi_title_jiaru_c">后天到账</string>
+    <string name="borrow_name">客户姓名</string>
+    <string name="borrow_idcard">身份证号</string>
+    <string name="borrow_marrystate">婚姻状况</string>
+    <string name="borrow_phone">联系电话</string>
+    <string name="borrow_hometown">户籍地址</string>
+    <string name="borrow_address">现居住地</string>
+    <string name="borrow_money">申请金额</string>
+    <string name="borrow_days">贷款期限</string>
+    <string name="borrow_hascar">是否有车</string>
+    <string name="borrow_hashouse">是否有房</string>
+    <string name="borrow_houseaddress">房产地址</string>
+    <string name="borrow_haspolicy">有无保单</string>
+    <string name="borrow_wage">月均工资</string>
 </resources>

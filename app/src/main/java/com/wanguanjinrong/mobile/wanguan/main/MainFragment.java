@@ -1,7 +1,6 @@
 package com.wanguanjinrong.mobile.wanguan.main;
 
 import android.os.Bundle;
-import android.support.v4.app.Fragment;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -13,6 +12,9 @@ import com.ashokvarma.bottomnavigation.BottomNavigationItem;
 import com.orhanobut.logger.Logger;
 import com.wanguanjinrong.mobile.wanguan.R;
 import com.wanguanjinrong.mobile.wanguan.login.ImageFragment;
+import com.wanguanjinrong.mobile.wanguan.main.borrow.BorrowFragment;
+import com.wanguanjinrong.mobile.wanguan.main.home.HomeFragment;
+import com.wanguanjinrong.mobile.wanguan.main.touzilicai.TouziLicaiFragment;
 import me.yokeyword.fragmentation.SupportFragment;
 
 public class MainFragment extends SupportFragment {
@@ -41,9 +43,10 @@ public class MainFragment extends SupportFragment {
         ButterKnife.bind(this, view);
 
         if (savedInstanceState == null) {
-            mFragments[0] = ImageFragment.newInstance(R.layout.slider_a);
-            mFragments[1] = ImageFragment.newInstance(R.layout.slider_b);
-            mFragments[2] = ImageFragment.newInstance(R.layout.slider_c);
+            mFragments[0] = HomeFragment.newInstance();
+            mFragments[1] = TouziLicaiFragment.newInstance();
+//            mFragments[1] = ImageFragment.newInstance(R.layout.slider_b);
+            mFragments[2] = BorrowFragment.newInstance();
             mFragments[3] = ImageFragment.newInstance(R.layout.slider_a);
 
             loadMultipleRootFragment(R.id.main_layout, 0,
@@ -75,10 +78,10 @@ public class MainFragment extends SupportFragment {
         mBottomNavigationBar.setMode(BottomNavigationBar.MODE_FIXED);
         mBottomNavigationBar.setBackgroundStyle(BottomNavigationBar.BACKGROUND_STYLE_RIPPLE);
         mBottomNavigationBar
-                .addItem(new BottomNavigationItem(R.drawable.ic_home_white_24dp, "首页").setActiveColorResource(R.color.orange).setBadgeItem(numberBadgeItem))
-                .addItem(new BottomNavigationItem(R.drawable.ic_book_white_24dp, "理财产品").setActiveColorResource(R.color.teal))
-                .addItem(new BottomNavigationItem(R.drawable.ic_music_note_white_24dp, "我要借款").setActiveColorResource(R.color.blue))
-                .addItem(new BottomNavigationItem(R.drawable.ic_tv_white_24dp, "我的财富").setActiveColorResource(R.color.brown))
+                .addItem(new BottomNavigationItem(R.drawable.bottom_bar_1_press, "首页").setInactiveIconResource(R.drawable.bottom_bar_1_normal).setActiveColorResource(R.color.orange).setBadgeItem(numberBadgeItem))
+                .addItem(new BottomNavigationItem(R.drawable.bottom_bar_2_press, "理财产品").setInactiveIconResource(R.drawable.bottom_bar_2_normal).setActiveColorResource(R.color.teal))
+                .addItem(new BottomNavigationItem(R.drawable.bottom_bar_5_press, "我要借款").setInactiveIconResource(R.drawable.bottom_bar_5_normal).setActiveColorResource(R.color.blue))
+                .addItem(new BottomNavigationItem(R.drawable.bottom_bar_3_press, "我的财富").setInactiveIconResource(R.drawable.bottom_bar_3_normal).setActiveColorResource(R.color.brown))
 //                .addItem(new BottomNavigationItem(R.drawable.ic_videogame_asset_white_24dp, "Games").setActiveColorResource(R.color.grey))
                 .initialise();
 

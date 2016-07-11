@@ -82,4 +82,9 @@ public class HuoqilicaiFragment extends BaseFragment implements SwipeRefreshLayo
 //        start(HuoqiBuyFragment.newInstance());
         ((MainFragment) getParentFragment()).start(HuoqiBuyFragment.newInstance());
     }
+    @OnClick(R.id.btn_huoqi_sell)
+    public void onSell(){
+//        start(HuoqiBuyFragment.newInstance());
+        ((MainFragment) getParentFragment()).start(HuoqiRedeemFragment.newInstance());
+    }
 }

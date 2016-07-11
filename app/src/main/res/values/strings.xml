@@ -36,4 +36,7 @@
     <string name="huoqi_buy_xieyi">点击加入即代表同意并签署《万贯活期投资协议》</string>
     <string name="huoqi_buy_jixiguize_title">*计息规则</string>
     <string name="huoqi_buy_jixiguize_detail">工作日24:00前加入，加入后第一个工作日开始计息，次日显示收益。\n节假日加入，加入后第二个工作日开始计息，次日显示收益</string>
+    <string name="huoqi_redeem_title">赎回金额至您的可用余额</string>
+    <string name="huoqi_redeem_money">赎回金额</string>
+    <string name="huoqi_redeem_money_hint">最多可赎回0.00元</string>
 </resources>

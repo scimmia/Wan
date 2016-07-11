@@ -1,4 +1,4 @@
-package com.wanguanjinrong.mobile.wanguan.main.touzilicai;
+package com.wanguanjinrong.mobile.wanguan.main.touzilicai.huoqi;
 
 import android.os.Bundle;
 import android.support.v4.widget.SwipeRefreshLayout;
@@ -10,8 +10,10 @@ import android.widget.Button;
 import android.widget.TextView;
 import butterknife.BindView;
 import butterknife.ButterKnife;
+import butterknife.OnClick;
 import com.orhanobut.logger.Logger;
 import com.wanguanjinrong.mobile.wanguan.R;
+import com.wanguanjinrong.mobile.wanguan.main.MainFragment;
 import com.wanguanjinrong.mobile.wanguan.uitls.ui.BaseFragment;
 
 import java.util.Random;
@@ -73,5 +75,11 @@ public class HuoqilicaiFragment extends BaseFragment implements SwipeRefreshLayo
                 mTvHuoqiShouyi.setText(Html.fromHtml("<big><big>"+(1+r.nextInt(3))+'.'+(r.nextInt(99))+"</big></big>元"));
             }
         }, 1000);
+    }
+
+    @OnClick(R.id.btn_huoqi_buy)
+    public void onBuy(){
+//        start(HuoqiBuyFragment.newInstance());
+        ((MainFragment) getParentFragment()).start(HuoqiBuyFragment.newInstance());
     }
 }

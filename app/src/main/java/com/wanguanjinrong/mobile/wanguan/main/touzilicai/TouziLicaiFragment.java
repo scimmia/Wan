@@ -14,6 +14,7 @@ import android.view.ViewGroup;
 import com.wanguanjinrong.mobile.wanguan.R;
 import com.wanguanjinrong.mobile.wanguan.login.DefaultFragment;
 import com.wanguanjinrong.mobile.wanguan.main.touzilicai.dingqi.DingqilicaiFragment;
+import com.wanguanjinrong.mobile.wanguan.main.touzilicai.huoqi.HuoqilicaiFragment;
 import com.wanguanjinrong.mobile.wanguan.uitls.ui.BaseFragment;
 
 public class TouziLicaiFragment extends BaseFragment {
@@ -60,8 +61,8 @@ public class TouziLicaiFragment extends BaseFragment {
 
     class SimpleFragmentPagerAdapter extends FragmentPagerAdapter {
 
-        final int PAGE_COUNT = 3;
-        private String tabTitles[] = new String[]{"活期理财","定期理财","tab3"};
+        final int PAGE_COUNT = 2;
+        private String tabTitles[] = new String[]{"活期理财","定期理财"};
         private int layouts[] = new int[]{R.layout.slider_a,R.layout.slider_b,R.layout.slider_c};
 
         public SimpleFragmentPagerAdapter(FragmentManager fm) {
@@ -82,7 +83,7 @@ public class TouziLicaiFragment extends BaseFragment {
 
         @Override
         public int getCount() {
-            return PAGE_COUNT;
+            return tabTitles.length;
         }
 
         @Override

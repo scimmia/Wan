@@ -8,6 +8,14 @@ import me.yokeyword.fragmentation.SupportFragment;
 
 public class BaseFragment extends SupportFragment {
    /*
+import android.os.Bundle;
+import android.view.LayoutInflater;
+import android.view.View;
+import android.view.ViewGroup;
+import butterknife.ButterKnife;
+import butterknife.Unbinder;
+import com.wanguanjinrong.mobile.wanguan.R;
+
     protected Unbinder unbinder;
     public static BaseFragment newInstance() {
         BaseFragment fragment = new DingqilicaiFragment();

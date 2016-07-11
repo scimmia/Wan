@@ -28,4 +28,12 @@
     <string name="borrow_houseaddress">房产地址</string>
     <string name="borrow_haspolicy">有无保单</string>
     <string name="borrow_wage">月均工资</string>
+    <string name="huoqi_buy_total">可投金额</string>
+    <string name="huoqi_buy_myleft">可用余额</string>
+    <string name="huoqi_buy_money">加入金额</string>
+    <string name="huoqi_buy_money_hint">100元起，100倍数递增</string>
+    <string name="huoqi_buy_money_yuan">元</string>
+    <string name="huoqi_buy_xieyi">点击加入即代表同意并签署《万贯活期投资协议》</string>
+    <string name="huoqi_buy_jixiguize_title">*计息规则</string>
+    <string name="huoqi_buy_jixiguize_detail">工作日24:00前加入，加入后第一个工作日开始计息，次日显示收益。\n节假日加入，加入后第二个工作日开始计息，次日显示收益</string>
 </resources>

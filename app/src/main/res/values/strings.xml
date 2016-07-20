@@ -39,4 +39,15 @@
     <string name="huoqi_redeem_title">赎回金额至您的可用余额</string>
     <string name="huoqi_redeem_money">赎回金额</string>
     <string name="huoqi_redeem_money_hint">最多可赎回0.00元</string>
+    <string name="dingqi_buy_name">产品名称</string>
+    <string name="dingqi_buy_moneyrate">年化利率</string>
+    <string name="dingqi_buy_days">投资期限</string>
+    <string name="dingqi_buy_sellway">还款方式</string>
+    <string name="dingqi_buy_moneyleft">最大加入金额:</string>
+    <string name="dingqi_buy_money">金额</string>
+    <string name="dingqi_buy_money_hint">请输入投资金额</string>
+    <string name="dingqi_buy_money_yuan">元</string>
+    <string name="dingqi_buy_myleft">可用余额</string>
+    <string name="dingqi_buy_myearn">到期收益</string>
+    <string name="dingqi_buy">加入</string>
 </resources>

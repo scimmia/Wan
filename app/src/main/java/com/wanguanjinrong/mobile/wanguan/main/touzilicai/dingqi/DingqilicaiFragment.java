@@ -13,6 +13,7 @@ import butterknife.ButterKnife;
 import butterknife.Unbinder;
 import com.orhanobut.logger.Logger;
 import com.wanguanjinrong.mobile.wanguan.R;
+import com.wanguanjinrong.mobile.wanguan.main.MainFragment;
 import com.wanguanjinrong.mobile.wanguan.uitls.ui.BaseFragment;
 import com.wanguanjinrong.mobile.wanguan.uitls.ui.listener.OnItemClickListener;
 
@@ -63,6 +64,7 @@ public class DingqilicaiFragment extends BaseFragment implements SwipeRefreshLay
             @Override
             public void onItemClick(int position, View view, RecyclerView.ViewHolder vh) {
                 Logger.e(position +"");
+                _mActivity.start(DingqiBuyFragment.newInstance(mItems.get(position)));
             }
         });
 //        mRecyclerView.setHasFixedSize(true);

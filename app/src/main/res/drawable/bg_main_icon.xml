@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="utf-8"?>
+<selector xmlns:android="http://schemas.android.com/apk/res/android">
+
+    <item android:drawable="@color/list_item_title" android:state_window_focused="false"/>
+
+    <!-- 触摸模式下单击时的背景颜色 -->
+    <item android:drawable="@color/material_primary_green" android:state_focused="false" android:state_pressed="true"/>
+    <item android:drawable="@color/material_primary_green" android:state_selected="true"/>
+
+</selector>

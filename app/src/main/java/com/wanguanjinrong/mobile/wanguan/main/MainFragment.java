@@ -14,6 +14,7 @@ import com.wanguanjinrong.mobile.wanguan.R;
 import com.wanguanjinrong.mobile.wanguan.login.ImageFragment;
 import com.wanguanjinrong.mobile.wanguan.main.borrow.BorrowFragment;
 import com.wanguanjinrong.mobile.wanguan.main.home.HomeFragment;
+import com.wanguanjinrong.mobile.wanguan.main.my.MyFragment;
 import com.wanguanjinrong.mobile.wanguan.main.touzilicai.TouziLicaiFragment;
 import me.yokeyword.fragmentation.SupportFragment;
 
@@ -47,7 +48,7 @@ public class MainFragment extends SupportFragment {
             mFragments[1] = TouziLicaiFragment.newInstance();
 //            mFragments[1] = ImageFragment.newInstance(R.layout.slider_b);
             mFragments[2] = BorrowFragment.newInstance();
-            mFragments[3] = ImageFragment.newInstance(R.layout.slider_a);
+            mFragments[3] = MyFragment.newInstance();
 
             loadMultipleRootFragment(R.id.main_layout, 0,
                     mFragments[0],

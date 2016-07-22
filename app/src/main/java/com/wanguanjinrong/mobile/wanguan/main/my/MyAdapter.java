@@ -1,15 +1,17 @@
 package com.wanguanjinrong.mobile.wanguan.main.my;
 
 import android.content.Context;
-import android.graphics.Color;
 import android.graphics.drawable.Drawable;
 import android.support.v7.widget.RecyclerView;
-import android.text.Html;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.LinearLayout;
 import android.widget.TextView;
+import butterknife.BindView;
+import butterknife.ButterKnife;
 import com.wanguanjinrong.mobile.wanguan.R;
+import com.wanguanjinrong.mobile.wanguan.uitls.Utils;
 import com.wanguanjinrong.mobile.wanguan.uitls.ui.listener.OnItemClickListener;
 
 import java.util.LinkedList;
@@ -21,6 +23,7 @@ public class MyAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> {
     final int headType = 0;
     final int detailType = 1;
 
+    MyMoney mMyMoney;
     LinkedList<MyItem> mItems;
     private LayoutInflater mInflater;
     Context mContext;
@@ -30,10 +33,16 @@ public class MyAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> {
         mContext = context;
         this.mInflater = LayoutInflater.from(context);
         mItems = new LinkedList<>();
+        mMyMoney = new MyMoney();
     }
 
     public void setOnItemClickListener(OnItemClickListener itemClickListener) {
         this.mClickListener = itemClickListener;
+    }
+    public void setMoney(MyMoney money) {
+        if (money != null) {
+            mMyMoney = money;
+        }
     }
 
     public void setDatas(LinkedList<MyItem> items) {
@@ -60,7 +69,7 @@ public class MyAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> {
     @Override
     public RecyclerView.ViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
         final RecyclerView.ViewHolder holder;
-        switch (viewType){
+        switch (viewType) {
             case headType:
                 holder = new HeaderViewHolder(mInflater.inflate(R.layout.item_my_header, parent, false));
                 break;
@@ -83,18 +92,28 @@ public class MyAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> {
 
     @Override
     public void onBindViewHolder(RecyclerView.ViewHolder holder, int position) {
-        switch (getItemViewType(position)){
+        switch (getItemViewType(position)) {
             case headType:
 //                ADPagerAdapter adPagerAdapter = new ADPagerAdapter(mContext);
 //                adPagerAdapter.setData(mADUrls);
 //                ((HeaderViewHolder)itemViewHolder).mLoopViewPager.setAdapter(adPagerAdapter);
+                if (Utils.isLogin(mContext)){
+                    ((HeaderViewHolder)holder).mMyNotLogin.setVisibility(View.GONE);
+                    ((HeaderViewHolder)holder).mMyLogin.setVisibility(View.VISIBLE);
+                    ((HeaderViewHolder)holder).mTvMyTotal.setText(String.format("%.2f",(mMyMoney.getTotal())));
+                    ((HeaderViewHolder)holder).mMyZuorishouyi.setText(String.format("%.2f",(mMyMoney.getLastdayGot())));
+                    ((HeaderViewHolder)holder).mMyKeyongyue.setText(String.format("%.2f",(mMyMoney.getUsable())));
+                }else {
+                    ((HeaderViewHolder)holder).mMyNotLogin.setVisibility(View.VISIBLE);
+                    ((HeaderViewHolder)holder).mMyLogin.setVisibility(View.GONE);
+                }
                 break;
             case detailType:
             default:
-                MyItem dingqilicai = mItems.get(position-1);
+                MyItem dingqilicai = mItems.get(position - 1);
                 ((ItemViewHolder) holder).title.setText(dingqilicai.getTitleId());
                 Drawable top = mContext.getResources().getDrawable(dingqilicai.getPicId());
-                ((ItemViewHolder) holder).title.setCompoundDrawablesWithIntrinsicBounds(null, top , null, null);
+                ((ItemViewHolder) holder).title.setCompoundDrawablesWithIntrinsicBounds(null, top, null, null);
 //                ((ItemViewHolder)itemViewHolder).tvTitle.setText("position"+(position));
 //                ((ItemViewHolder)itemViewHolder).tvContent.setText("position----"+(position));
                 break;
@@ -103,12 +122,12 @@ public class MyAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> {
 
     @Override
     public int getItemViewType(int position) {
-        return position==0 ? headType : detailType;
+        return position == 0 ? headType : detailType;
     }
 
     @Override
     public int getItemCount() {
-        return mItems.size()+1;
+        return mItems.size() + 1;
     }
 
     class ItemViewHolder extends RecyclerView.ViewHolder {
@@ -121,11 +140,20 @@ public class MyAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> {
     }
 
     class HeaderViewHolder extends RecyclerView.ViewHolder {
-        TextView title;
+        @BindView(R.id.my_not_login)
+        LinearLayout mMyNotLogin;
+        @BindView(R.id.tv_my_total)
+        TextView mTvMyTotal;
+        @BindView(R.id.my_zuorishouyi)
+        TextView mMyZuorishouyi;
+        @BindView(R.id.my_keyongyue)
+        TextView mMyKeyongyue;
+        @BindView(R.id.my_login)
+        LinearLayout mMyLogin;
 
         public HeaderViewHolder(View view) {
             super(view);
-            title = (TextView) itemView.findViewById(R.id.item_title);
+            ButterKnife.bind(this, view);
         }
     }
 }

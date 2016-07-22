@@ -5,4 +5,7 @@ package com.wanguanjinrong.mobile.wanguan.uitls;
  */
 public interface Global {
     String isFirstRun = "isFirstRun";
+
+    String LOGIN_USER_NAME = "LOGIN_USER_NAME";
+    String LOGIN_PASSWORD = "LOGIN_PASSWORD";
 }

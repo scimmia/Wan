@@ -1,0 +1,72 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+              xmlns:app="http://schemas.android.com/apk/res-auto"
+              android:orientation="vertical"
+              android:gravity="center_horizontal"
+              android:layout_width="match_parent"
+              android:layout_height="match_parent">
+    <include
+            android:id="@+id/toolbar_login"
+            layout="@layout/toolbar"/>
+
+    <ScrollView
+            android:layout_width="match_parent"
+            android:layout_height="match_parent">
+
+        <LinearLayout
+                android:layout_width="match_parent"
+                android:padding="16dp"
+                android:layout_height="wrap_content"
+                android:orientation="vertical">
+
+            <com.rengwuxian.materialedittext.MaterialEditText
+                    style="@style/one_line_material"
+                    android:id="@+id/et_login_name"
+                    android:hint="@string/phonenumber"
+                    android:inputType="phone"
+                    app:met_baseColor="@color/material_base_color"
+                    app:met_primaryColor="@color/material_primary_color"
+                    app:met_floatingLabelTextSize ="@dimen/material_label_textsize"
+                    app:met_floatingLabel="highlight"
+                    app:met_singleLineEllipsis="true"
+                    app:met_iconLeft="@drawable/perm_group_personal_info"
+                    app:met_iconPadding="@dimen/func_icon_text_marginleft"
+                    app:met_clearButton="true"
+            />
+
+            <com.rengwuxian.materialedittext.MaterialEditText
+                    style="@style/one_line_material"
+                    android:id="@+id/et_login_password"
+                    android:hint="@string/password"
+                    android:inputType="textPassword"
+                    app:met_baseColor="@color/material_base_color"
+                    app:met_primaryColor="@color/material_primary_color"
+                    app:met_floatingLabelTextSize ="@dimen/material_label_textsize"
+                    app:met_floatingLabel="highlight"
+                    app:met_singleLineEllipsis="true"
+                    app:met_iconLeft="@drawable/perm_group_screenlock"
+                    app:met_iconPadding="@dimen/func_icon_text_marginleft"
+                    app:met_clearButton="true"
+            />
+
+            <Button
+                    android:id="@+id/btn_login"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="16dp"
+                    android:background="@color/material_primary_color"
+                    android:text="@string/login"
+                    android:textSize="@dimen/text_size_16"
+                    android:textColor="@android:color/white"
+                    android:textStyle="bold"/>
+            <Button
+                    android:id="@+id/btn_register"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="16dp"
+                    android:text="@string/register"
+                    android:textSize="@dimen/text_size_16"
+                    android:textStyle="bold"/>
+        </LinearLayout>
+    </ScrollView>
+</LinearLayout>

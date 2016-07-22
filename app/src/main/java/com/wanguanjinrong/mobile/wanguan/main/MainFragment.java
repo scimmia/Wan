@@ -10,15 +10,19 @@ import com.ashokvarma.bottomnavigation.BadgeItem;
 import com.ashokvarma.bottomnavigation.BottomNavigationBar;
 import com.ashokvarma.bottomnavigation.BottomNavigationItem;
 import com.orhanobut.logger.Logger;
+import com.squareup.otto.Subscribe;
 import com.wanguanjinrong.mobile.wanguan.R;
 import com.wanguanjinrong.mobile.wanguan.login.ImageFragment;
 import com.wanguanjinrong.mobile.wanguan.main.borrow.BorrowFragment;
 import com.wanguanjinrong.mobile.wanguan.main.home.HomeFragment;
 import com.wanguanjinrong.mobile.wanguan.main.my.MyFragment;
 import com.wanguanjinrong.mobile.wanguan.main.touzilicai.TouziLicaiFragment;
+import com.wanguanjinrong.mobile.wanguan.uitls.eventbus.event.StartBrotherEvent;
+import com.wanguanjinrong.mobile.wanguan.uitls.eventbus.event.TabSelectedEvent;
+import com.wanguanjinrong.mobile.wanguan.uitls.ui.BaseFragment;
 import me.yokeyword.fragmentation.SupportFragment;
 
-public class MainFragment extends SupportFragment {
+public class MainFragment extends BaseFragment {
 
     @BindView(R.id.bottom_navigation_bar)
     BottomNavigationBar mBottomNavigationBar;
@@ -59,10 +63,10 @@ public class MainFragment extends SupportFragment {
             // 这里库已经做了Fragment恢复,所有不需要额外的处理了, 不会出现重叠问题
 
             // 这里我们需要拿到mFragments的引用,也可以通过getChildFragmentManager.getFragments()自行进行判断查找(效率更高些),用下面的方法查找更方便些
-            mFragments[0] = findChildFragment(ImageFragment.class);
-            mFragments[1] = findChildFragment(ImageFragment.class);
-            mFragments[2] = findChildFragment(ImageFragment.class);
-            mFragments[3] = findChildFragment(ImageFragment.class);
+            mFragments[0] = findChildFragment(HomeFragment.class);
+            mFragments[1] = findChildFragment(TouziLicaiFragment.class);
+            mFragments[2] = findChildFragment(BorrowFragment.class);
+            mFragments[3] = findChildFragment(MyFragment.class);
         }
 
         initView(view);
@@ -95,7 +99,6 @@ public class MainFragment extends SupportFragment {
             public void onTabUnselected(int position) {
                 Logger.e(mBottomNavigationBar.getCurrentSelectedPosition()+"onTabUnselected---"+position);
                 showHideFragment(mFragments[mBottomNavigationBar.getCurrentSelectedPosition()], mFragments[position]);
-
             }
             @Override
             public void onTabReselected(int position) {
@@ -104,4 +107,18 @@ public class MainFragment extends SupportFragment {
         });
     }
 
+    @Subscribe
+    public void onTabSelect(TabSelectedEvent event){
+        if (event != null && event.position >= 0 && event.position < mFragments.length){
+            mBottomNavigationBar.selectTab(event.position);
+//            showHideFragment(mFragments[event.position],mFragments[mBottomNavigationBar.getCurrentSelectedPosition()]);
+        }
+    }
+
+    @Subscribe
+    public void onStartBrother(StartBrotherEvent event){
+        if (event != null && event.targetFragment != null){
+            start(event.targetFragment);
+        }
+    }
 }

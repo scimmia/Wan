@@ -14,7 +14,10 @@ import android.widget.TextView;
 import com.orhanobut.logger.Logger;
 import com.squareup.picasso.Picasso;
 import com.wanguanjinrong.mobile.wanguan.R;
+import com.wanguanjinrong.mobile.wanguan.main.touzilicai.dingqi.DingqiBuyFragment;
 import com.wanguanjinrong.mobile.wanguan.main.touzilicai.dingqi.Dingqilicai;
+import com.wanguanjinrong.mobile.wanguan.uitls.eventbus.BusProvider;
+import com.wanguanjinrong.mobile.wanguan.uitls.eventbus.event.StartBrotherEvent;
 import com.wanguanjinrong.mobile.wanguan.uitls.ui.BaseFragment;
 import com.wanguanjinrong.mobile.wanguan.uitls.ui.listener.OnItemClickListener;
 import com.wanguanjinrong.mobile.wanguan.uitls.ui.loopviewpager.LoopViewPager;
@@ -32,6 +35,7 @@ public class HomeFragment extends BaseFragment {
     private Toolbar mToolbar;
     private RecyclerView mRecyclerView;
     HomeAdapter mItemAdapter;
+    ArrayList<Dingqilicai> mItems;
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
@@ -51,7 +55,7 @@ public class HomeFragment extends BaseFragment {
         mADUrls.add("http://www.wanguanjinrong.com/UF/Uploads/Ad/20160608182152656.jpg");
         mADUrls.add("http://www.wanguanjinrong.com/UF/Uploads/Ad/2016070417481198.jpg");
         mADUrls.add("http://www.wanguanjinrong.com/UF/Uploads/Ad/20160704184329348.jpg");
-        ArrayList<Dingqilicai> mItems = new ArrayList<>();
+        mItems = new ArrayList<>();
         mItems.add(Dingqilicai.generRandomData());
         mItems.add(Dingqilicai.generRandomData());
         mItems.add(Dingqilicai.generRandomData());
@@ -64,6 +68,9 @@ public class HomeFragment extends BaseFragment {
             @Override
             public void onItemClick(int position, View view, RecyclerView.ViewHolder vh) {
                 Logger.e(position +"");
+                if (position > 0 && position <= mItems.size()){
+                    BusProvider.getInstance().post(new StartBrotherEvent(DingqiBuyFragment.newInstance(mItems.get(position - 1))));
+                }
             }
         });
 //        mRecyclerView.setHasFixedSize(true);

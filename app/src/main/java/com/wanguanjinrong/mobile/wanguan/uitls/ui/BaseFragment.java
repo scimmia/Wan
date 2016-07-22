@@ -1,9 +1,7 @@
 package com.wanguanjinrong.mobile.wanguan.uitls.ui;
 
 
-import android.os.Bundle;
-import android.support.annotation.Nullable;
-import butterknife.Unbinder;
+import com.wanguanjinrong.mobile.wanguan.uitls.eventbus.BusProvider;
 import me.yokeyword.fragmentation.SupportFragment;
 
 public class BaseFragment extends SupportFragment {
@@ -49,4 +47,30 @@ import com.wanguanjinrong.mobile.wanguan.R;
         }
     }
     */
+   @Override
+   public void onResume() {
+       super.onResume();
+
+       // Register ourselves so that we can provide the initial value.
+       BusProvider.getInstance().register(this);
+//       showMessageListener = new Object() {
+//           @Subscribe
+//           public void showMessage(final MessageEvent event) {
+//               if (event!= null){
+//                   BaseActivity.this.showMessage(event.getMessage());
+//               }
+//           }
+//       };
+//       BusProvider.getInstance().register(showMessageListener);
+   }
+
+    @Override
+    public void onPause() {
+        super.onPause();
+//        cancelMessage();
+//        cancelProgress();
+        // Always unregister when an object no longer should be on the bus.
+        BusProvider.getInstance().unregister(this);
+//        BusProvider.getInstance().unregister(showMessageListener);
+    }
 }

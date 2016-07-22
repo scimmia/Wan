@@ -48,7 +48,6 @@ public class HomeAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder>{
         mItems.addAll(items);
     }
 
-
     @Override
     public RecyclerView.ViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
         final RecyclerView.ViewHolder holder;
@@ -59,17 +58,17 @@ public class HomeAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder>{
             case detailType:
             default:
                 holder = new DingqilicaiItemViewHolder(mInflater.inflate(R.layout.item_dingqilicai, parent, false));
+                holder.itemView.setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View v) {
+                        int position = holder.getAdapterPosition();
+                        if (mClickListener != null) {
+                            mClickListener.onItemClick(position, v, holder);
+                        }
+                    }
+                });
                 break;
         }
-        holder.itemView.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                int position = holder.getAdapterPosition();
-                if (mClickListener != null) {
-                    mClickListener.onItemClick(position, v, holder);
-                }
-            }
-        });
         return holder;
     }
 
@@ -96,12 +95,12 @@ public class HomeAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder>{
 
     @Override
     public int getItemViewType(int position) {
-        return position==0  && getItemCount() == mItems.size() +1 ? headType : detailType;
+        return position==0  ? headType : detailType;
     }
 
     @Override
     public int getItemCount() {
-        return mADUrls.size() > 0 ? 1+mItems.size(): mItems.size();
+        return mItems.size() + 1;
     }
 
     class HeaderViewHolder extends RecyclerView.ViewHolder{

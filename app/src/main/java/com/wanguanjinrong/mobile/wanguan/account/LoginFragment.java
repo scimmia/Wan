@@ -16,6 +16,7 @@ import com.rengwuxian.materialedittext.MaterialEditText;
 import com.wanguanjinrong.mobile.wanguan.R;
 import com.wanguanjinrong.mobile.wanguan.uitls.eventbus.BusProvider;
 import com.wanguanjinrong.mobile.wanguan.uitls.eventbus.event.LoginEvent;
+import com.wanguanjinrong.mobile.wanguan.uitls.eventbus.event.StartBrotherEvent;
 import com.wanguanjinrong.mobile.wanguan.uitls.ui.BaseFragment;
 
 import static com.wanguanjinrong.mobile.wanguan.uitls.Global.LOGIN_PASSWORD;
@@ -102,6 +103,25 @@ public class LoginFragment extends BaseFragment {
 
     @OnClick(R.id.btn_register)
     public void onRegister(){
-
+        BusProvider.getInstance().post(new StartBrotherEvent(RegisterFragment.newInstance()));
+//        SMSSDK.initSDK(_mActivity, "1543694879524", "e649155554c22e99173f58d8a3fdff83");
+//        //打开注册页面
+//        RegisterPage registerPage = new RegisterPage();
+//        registerPage.setRegisterCallback(new EventHandler() {
+//            public void afterEvent(int event, int result, Object data) {
+//        // 解析注册结果
+//                if (result == SMSSDK.RESULT_COMPLETE) {
+//                    @SuppressWarnings("unchecked")
+//                    HashMap<String,Object> phoneMap = (HashMap<String, Object>) data;
+//                    String country = (String) phoneMap.get("country");
+//                    String phone = (String) phoneMap.get("phone");
+//
+//        // 提交用户信息
+//                    Logger.e(country+"----"+ phone);
+////                    registerUser(country, phone);
+//                }
+//            }
+//        });
+//        registerPage.show(_mActivity);
     }
 }

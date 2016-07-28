@@ -14,6 +14,7 @@ import butterknife.BindView;
 import com.orhanobut.logger.Logger;
 import com.squareup.otto.Subscribe;
 import com.wanguanjinrong.mobile.wanguan.account.LoginFragment;
+import com.wanguanjinrong.mobile.wanguan.main.my.zijinguanli.ZijinguanliFragment;
 import com.wanguanjinrong.mobile.wanguan.main.touzilicai.huoqi.HuoqiBuyFragment;
 import com.wanguanjinrong.mobile.wanguan.main.touzilicai.huoqi.HuoqiRedeemFragment;
 import com.wanguanjinrong.mobile.wanguan.uitls.eventbus.BusProvider;
@@ -110,6 +111,7 @@ public class MyFragment extends BaseFragment implements Toolbar.OnMenuItemClickL
                             BusProvider.getInstance().post(new TabSelectedEvent(1));
                             break;
                         case R.string.item_my_trade:
+                            BusProvider.getInstance().post(new StartBrotherEvent(ZijinguanliFragment.newInstance()));
                             break;
                         case R.string.item_my_buy:
                             BusProvider.getInstance().post(new StartBrotherEvent(HuoqiBuyFragment.newInstance()));

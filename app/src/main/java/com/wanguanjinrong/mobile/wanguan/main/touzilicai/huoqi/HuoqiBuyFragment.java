@@ -11,6 +11,7 @@ import butterknife.BindView;
 import butterknife.ButterKnife;
 import butterknife.Unbinder;
 import com.wanguanjinrong.mobile.wanguan.R;
+import com.wanguanjinrong.mobile.wanguan.uitls.Utils;
 import com.wanguanjinrong.mobile.wanguan.uitls.ui.BaseFragment;
 
 /**
@@ -49,7 +50,7 @@ public class HuoqiBuyFragment extends BaseFragment {
                 _mActivity.onBackPressedSupport();
             }
         });
-        mTvHuoqiBuyTotal.setText("50000.00元");
+        mTvHuoqiBuyTotal.setText(Utils.moneyFormatWithYuan(1500001200));
         mTvHuoqiBuyMyleft.setText("3000.00元");
     }
 

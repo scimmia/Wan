@@ -16,13 +16,38 @@
 
 package com.wanguanjinrong.mobile.wanguan.wxapi;
 
-import com.bilibili.socialize.share.core.ui.BaseWXEntryActivity;
 
-public class WXEntryActivity extends BaseWXEntryActivity {
+import android.app.Activity;
+import android.os.Bundle;
+import com.tencent.mm.sdk.openapi.*;
+import com.tencent.mm.sdk.modelbase.BaseReq;
+import com.tencent.mm.sdk.modelbase.BaseResp;
+import com.wanguanjinrong.mobile.wanguan.uitls.Global;
+
+public class WXEntryActivity extends Activity implements IWXAPIEventHandler {
+    private IWXAPI mIWXAPI;
 
     @Override
-    protected String getAppId() {
-        return "";
+    protected void onCreate(Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+        if (mIWXAPI == null) {
+            mIWXAPI = WXAPIFactory.createWXAPI(getApplicationContext(), Global.INVITE_WEIXIN_API, true);
+            if (mIWXAPI.isWXAppInstalled()) {
+                mIWXAPI.registerApp(Global.INVITE_WEIXIN_API);
+            }
+            mIWXAPI.handleIntent(getIntent(), this);
+        }
     }
 
+    // 第三方应用发送到微信的请求处理后的响应结果，会回调到该方法
+    @Override
+    public void onResp(BaseResp resp) {
+        finish();
+    }
+
+    // 微信发送请求到第三方应用时，会回调到该方法
+    @Override
+    public void onReq(BaseReq req) {
+        finish();
+    }
 }

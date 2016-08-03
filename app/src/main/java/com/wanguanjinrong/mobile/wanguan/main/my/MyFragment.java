@@ -3,7 +3,6 @@ package com.wanguanjinrong.mobile.wanguan.main.my;
 import android.app.AlertDialog;
 import android.content.DialogInterface;
 import android.content.Intent;
-import android.graphics.Color;
 import android.net.Uri;
 import android.support.v4.widget.SwipeRefreshLayout;
 import android.support.v7.widget.GridLayoutManager;
@@ -13,10 +12,12 @@ import android.view.MenuItem;
 import butterknife.BindView;
 import com.orhanobut.logger.Logger;
 import com.squareup.otto.Subscribe;
+import com.tencent.mm.sdk.modelmsg.SendMessageToWX;
 import com.wanguanjinrong.mobile.wanguan.account.LoginFragment;
 import com.wanguanjinrong.mobile.wanguan.main.my.zijinguanli.ZijinguanliFragment;
 import com.wanguanjinrong.mobile.wanguan.main.touzilicai.huoqi.HuoqiBuyFragment;
 import com.wanguanjinrong.mobile.wanguan.main.touzilicai.huoqi.HuoqiRedeemFragment;
+import com.wanguanjinrong.mobile.wanguan.uitls.Utils;
 import com.wanguanjinrong.mobile.wanguan.uitls.eventbus.BusProvider;
 import com.wanguanjinrong.mobile.wanguan.uitls.eventbus.event.LoginEvent;
 import com.wanguanjinrong.mobile.wanguan.uitls.eventbus.event.StartBrotherEvent;
@@ -146,6 +147,30 @@ public class MyFragment extends BaseFragment implements Toolbar.OnMenuItemClickL
                                     .show();
                             break;
                         case R.string.item_my_invite:
+                            new AlertDialog.Builder(getActivity()).setTitle("分享万贯金融到")
+                                    .setSingleChoiceItems(new String[]{"微信好友","朋友圈"}, 0, new DialogInterface.OnClickListener() {
+                                        @Override
+                                        public void onClick(DialogInterface dialog, int selectedPosition) {
+                                            switch (selectedPosition){
+                                                case 0:
+                                                    Utils.shareToWeChatWithWebpage(_mActivity,SendMessageToWX.Req.WXSceneSession);
+                                                    break;
+                                                case 1:
+                                                    Utils.shareToWeChatWithWebpage(_mActivity,SendMessageToWX.Req.WXSceneTimeline);
+                                                    break;
+                                            }
+                                            dialog.dismiss();
+                                        }
+                                    })
+                                    .setPositiveButton("取消", new DialogInterface.OnClickListener() {
+                                        @Override
+                                        public void onClick(DialogInterface dialog, int which) {
+                                            dialog.dismiss();
+                                        }
+                                    })
+                                    .setCancelable(true)
+                                    .create()
+                                    .show();
                             break;
                         default:
                             break;

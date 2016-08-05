@@ -1,6 +1,10 @@
 package com.wanguanjinrong.mobile.wanguan.uitls.ui;
 
 
+import android.support.v4.widget.SwipeRefreshLayout;
+import android.support.v7.widget.Toolbar;
+import android.view.View;
+import com.wanguanjinrong.mobile.wanguan.R;
 import com.wanguanjinrong.mobile.wanguan.uitls.eventbus.BusProvider;
 import me.yokeyword.fragmentation.SupportFragment;
 
@@ -72,5 +76,26 @@ import com.wanguanjinrong.mobile.wanguan.R;
         // Always unregister when an object no longer should be on the bus.
         BusProvider.getInstance().unregister(this);
 //        BusProvider.getInstance().unregister(showMessageListener);
+    }
+
+    public void initToobarBack(Toolbar toolbar){
+        if(toolbar != null){
+            toolbar.setNavigationIcon(R.drawable.ic_arrow_back_white_24dp);
+            toolbar.setNavigationOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    _mActivity.onBackPressedSupport();
+                }
+            });
+        }
+    }
+
+    public void initRefresh(SwipeRefreshLayout refreshLayout,SwipeRefreshLayout.OnRefreshListener refreshListener){
+        if(refreshLayout != null){
+            refreshLayout.setColorSchemeResources(R.color.colorPrimary);
+            if(refreshListener != null) {
+                refreshLayout.setOnRefreshListener(refreshListener);
+            }
+        }
     }
 }

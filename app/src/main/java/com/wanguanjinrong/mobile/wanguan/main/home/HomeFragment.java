@@ -14,6 +14,7 @@ import android.widget.TextView;
 import com.orhanobut.logger.Logger;
 import com.squareup.picasso.Picasso;
 import com.wanguanjinrong.mobile.wanguan.R;
+import com.wanguanjinrong.mobile.wanguan.main.home.gonggao.GonggaoListFragment;
 import com.wanguanjinrong.mobile.wanguan.main.touzilicai.dingqi.DingqiBuyFragment;
 import com.wanguanjinrong.mobile.wanguan.main.touzilicai.dingqi.Dingqilicai;
 import com.wanguanjinrong.mobile.wanguan.uitls.eventbus.BusProvider;
@@ -79,6 +80,7 @@ public class HomeFragment extends BaseFragment {
                     Logger.e("banner clicked");
                 }else if (position == 1){
                     Logger.e("gonggao clicked");
+                    BusProvider.getInstance().post(new StartBrotherEvent(GonggaoListFragment.newInstance()));
                 }else {
                     int temp = position - HomeAdapter.space;
                     if (temp >= 0 && temp < mItems.size()) {

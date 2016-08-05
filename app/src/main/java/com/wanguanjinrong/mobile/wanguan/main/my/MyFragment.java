@@ -148,7 +148,7 @@ public class MyFragment extends BaseFragment implements Toolbar.OnMenuItemClickL
                             break;
                         case R.string.item_my_invite:
                             new AlertDialog.Builder(getActivity()).setTitle("分享万贯金融到")
-                                    .setSingleChoiceItems(new String[]{"微信好友","朋友圈"}, 0, new DialogInterface.OnClickListener() {
+                                    .setSingleChoiceItems(new String[]{"微信好友","朋友圈"}, -1, new DialogInterface.OnClickListener() {
                                         @Override
                                         public void onClick(DialogInterface dialog, int selectedPosition) {
                                             switch (selectedPosition){

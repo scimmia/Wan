@@ -55,6 +55,13 @@ public class HomeFragment extends BaseFragment {
         mADUrls.add("http://www.wanguanjinrong.com/UF/Uploads/Ad/20160608182152656.jpg");
         mADUrls.add("http://www.wanguanjinrong.com/UF/Uploads/Ad/2016070417481198.jpg");
         mADUrls.add("http://www.wanguanjinrong.com/UF/Uploads/Ad/20160704184329348.jpg");
+        ArrayList<String> mGonggaos = new ArrayList<>();
+        mGonggaos.add("1. 大家好，我是孙福生。");
+        mGonggaos.add("2. 欢迎大家关注我哦！");
+        mGonggaos.add("3. GitHub帐号：sfsheng0322");
+        mGonggaos.add("4. 新浪微博：孙福生微博");
+        mGonggaos.add("5. 个人博客：sunfusheng.com");
+        mGonggaos.add("6. 微信公众号：孙福生");
         mItems = new ArrayList<>();
         mItems.add(Dingqilicai.generRandomData());
         mItems.add(Dingqilicai.generRandomData());
@@ -63,13 +70,20 @@ public class HomeFragment extends BaseFragment {
         mItems.add(Dingqilicai.generRandomData());
         mItems.add(Dingqilicai.generRandomData());
         mItems.add(Dingqilicai.generRandomData());
-        mItemAdapter.setDatas(mADUrls,mItems);
+        mItemAdapter.setDatas(mADUrls,mGonggaos,mItems);
         mItemAdapter.setOnItemClickListener(new OnItemClickListener() {
             @Override
             public void onItemClick(int position, View view, RecyclerView.ViewHolder vh) {
                 Logger.e(position +"");
-                if (position > 0 && position <= mItems.size()){
-                    BusProvider.getInstance().post(new StartBrotherEvent(DingqiBuyFragment.newInstance(mItems.get(position - 1))));
+                if (position == 0){
+                    Logger.e("banner clicked");
+                }else if (position == 1){
+                    Logger.e("gonggao clicked");
+                }else {
+                    int temp = position - HomeAdapter.space;
+                    if (temp >= 0 && temp < mItems.size()) {
+                        BusProvider.getInstance().post(new StartBrotherEvent(DingqiBuyFragment.newInstance(mItems.get(temp))));
+                    }
                 }
             }
         });

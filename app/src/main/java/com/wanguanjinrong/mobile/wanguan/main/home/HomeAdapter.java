@@ -6,7 +6,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TextView;
-import com.orhanobut.logger.Logger;
+import com.sunfusheng.marqueeview.MarqueeView;
 import com.wanguanjinrong.mobile.wanguan.R;
 import com.wanguanjinrong.mobile.wanguan.main.touzilicai.dingqi.Dingqilicai;
 import com.wanguanjinrong.mobile.wanguan.main.touzilicai.dingqi.DingqilicaiItemViewHolder;
@@ -21,9 +21,12 @@ import java.util.List;
  */
 public class HomeAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder>{
     final int headType = 0;
-    final int detailType = 1;
+    final int gonggaoType = 1;
+    final int detailType = 2;
 
+    final static int space = 2;
     private ArrayList<String> mADUrls;
+    private ArrayList<String> mGonggaos;
     private ArrayList<Dingqilicai> mItems;
     private Context mContext;
     private LayoutInflater mInflater;
@@ -34,6 +37,7 @@ public class HomeAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder>{
         this.mInflater = LayoutInflater.from(context);
         mContext = context;
         mADUrls = new ArrayList<>();
+        mGonggaos = new ArrayList<>();
         mItems = new ArrayList<>();
     }
 
@@ -41,10 +45,12 @@ public class HomeAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder>{
         this.mClickListener = itemClickListener;
     }
 
-    public void setDatas(List<String> ads,List<Dingqilicai> items) {
+    public void setDatas(List<String> ads,List<String> gonggaos,List<Dingqilicai> items) {
         mADUrls.clear();
+        mGonggaos.clear();
         mItems.clear();
         mADUrls.addAll(ads);
+        mGonggaos.addAll(gonggaos);
         mItems.addAll(items);
     }
 
@@ -54,6 +60,18 @@ public class HomeAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder>{
         switch (viewType){
             case headType:
                 holder = new HeaderViewHolder(mInflater.inflate(R.layout.item_home_header, parent, false));
+                break;
+            case gonggaoType:
+                holder = new GonggaoViewHolder(mInflater.inflate(R.layout.item_home_gonggao, parent, false));
+                holder.itemView.setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View v) {
+                        int position = holder.getAdapterPosition();
+                        if (mClickListener != null) {
+                            mClickListener.onItemClick(position, v, holder);
+                        }
+                    }
+                });
                 break;
             case detailType:
             default:
@@ -80,10 +98,13 @@ public class HomeAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder>{
                 adPagerAdapter.setData(mADUrls);
                 ((HeaderViewHolder)itemViewHolder).mLoopViewPager.setAdapter(adPagerAdapter);
                 break;
+            case gonggaoType:
+                ((GonggaoViewHolder) itemViewHolder).tvTitle.startWithList(mGonggaos);
+                break;
             case detailType:
             default:
-                if (getItemCount() == mItems.size() +1) {
-                    ((DingqilicaiItemViewHolder) itemViewHolder).setData(mItems.get(position-1));
+                if (getItemCount() == mItems.size() +space) {
+                    ((DingqilicaiItemViewHolder) itemViewHolder).setData(mItems.get(position-space));
                 }else {
                     ((DingqilicaiItemViewHolder) itemViewHolder).setData(mItems.get(position));
                 }
@@ -95,12 +116,24 @@ public class HomeAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder>{
 
     @Override
     public int getItemViewType(int position) {
-        return position==0  ? headType : detailType;
+        int result = detailType;
+        switch (position){
+            case 0:
+                result = headType;
+                break;
+            case 1:
+                result = gonggaoType;
+                break;
+            default:
+                result = detailType;
+                break;
+        }
+        return result;
     }
 
     @Override
     public int getItemCount() {
-        return mItems.size() + 1;
+        return mItems.size() + space;
     }
 
     class HeaderViewHolder extends RecyclerView.ViewHolder{
@@ -112,13 +145,20 @@ public class HomeAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder>{
         }
     }
 
-    class ItemViewHolder extends RecyclerView.ViewHolder{
-        private TextView tvTitle, tvContent;
+    class GonggaoViewHolder extends RecyclerView.ViewHolder{
+        private MarqueeView tvTitle;
 
-        public ItemViewHolder(View itemView) {
+        public GonggaoViewHolder(final View itemView) {
             super(itemView);
-            tvTitle = (TextView) itemView.findViewById(R.id.tv_title);
-            tvContent = (TextView) itemView.findViewById(R.id.tv_content);
+            tvTitle = (MarqueeView) itemView.findViewById(R.id.marqueeView);
+            tvTitle.setOnItemClickListener(new MarqueeView.OnItemClickListener() {
+                @Override
+                public void onItemClick(int position, TextView textView) {
+                    if (mClickListener != null) {
+                        mClickListener.onItemClick(1, itemView, null);
+                    }
+                }
+            });
         }
     }
 }

@@ -10,6 +10,8 @@ import android.widget.LinearLayout;
 import android.widget.TextView;
 import butterknife.BindView;
 import butterknife.ButterKnife;
+import com.robinhood.ticker.TickerUtils;
+import com.robinhood.ticker.TickerView;
 import com.wanguanjinrong.mobile.wanguan.R;
 import com.wanguanjinrong.mobile.wanguan.uitls.Utils;
 import com.wanguanjinrong.mobile.wanguan.uitls.ui.listener.OnItemClickListener;
@@ -100,9 +102,9 @@ public class MyAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> {
                 if (Utils.isLogin(mContext)){
                     ((HeaderViewHolder)holder).mMyNotLogin.setVisibility(View.GONE);
                     ((HeaderViewHolder)holder).mMyLogin.setVisibility(View.VISIBLE);
-                    ((HeaderViewHolder)holder).mTvMyTotal.setText(String.format("%.2f",(mMyMoney.getTotal())));
-                    ((HeaderViewHolder)holder).mMyZuorishouyi.setText(String.format("%.2f",(mMyMoney.getLastdayGot())));
-                    ((HeaderViewHolder)holder).mMyKeyongyue.setText(String.format("%.2f",(mMyMoney.getUsable())));
+                    ((HeaderViewHolder)holder).mTvMyTotal.setText(Utils.moneyFormat(mMyMoney.getTotal()));
+                    ((HeaderViewHolder)holder).mMyZuorishouyi.setText(Utils.moneyFormat(mMyMoney.getLastdayGot()));
+                    ((HeaderViewHolder)holder).mMyKeyongyue.setText(Utils.moneyFormat(mMyMoney.getUsable()));
                 }else {
                     ((HeaderViewHolder)holder).mMyNotLogin.setVisibility(View.VISIBLE);
                     ((HeaderViewHolder)holder).mMyLogin.setVisibility(View.GONE);
@@ -143,17 +145,27 @@ public class MyAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> {
         @BindView(R.id.my_not_login)
         LinearLayout mMyNotLogin;
         @BindView(R.id.tv_my_total)
-        TextView mTvMyTotal;
+        TickerView mTvMyTotal;
         @BindView(R.id.my_zuorishouyi)
-        TextView mMyZuorishouyi;
+        TickerView mMyZuorishouyi;
         @BindView(R.id.my_keyongyue)
-        TextView mMyKeyongyue;
+        TickerView mMyKeyongyue;
         @BindView(R.id.my_login)
         LinearLayout mMyLogin;
 
         public HeaderViewHolder(View view) {
             super(view);
             ButterKnife.bind(this, view);
+            initTickerView(mTvMyTotal);
+            initTickerView(mMyZuorishouyi);
+            initTickerView(mMyKeyongyue);
+        }
+
+        void initTickerView(TickerView tickerView){
+            if (tickerView != null){
+                tickerView.setCharacterList(TickerUtils.getDefaultListForUSCurrency());
+                tickerView.setAnimationDuration(500);
+            }
         }
     }
 }

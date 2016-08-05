@@ -14,6 +14,7 @@ import com.orhanobut.logger.Logger;
 import com.squareup.otto.Subscribe;
 import com.tencent.mm.sdk.modelmsg.SendMessageToWX;
 import com.wanguanjinrong.mobile.wanguan.account.LoginFragment;
+import com.wanguanjinrong.mobile.wanguan.account.PersonalInfoFragment;
 import com.wanguanjinrong.mobile.wanguan.main.my.zijinguanli.ZijinguanliFragment;
 import com.wanguanjinrong.mobile.wanguan.main.touzilicai.huoqi.HuoqiBuyFragment;
 import com.wanguanjinrong.mobile.wanguan.main.touzilicai.huoqi.HuoqiRedeemFragment;
@@ -101,7 +102,7 @@ public class MyFragment extends BaseFragment implements Toolbar.OnMenuItemClickL
         public void onItemClick(int position, View view, RecyclerView.ViewHolder vh) {
             Logger.e(position +"");
             if (position == 0){
-                _mActivity.start(LoginFragment.newInstance());
+                checkPersonInfo();
             }else {
                 if (position > 0 && position <= mItems.size()){
                     MyItem myItem = mItems.get(position -1);
@@ -202,6 +203,7 @@ public class MyFragment extends BaseFragment implements Toolbar.OnMenuItemClickL
         switch (item.getItemId()) {
             case R.id.action_login:
                 Logger.e("action_borrow");
+                checkPersonInfo();
                 break;
         }
         return true;
@@ -233,6 +235,14 @@ public class MyFragment extends BaseFragment implements Toolbar.OnMenuItemClickL
         if (event != null) {
             mItemAdapter.setMoney(MyMoney.generRandomData());
             mItemAdapter.notifyItemChanged(0);
+        }
+    }
+
+    void checkPersonInfo(){
+        if (Utils.isLogin(_mActivity)){
+            BusProvider.getInstance().post(new StartBrotherEvent(PersonalInfoFragment.newInstance()));
+        }else {
+            BusProvider.getInstance().post(new StartBrotherEvent(LoginFragment.newInstance()));
         }
     }
 }

@@ -5,19 +5,19 @@ import android.content.SharedPreferences;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.preference.PreferenceManager;
+import com.google.gson.Gson;
 import com.orhanobut.logger.Logger;
 import com.tencent.mm.sdk.modelmsg.SendMessageToWX;
 import com.tencent.mm.sdk.modelmsg.WXMediaMessage;
 import com.tencent.mm.sdk.modelmsg.WXWebpageObject;
 import com.tencent.mm.sdk.openapi.*;
 import com.wanguanjinrong.mobile.wanguan.R;
-import org.apache.commons.lang3.StringUtils;
+import com.wanguanjinrong.mobile.wanguan.account.Account;
 
 import java.io.ByteArrayOutputStream;
+import java.util.Date;
 import java.util.Locale;
 
-import static com.wanguanjinrong.mobile.wanguan.uitls.Global.LOGIN_PASSWORD;
-import static com.wanguanjinrong.mobile.wanguan.uitls.Global.LOGIN_USER_NAME;
 
 /**
  * Created by A on 2016/7/22.
@@ -25,7 +25,41 @@ import static com.wanguanjinrong.mobile.wanguan.uitls.Global.LOGIN_USER_NAME;
 public class Utils {
     public static boolean isLogin(Context context){
         SharedPreferences sp = PreferenceManager.getDefaultSharedPreferences(context);
-        return StringUtils.isNoneEmpty(sp.getString(LOGIN_USER_NAME,""),sp.getString(LOGIN_PASSWORD,""));
+        double loginTime = sp.getLong(Global.LOGIN_TIME,0);
+        String loginInfo = sp.getString(Global.LOGIN_INFO,"");
+        if (loginTime == 0 || loginInfo.equalsIgnoreCase("")){
+            return false;
+        }else if (new Date().getTime() - loginTime > Global.LOGIN_AVALIBAL_TIME){
+            return false;
+        }else {
+            return true;
+        }
+    }
+
+    public static Account getLoginInfo(Context context){
+        if (isLogin(context)){
+            SharedPreferences sp = PreferenceManager.getDefaultSharedPreferences(context);
+            String loginInfo = sp.getString(Global.LOGIN_INFO,"");
+            return new Gson().fromJson(loginInfo,Account.class);
+        }
+        return null;
+    }
+
+    public static void login(Context context, Account account){
+        try {
+            SharedPreferences.Editor editor = PreferenceManager.getDefaultSharedPreferences(context).edit();
+            editor.putLong(Global.LOGIN_TIME,new Date().getTime());
+            editor.putString(Global.LOGIN_INFO,new Gson().toJson(account));
+            editor.apply();
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+    }
+    public static void logout(Context context){
+        SharedPreferences.Editor editor = PreferenceManager.getDefaultSharedPreferences(context).edit();
+        editor.remove(Global.LOGIN_TIME);
+        editor.remove(Global.LOGIN_INFO);
+        editor.apply();
     }
 
     public static String moneyFormat(double money){

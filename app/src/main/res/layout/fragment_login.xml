@@ -15,7 +15,7 @@
 
         <LinearLayout
                 android:layout_width="match_parent"
-                android:padding="16dp"
+                android:padding="@dimen/size_8"
                 android:layout_height="wrap_content"
                 android:orientation="vertical">
 
@@ -30,7 +30,7 @@
                     app:met_floatingLabel="highlight"
                     app:met_singleLineEllipsis="true"
                     app:met_iconLeft="@drawable/perm_group_personal_info"
-                    app:met_iconPadding="@dimen/func_icon_text_marginleft"
+                    app:met_iconPadding="@dimen/size_4"
                     app:met_clearButton="true"
             />
 
@@ -45,7 +45,7 @@
                     app:met_floatingLabel="highlight"
                     app:met_singleLineEllipsis="true"
                     app:met_iconLeft="@drawable/perm_group_screenlock"
-                    app:met_iconPadding="@dimen/func_icon_text_marginleft"
+                    app:met_iconPadding="@dimen/size_4"
                     app:met_clearButton="true"
             />
 
@@ -53,20 +53,30 @@
                     android:id="@+id/btn_login"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:layout_marginTop="16dp"
+                    android:layout_marginTop="@dimen/size_16"
                     android:background="@color/material_primary_color"
                     android:text="@string/login"
                     android:textSize="@dimen/text_size_16"
                     android:textColor="@android:color/white"
                     android:textStyle="bold"/>
-            <Button
-                    android:id="@+id/btn_register"
+            <RelativeLayout
                     android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:layout_marginTop="16dp"
-                    android:text="@string/register"
-                    android:textSize="@dimen/text_size_16"
-                    android:textStyle="bold"/>
+                    android:layout_height="wrap_content">
+                <TextView
+                        android:id="@+id/btn_forget"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_alignParentRight="true"
+                        android:layout_centerVertical="true"
+                        android:layout_marginTop="@dimen/size_16"
+                        android:paddingTop="@dimen/size_4"
+                        android:paddingBottom="@dimen/size_4"
+                        android:paddingLeft="@dimen/size_4"
+                        android:text="@string/forget_password"
+                        android:textSize="@dimen/text_size_14"
+                        android:textColor="@color/material_primary_color"/>
+
+            </RelativeLayout>
         </LinearLayout>
     </ScrollView>
 </LinearLayout>

@@ -1,11 +1,9 @@
 package com.wanguanjinrong.mobile.wanguan.account;
 
-import android.content.SharedPreferences;
 import android.os.Bundle;
-import android.preference.PreferenceManager;
 import android.support.v7.widget.Toolbar;
-import android.text.TextUtils;
 import android.view.LayoutInflater;
+import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
 import butterknife.BindView;
@@ -14,13 +12,12 @@ import butterknife.OnClick;
 import butterknife.Unbinder;
 import com.rengwuxian.materialedittext.MaterialEditText;
 import com.wanguanjinrong.mobile.wanguan.R;
+import com.wanguanjinrong.mobile.wanguan.uitls.TestUtils;
+import com.wanguanjinrong.mobile.wanguan.uitls.Utils;
 import com.wanguanjinrong.mobile.wanguan.uitls.eventbus.BusProvider;
 import com.wanguanjinrong.mobile.wanguan.uitls.eventbus.event.LoginEvent;
 import com.wanguanjinrong.mobile.wanguan.uitls.eventbus.event.StartBrotherEvent;
 import com.wanguanjinrong.mobile.wanguan.uitls.ui.BaseFragment;
-
-import static com.wanguanjinrong.mobile.wanguan.uitls.Global.LOGIN_PASSWORD;
-import static com.wanguanjinrong.mobile.wanguan.uitls.Global.LOGIN_USER_NAME;
 
 /**
  * Created by A on 2016/7/22.
@@ -50,11 +47,17 @@ public class LoginFragment extends BaseFragment {
     private void initView(View view) {
         mToolbar.setTitle(R.string.login);
         mToolbar.setBackgroundColor(0xFFf71e1a);
-        mToolbar.setNavigationIcon(R.drawable.ic_arrow_back_white_24dp);
-        mToolbar.setNavigationOnClickListener(new View.OnClickListener() {
+        initToobarBack(mToolbar);
+        mToolbar.inflateMenu(R.menu.menu_login);
+        mToolbar.setOnMenuItemClickListener(new Toolbar.OnMenuItemClickListener() {
             @Override
-            public void onClick(View v) {
-                pop();
+            public boolean onMenuItemClick(MenuItem item) {
+                switch (item.getItemId()) {
+                    case R.id.action_register:
+                        BusProvider.getInstance().post(new StartBrotherEvent(RegisterFragment.newInstance()));
+                        break;
+                }
+                return true;
             }
         });
     }
@@ -78,32 +81,34 @@ public class LoginFragment extends BaseFragment {
 
     @OnClick(R.id.btn_login)
     public void onLogin(){
-        String strAccount = mEtLoginName.getText().toString();
-        String strPassword = mEtLoginPassword.getText().toString();
-        if (TextUtils.isEmpty(strAccount.trim())) {
-            mEtLoginName.setError("用户名不能为空!");
-            return;
-        }
-        if (TextUtils.isEmpty(strPassword.trim())) {
-            mEtLoginPassword.setError("密码不能为空!");
-            return;
-        }
+//        String strAccount = mEtLoginName.getText().toString();
+//        String strPassword = mEtLoginPassword.getText().toString();
+//        if (TextUtils.isEmpty(strAccount.trim())) {
+//            mEtLoginName.setError("用户名不能为空!");
+//            return;
+//        }
+//        if (TextUtils.isEmpty(strPassword.trim())) {
+//            mEtLoginPassword.setError("密码不能为空!");
+//            return;
+//        }
+//
+//        // 登录成功
+//        SharedPreferences sp = PreferenceManager.getDefaultSharedPreferences(_mActivity);
+//        SharedPreferences.Editor spEd = sp.edit();
+//        spEd.putString(LOGIN_USER_NAME, mEtLoginName.getText().toString());
+//        spEd.putString(LOGIN_PASSWORD, mEtLoginPassword.getText().toString());
+//        spEd.apply();
 
-        // 登录成功
-        SharedPreferences sp = PreferenceManager.getDefaultSharedPreferences(_mActivity);
-        SharedPreferences.Editor spEd = sp.edit();
-        spEd.putString(LOGIN_USER_NAME, mEtLoginName.getText().toString());
-        spEd.putString(LOGIN_PASSWORD, mEtLoginPassword.getText().toString());
-        spEd.apply();
+        Utils.login(_mActivity, TestUtils.generRandomAccount());
 
         hideSoftInput();
         BusProvider.getInstance().post(new LoginEvent());
         pop();
     }
 
-    @OnClick(R.id.btn_register)
-    public void onRegister(){
-        BusProvider.getInstance().post(new StartBrotherEvent(RegisterFragment.newInstance()));
+    @OnClick(R.id.btn_forget)
+    public void onForgetPassword(){
+        BusProvider.getInstance().post(new StartBrotherEvent(ForgetPasswordFragment.newInstance()));
 //        SMSSDK.initSDK(_mActivity, "1543694879524", "e649155554c22e99173f58d8a3fdff83");
 //        //打开注册页面
 //        RegisterPage registerPage = new RegisterPage();

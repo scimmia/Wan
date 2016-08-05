@@ -1,39 +1,36 @@
 package com.wanguanjinrong.mobile.wanguan.account;
 
-import android.os.Bundle;
 import android.os.Handler;
 import android.os.Looper;
 import android.support.v7.widget.Toolbar;
 import android.text.TextUtils;
-import android.view.LayoutInflater;
-import android.view.MenuItem;
-import android.view.View;
-import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.Toast;
 import butterknife.BindView;
-import butterknife.ButterKnife;
 import butterknife.OnClick;
-import butterknife.Unbinder;
 import cn.smssdk.EventHandler;
 import cn.smssdk.SMSSDK;
 import com.orhanobut.logger.Logger;
 import com.rengwuxian.materialedittext.MaterialEditText;
-import com.wanguanjinrong.mobile.wanguan.R;
 import com.wanguanjinrong.mobile.wanguan.uitls.ui.BaseFragment;
+import android.os.Bundle;
+import android.view.LayoutInflater;
+import android.view.View;
+import android.view.ViewGroup;
+import butterknife.ButterKnife;
+import butterknife.Unbinder;
+import com.wanguanjinrong.mobile.wanguan.R;
 import org.json.JSONObject;
 
 import java.util.Timer;
 import java.util.TimerTask;
 
 /**
- * Created by A on 2016/7/26.
+ * Created by A on 2016/8/5.
  */
-public class RegisterFragment extends BaseFragment {
+public class ForgetPasswordFragment extends BaseFragment{
 
-    protected Unbinder unbinder;
-
-    @BindView(R.id.toolbar_register)
+    @BindView(R.id.toolbar_forget)
     Toolbar mToolbar;
     @BindView(R.id.et_register_phone)
     MaterialEditText mEtRegisterPhone;
@@ -45,11 +42,10 @@ public class RegisterFragment extends BaseFragment {
     MaterialEditText mEtRegisterPassword;
     @BindView(R.id.et_register_password_again)
     MaterialEditText mEtRegisterPasswordAgain;
-    @BindView(R.id.et_register_inviter)
-    MaterialEditText mEtRegisterInviter;
 
+    protected Unbinder unbinder;
     public static BaseFragment newInstance() {
-        BaseFragment fragment = new RegisterFragment();
+        BaseFragment fragment = new ForgetPasswordFragment();
         Bundle args = new Bundle();
         fragment.setArguments(args);
         return fragment;
@@ -61,34 +57,15 @@ public class RegisterFragment extends BaseFragment {
     }
 
     private void initView(View view) {
-        mToolbar.setTitle(R.string.register);
+        mToolbar.setTitle(R.string.forget_password);
         mToolbar.setBackgroundColor(0xFFf71e1a);
-        mToolbar.setNavigationIcon(R.drawable.ic_arrow_back_white_24dp);
-        mToolbar.setNavigationOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                pop();
-            }
-        });
-        mToolbar.inflateMenu(R.menu.menu_register);
-        mToolbar.setOnMenuItemClickListener(new Toolbar.OnMenuItemClickListener() {
-            @Override
-            public boolean onMenuItemClick(MenuItem item) {
-                switch (item.getItemId()) {
-                    case R.id.action_commit:
-                        Logger.e("action_register");
-                        SMSSDK.submitVerificationCode("86", mEtRegisterPhone.getText().toString(),mEtRegisterCode.getText().toString());
-                        break;
-                }
-                return true;
-            }
-        });
+        initToobarBack(mToolbar);
     }
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
-        View view = inflater.inflate(R.layout.fragment_register, container, false);
+        View view = inflater.inflate(R.layout.fragment_forget_password, container, false);
         unbinder = ButterKnife.bind(this, view);
         initView(view);
         return view;
@@ -100,6 +77,12 @@ public class RegisterFragment extends BaseFragment {
         if (unbinder != null) {
             unbinder.unbind();
         }
+    }
+
+    @OnClick(R.id.btn_commit_password)
+    public void commit(){
+        Logger.e("commit");
+        SMSSDK.submitVerificationCode("86", mEtRegisterPhone.getText().toString(),mEtRegisterCode.getText().toString());
     }
 
     @OnClick(R.id.btn_code)

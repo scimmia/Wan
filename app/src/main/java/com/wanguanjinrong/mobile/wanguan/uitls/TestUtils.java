@@ -1,6 +1,7 @@
 package com.wanguanjinrong.mobile.wanguan.uitls;
 
 import com.google.gson.Gson;
+import com.wanguanjinrong.mobile.wanguan.account.Account;
 import com.wanguanjinrong.mobile.wanguan.main.home.gonggao.Gonggao;
 
 import java.util.Random;
@@ -18,5 +19,10 @@ public class TestUtils {
         };
         String temp = gonggaos[new Random().nextInt(gonggaos.length)];
         return new Gson().fromJson(temp,Gonggao.class);
+    }
+
+    public static Account generRandomAccount() {
+        return new Gson().fromJson("{\"response_code\":\"1\",\"user_login_status\":\"1\",\"show_err\":\"用户登录成功\",\"uid\":\"1341\",\"user_name\":\"test\",\"user_pwd\":\"c8837b23ff8aaa8a2dde915473ce0991\",\"user_money\":\"0.00\",\"user_money_format\":\"￥0.00\",\"idcardpassed\":\"1\",\"avatar\":\"http:\\/\\/www.baijiejinrong.com\\/\\/public\\/avatar\\/noavatar_small.gif\",\"real_name\":\"李***\",\"idno\":\"37068119860301****\",\"mobilepassed\":\"1\",\"mobile\":\"18660187425\",\"bankcard\":\"****\",\"no\":\"1\",\"msg\":\"登录成功\"}",
+                Account.class);
     }
 }

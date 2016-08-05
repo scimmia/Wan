@@ -39,9 +39,9 @@ public class MyMoney {
 //        String[] ids = new String[]{"","",""};
         MyMoney myMoney = new MyMoney();
         Random r = new Random();
-        myMoney.setTotal(r.nextDouble()*1000);
-        myMoney.setLastdayGot(r.nextDouble()*10);
-        myMoney.setUsable(r.nextDouble()*100);
+        myMoney.setTotal(r.nextDouble()*100000000);
+        myMoney.setLastdayGot(r.nextDouble()*10000);
+        myMoney.setUsable(r.nextDouble()*100000);
         return myMoney;
     }
 }

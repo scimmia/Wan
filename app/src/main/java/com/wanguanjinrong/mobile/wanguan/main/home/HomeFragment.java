@@ -1,7 +1,6 @@
 package com.wanguanjinrong.mobile.wanguan.main.home;
 
 import android.os.Bundle;
-import android.support.v4.view.PagerAdapter;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.Toolbar;
@@ -9,19 +8,16 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
-import android.widget.ImageView;
-import android.widget.TextView;
 import com.orhanobut.logger.Logger;
-import com.squareup.picasso.Picasso;
 import com.wanguanjinrong.mobile.wanguan.R;
 import com.wanguanjinrong.mobile.wanguan.main.home.gonggao.GonggaoListFragment;
 import com.wanguanjinrong.mobile.wanguan.main.touzilicai.dingqi.DingqiBuyFragment;
 import com.wanguanjinrong.mobile.wanguan.main.touzilicai.dingqi.Dingqilicai;
+import com.wanguanjinrong.mobile.wanguan.uitls.TestUtils;
 import com.wanguanjinrong.mobile.wanguan.uitls.eventbus.BusProvider;
 import com.wanguanjinrong.mobile.wanguan.uitls.eventbus.event.StartBrotherEvent;
 import com.wanguanjinrong.mobile.wanguan.uitls.ui.BaseFragment;
 import com.wanguanjinrong.mobile.wanguan.uitls.ui.listener.OnItemClickListener;
-import com.wanguanjinrong.mobile.wanguan.uitls.ui.loopviewpager.LoopViewPager;
 
 import java.util.ArrayList;
 
@@ -57,12 +53,11 @@ public class HomeFragment extends BaseFragment {
         mADUrls.add("http://www.wanguanjinrong.com/UF/Uploads/Ad/2016070417481198.jpg");
         mADUrls.add("http://www.wanguanjinrong.com/UF/Uploads/Ad/20160704184329348.jpg");
         ArrayList<String> mGonggaos = new ArrayList<>();
-        mGonggaos.add("1. 大家好，我是孙福生。");
-        mGonggaos.add("2. 欢迎大家关注我哦！");
-        mGonggaos.add("3. GitHub帐号：sfsheng0322");
-        mGonggaos.add("4. 新浪微博：孙福生微博");
-        mGonggaos.add("5. 个人博客：sunfusheng.com");
-        mGonggaos.add("6. 微信公众号：孙福生");
+        mGonggaos.add(TestUtils.generRandomGonggao().getTitle());
+        mGonggaos.add(TestUtils.generRandomGonggao().getTitle());
+        mGonggaos.add(TestUtils.generRandomGonggao().getTitle());
+        mGonggaos.add(TestUtils.generRandomGonggao().getTitle());
+        mGonggaos.add(TestUtils.generRandomGonggao().getTitle());
         mItems = new ArrayList<>();
         mItems.add(Dingqilicai.generRandomData());
         mItems.add(Dingqilicai.generRandomData());

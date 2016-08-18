@@ -18,4 +18,11 @@ public interface Global {
     String INVITE_CONTENT = "注册送5000专属本金和0.5%加息，快来加入我们吧 ";
     String INVITE_TARGET_URL = "http://www.wanguanjinrong.com";
 
+
+
+    //http tag
+    int _TAG = 1;
+    String _MSG = "";
+    int INIT_TAG = 1;
+    String INIT_MSG = "init";
 }

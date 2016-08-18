@@ -13,7 +13,8 @@ import butterknife.ButterKnife;
 import butterknife.OnClick;
 import com.orhanobut.logger.Logger;
 import com.wanguanjinrong.mobile.wanguan.R;
-import com.wanguanjinrong.mobile.wanguan.main.MainFragment;
+import com.wanguanjinrong.mobile.wanguan.uitls.eventbus.BusProvider;
+import com.wanguanjinrong.mobile.wanguan.uitls.eventbus.event.StartBrotherEvent;
 import com.wanguanjinrong.mobile.wanguan.uitls.ui.BaseFragment;
 
 import java.util.Random;
@@ -80,11 +81,11 @@ public class HuoqilicaiFragment extends BaseFragment implements SwipeRefreshLayo
     @OnClick(R.id.btn_huoqi_buy)
     public void onBuy(){
 //        start(HuoqiBuyFragment.newInstance());
-        ((MainFragment) getParentFragment()).start(HuoqiBuyFragment.newInstance());
+        BusProvider.getInstance().post(new StartBrotherEvent(HuoqiBuyFragment.newInstance()));
     }
     @OnClick(R.id.btn_huoqi_sell)
     public void onSell(){
 //        start(HuoqiBuyFragment.newInstance());
-        ((MainFragment) getParentFragment()).start(HuoqiRedeemFragment.newInstance());
+        BusProvider.getInstance().post(new StartBrotherEvent(HuoqiRedeemFragment.newInstance()));
     }
 }

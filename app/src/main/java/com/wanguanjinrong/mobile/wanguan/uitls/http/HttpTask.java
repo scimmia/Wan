@@ -12,34 +12,30 @@ import okhttp3.*;
 import org.apache.commons.lang3.StringUtils;
 
 import java.io.IOException;
-import java.util.HashMap;
-import java.util.Set;
 
 /**
  * Created by ASUS on 2014/12/4.
  */
 public class HttpTask extends AsyncTask<Void,Void,String>{
-
+    public static final MediaType JSON  = MediaType.parse("application/json; charset=utf-8");
     ProgressDialog mpDialog;
     Context mContent;
     String msgToShow;
 
-    int httpTpye;
-    int mTag;
     String mUrl;
-    HashMap<String,String> mBody;
+    String mTag;
+    String mJson;
 
-    public HttpTask(Context mContent, String msgToShow, int mTag, HashMap<String,String> body) {
+    public HttpTask(Context mContent, String msgToShow, String mAct, String json) {
         this.mContent = mContent;
         this.msgToShow = msgToShow;
-        this.mTag = mTag;
-        this.mBody = new HashMap<>();
-        mBody.put("i_type","1");
-        mBody.put("r_type","1");
-        if (body != null){
-            mBody.putAll(body);
+        this.mTag = mAct;
+        if (StringUtils.isNotEmpty(json)) {
+            this.mJson = json;
+        }else {
+            this.mJson = "";
         }
-        this.mUrl = "http://192.168.0.198/fangwei/mapi/index.php";
+        this.mUrl = "http://192.168.0.156/wanguan/mapi/index.php"+"?act="+mAct+"&i_type=1&r_type=1";
     }
 
     @Override
@@ -64,14 +60,9 @@ public class HttpTask extends AsyncTask<Void,Void,String>{
 
     @Override
     protected String doInBackground(Void... params) {
-        FormBody.Builder builder = new FormBody.Builder();
-        Set<String> keys = mBody.keySet();
-        for (String key:keys) {
-            builder.add(key, mBody.get(key));
-        }
-        RequestBody formBody = builder.build();
+        RequestBody formBody = RequestBody.create(JSON, mJson);
         Request request = new Request.Builder()
-                .url("http://192.168.0.198/fangwei/mapi/index.php")
+                .url(mUrl)
                 .post(formBody)
                 .build();
         if (request != null){
@@ -104,11 +95,11 @@ public class HttpTask extends AsyncTask<Void,Void,String>{
         super.onCancelled();
         Logger.e("onCancelled");
         for (Call call : BaseApplication.getOkHttpClient().dispatcher().queuedCalls()) {
-            if ((Integer)call.request().tag() == mTag)
+            if (StringUtils.equalsIgnoreCase((String)call.request().tag(),mTag))
                 call.cancel();
         }
         for (Call call : BaseApplication.getOkHttpClient().dispatcher().runningCalls()) {
-            if ((Integer)call.request().tag() == mTag)
+            if (StringUtils.equalsIgnoreCase((String)call.request().tag(),mTag))
                 call.cancel();
         }
     }

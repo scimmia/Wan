@@ -62,11 +62,10 @@
                 android:drawableRight="@drawable/ic_right"
                 android:paddingRight="@dimen/activity_horizontal_margin"
         />
-        <com.robinhood.ticker.TickerView
+        <TextView
                 android:id="@+id/tv_my_total"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="@string/huoqi_title_tese_b"
                 android:textColor="@android:color/white"
                 android:textSize="@dimen/text_size_32"
                 android:layout_gravity="center_vertical"
@@ -87,17 +86,16 @@
                         android:id="@+id/my_title_zuorishouyi"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:text="@string/my_title_zuorishouyi"
+                        android:text="@string/my_title_keyongyue"
                         android:textColor="@android:color/white"
                         android:textSize="@dimen/text_size_14"
                         android:layout_alignParentTop="true"
                         android:layout_alignParentLeft="true"
                 />
-                <com.robinhood.ticker.TickerView
+                <TextView
                         android:id="@+id/my_zuorishouyi"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:text="@string/huoqi_title_tese_b"
                         android:textColor="@android:color/white"
                         android:textSize="@dimen/text_size_18"
                         android:layout_below="@+id/my_title_zuorishouyi"
@@ -121,17 +119,16 @@
                         android:id="@+id/my_title_keyongyue"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:text="@string/my_title_keyongyue"
+                        android:text="@string/my_title_dongjiejine"
                         android:textColor="@android:color/white"
                         android:textSize="@dimen/text_size_14"
                         android:layout_alignParentTop="true"
                         android:layout_alignParentLeft="true"
                 />
-                <com.robinhood.ticker.TickerView
+                <TextView
                         android:id="@+id/my_keyongyue"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:text="@string/huoqi_title_tese_b"
                         android:textColor="@android:color/white"
                         android:textSize="@dimen/text_size_18"
                         android:layout_below="@+id/my_title_keyongyue"

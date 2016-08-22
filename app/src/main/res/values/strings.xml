@@ -60,14 +60,14 @@
     <string name="item_my_redeem">赎回</string>
     <string name="item_my_trade">我的交易</string>
     <string name="item_my_"></string>
-    <string name="my_title_zuorishouyi">昨日收益(元)</string>
     <string name="my_title_keyongyue">可用余额(元)</string>
+    <string name="my_title_dongjiejine">冻结金额(元)</string>
     <string name="login">登陆</string>
     <string name="logout">退出登录</string>
     <string name="register">注册</string>
     <string name="register_now">立即注册</string>
     <string name="personal_info">个人信息</string>
-    <string name="phonenumber">手机号</string>
+    <string name="phonenumber">手机号/昵称/Email</string>
     <string name="password">密码</string>
     <string name="register_title_sms">获取验证码</string>
     <string name="register_phone">手机号</string>

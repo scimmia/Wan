@@ -6,12 +6,13 @@ package com.wanguanjinrong.mobile.wanguan.uitls;
 public interface Global {
     String isFirstRun = "isFirstRun";
 
-    String LOGIN_USER_NAME = "LOGIN_USER_NAME";
-    String LOGIN_PASSWORD = "LOGIN_PASSWORD";
+    int LoginStateIn = 1;
+    int LoginStateOut = 0;
 
     double LOGIN_AVALIBAL_TIME = 3600000 * 72;
     String LOGIN_TIME = "LOGIN_TIME";
     String LOGIN_INFO = "LOGIN_INFO";
+    String LOGIN_USER_INFO = "LOGIN_USER_INFO";
 
     String INVITE_WEIXIN_API = "wx1f8af9f0ddba4136";
     String INVITE_TITLE = "万贯金融";
@@ -19,10 +20,15 @@ public interface Global {
     String INVITE_TARGET_URL = "http://www.wanguanjinrong.com";
 
 
-
+    int Toolbar_Color_Normal = 0xFFf71e1a;
+    int Toolbar_Color_Red = 0xFFf71e1a;
     //http tag
-    int _TAG = 1;
+    String _TAG = "";
     String _MSG = "";
-    int INIT_TAG = 1;
+    String LOGIN_TAG = "login";
+    String LOGIN_MSG = "登陆中...";
+    String UC_CENTER_TAG = "uc_center";
+    String UC_CENTER_MSG = "更新用户信息...";
+    String INIT_TAG = "init";
     String INIT_MSG = "init";
 }

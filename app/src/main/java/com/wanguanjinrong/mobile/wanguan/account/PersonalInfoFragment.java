@@ -11,6 +11,8 @@ import butterknife.ButterKnife;
 import butterknife.OnClick;
 import butterknife.Unbinder;
 import com.wanguanjinrong.mobile.wanguan.R;
+import com.wanguanjinrong.mobile.wanguan.bean.UcCenter;
+import com.wanguanjinrong.mobile.wanguan.uitls.Global;
 import com.wanguanjinrong.mobile.wanguan.uitls.Utils;
 import com.wanguanjinrong.mobile.wanguan.uitls.eventbus.BusProvider;
 import com.wanguanjinrong.mobile.wanguan.uitls.eventbus.event.LoginEvent;
@@ -56,10 +58,11 @@ public class PersonalInfoFragment extends BaseFragment {
         initToobarBack(mToolbar);
 
         try {
-            Account account = Utils.getLoginInfo(_mActivity);
+            UcCenter account = Utils.getUserInfo(_mActivity);
             mPerBindState.setText("已绑定");
-            mPerPhone.setText(account.getMobile());
-            mPerInvitecode.setText(account.getUid());
+            //// TODO: 2016/8/22
+//            mPerPhone.setText(account.getMobile());
+//            mPerInvitecode.setText(account.getUid());
             mPerAuthState.setText("已认证");
             mPerName.setText(account.getReal_name());
             mPerIdno.setText(account.getIdno());
@@ -90,7 +93,7 @@ public class PersonalInfoFragment extends BaseFragment {
         Utils.logout(_mActivity);
 
         hideSoftInput();
-        BusProvider.getInstance().post(new LoginEvent());
+        BusProvider.getInstance().post(new LoginEvent(Global.LoginStateOut));
         pop();
     }
 

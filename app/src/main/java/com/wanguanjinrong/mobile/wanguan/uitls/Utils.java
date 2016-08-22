@@ -12,7 +12,9 @@ import com.tencent.mm.sdk.modelmsg.WXMediaMessage;
 import com.tencent.mm.sdk.modelmsg.WXWebpageObject;
 import com.tencent.mm.sdk.openapi.*;
 import com.wanguanjinrong.mobile.wanguan.R;
-import com.wanguanjinrong.mobile.wanguan.account.Account;
+import com.wanguanjinrong.mobile.wanguan.bean.Login;
+import com.wanguanjinrong.mobile.wanguan.bean.UcCenter;
+import org.apache.commons.lang3.StringUtils;
 
 import java.io.ByteArrayOutputStream;
 import java.util.Date;
@@ -30,22 +32,29 @@ public class Utils {
         if (loginTime == 0 || loginInfo.equalsIgnoreCase("")){
             return false;
         }else if (new Date().getTime() - loginTime > Global.LOGIN_AVALIBAL_TIME){
+            logout(context);
             return false;
         }else {
             return true;
         }
     }
 
-    public static Account getLoginInfo(Context context){
+    public static Login getLoginInfo(Context context){
         if (isLogin(context)){
             SharedPreferences sp = PreferenceManager.getDefaultSharedPreferences(context);
             String loginInfo = sp.getString(Global.LOGIN_INFO,"");
-            return new Gson().fromJson(loginInfo,Account.class);
+            if (StringUtils.isNoneEmpty(loginInfo)){
+                try {
+                    return new Gson().fromJson(loginInfo,Login.class);
+                } catch (Exception e) {
+                    e.printStackTrace();
+                }
+            }
         }
         return null;
     }
 
-    public static void login(Context context, Account account){
+    public static void login(Context context, Login account){
         try {
             SharedPreferences.Editor editor = PreferenceManager.getDefaultSharedPreferences(context).edit();
             editor.putLong(Global.LOGIN_TIME,new Date().getTime());
@@ -60,6 +69,29 @@ public class Utils {
         editor.remove(Global.LOGIN_TIME);
         editor.remove(Global.LOGIN_INFO);
         editor.apply();
+    }
+
+    public static UcCenter getUserInfo(Context context){
+        SharedPreferences sp = PreferenceManager.getDefaultSharedPreferences(context);
+        String loginInfo = sp.getString(Global.LOGIN_USER_INFO,"");
+        if (StringUtils.isNoneEmpty(loginInfo)){
+            try {
+                return new Gson().fromJson(loginInfo,UcCenter.class);
+            } catch (Exception e) {
+                e.printStackTrace();
+            }
+        }
+        return null;
+    }
+
+    public static void serUserInfo(Context context, UcCenter ucCenter){
+        try {
+            SharedPreferences.Editor editor = PreferenceManager.getDefaultSharedPreferences(context).edit();
+            editor.putString(Global.LOGIN_USER_INFO,new Gson().toJson(ucCenter));
+            editor.apply();
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
     }
 
     public static String moneyFormat(double money){

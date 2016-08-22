@@ -23,7 +23,6 @@
                     style="@style/one_line_material"
                     android:id="@+id/et_login_name"
                     android:hint="@string/phonenumber"
-                    android:inputType="phone"
                     app:met_baseColor="@color/material_base_color"
                     app:met_primaryColor="@color/material_primary_color"
                     app:met_floatingLabelTextSize ="@dimen/material_label_textsize"

@@ -4,6 +4,7 @@ package com.wanguanjinrong.mobile.wanguan.uitls.ui;
 import android.support.v4.widget.SwipeRefreshLayout;
 import android.support.v7.widget.Toolbar;
 import android.view.View;
+import android.widget.Toast;
 import com.wanguanjinrong.mobile.wanguan.R;
 import com.wanguanjinrong.mobile.wanguan.uitls.eventbus.BusProvider;
 import me.yokeyword.fragmentation.SupportFragment;
@@ -48,6 +49,30 @@ import com.wanguanjinrong.mobile.wanguan.R;
         super.onDestroyView();
         if (unbinder != null) {
             unbinder.unbind();
+        }
+    }
+
+
+
+        HashMap<String,String> map = new HashMap<>();
+        map.put("act","init");
+        new HttpTask(_mActivity,Global.INIT_MSG, Global.INIT_TAG,map).execute();
+
+
+    @Subscribe
+    public void onHttpEvent(HttpEvent event){
+        if (event != null){
+            switch (event.getTag()){
+                case Global.INIT_TAG:
+//                    List<HomeInit> response = new Gson().fromJson(event.getResponse(), new TypeToken<List<HomeInit>>() {
+//                    }.getType());
+//                    HomeInit homeInit = response.get(0);
+                    HomeInit homeInit = new Gson().fromJson(event.getResponse(),HomeInit.class);
+                    if (homeInit.getResponse_code() != 1){
+                        Logger.e(homeInit.getShow_err());
+                    }
+                    break;
+            }
         }
     }
     */
@@ -96,6 +121,20 @@ import com.wanguanjinrong.mobile.wanguan.R;
             if(refreshListener != null) {
                 refreshLayout.setOnRefreshListener(refreshListener);
             }
+        }
+    }
+
+
+    private Toast appMsg;
+    public void showToast(String message){
+        cancelToast();
+        appMsg = Toast.makeText(_mActivity, message, Toast.LENGTH_SHORT);
+        appMsg.show();
+
+    }
+    public void cancelToast(){
+        if (appMsg!=null){
+            appMsg.cancel();
         }
     }
 }

@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+              android:orientation="vertical"
+              android:layout_width="match_parent"
+              android:layout_height="match_parent">
+    <include layout="@layout/toolbar"
+             android:id="@+id/tb_dingqi_detail"/>
+    <WebView
+            android:id="@+id/wv_dingqi_detail"
+            android:layout_width="match_parent"
+             android:layout_height="0dp"
+             android:layout_weight="1"
+    />
+    <Button
+            android:id="@+id/btn_dingqi_buy"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="@string/dingqi_buy"
+            android:layout_marginTop="@dimen/size_16"
+            android:background="@color/material_primary_color"
+            android:textSize="@dimen/text_size_16"
+            android:textColor="@android:color/white"
+            android:textStyle="bold"/>
+
+</LinearLayout>

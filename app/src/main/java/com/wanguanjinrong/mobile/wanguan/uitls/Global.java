@@ -27,6 +27,14 @@ public interface Global {
     String _MSG = "";
     String LOGIN_TAG = "login";
     String LOGIN_MSG = "登陆中...";
+    String REGISTER_TAG = "register";
+    String REGISTER_MSG = "提交中...";
+    String SEND_REGISTER_CODE_TAG = "send_register_code";
+    String SEND_REGISTER_CODE_MSG = "";
+    String SAVE_RESET_PWD_TAG = "save_reset_pwd";
+    String SAVE_RESET_PWD_MSG = "提交中...";
+    String SEND_RESET_PWD_CODE_TAG = "send_reset_pwd_code";
+    String SEND_RESET_PWD_CODE_MSG = "";
     String UC_CENTER_TAG = "uc_center";
     String UC_CENTER_MSG = "更新用户信息...";
     String INIT_TAG = "init";

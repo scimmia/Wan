@@ -51,5 +51,4 @@ dependencies {
     compile 'com.sunfusheng:marqueeview:1.1.0'
     compile 'com.robinhood.ticker:ticker:1.0.1'
     compile 'com.rengwuxian.materialedittext:library:2.1.4'
-    compile name:'SMSSDK-2.1.1', ext:'aar'
 }

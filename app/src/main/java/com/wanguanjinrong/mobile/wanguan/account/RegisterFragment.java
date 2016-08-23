@@ -4,25 +4,29 @@ import android.os.Bundle;
 import android.os.Handler;
 import android.os.Looper;
 import android.support.v7.widget.Toolbar;
-import android.text.TextUtils;
 import android.view.LayoutInflater;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
-import android.widget.Toast;
 import butterknife.BindView;
 import butterknife.ButterKnife;
 import butterknife.OnClick;
 import butterknife.Unbinder;
-import cn.smssdk.EventHandler;
-import cn.smssdk.SMSSDK;
+import com.google.gson.Gson;
 import com.orhanobut.logger.Logger;
 import com.rengwuxian.materialedittext.MaterialEditText;
+import com.squareup.otto.Subscribe;
 import com.wanguanjinrong.mobile.wanguan.R;
+import com.wanguanjinrong.mobile.wanguan.bean.BaseBean;
+import com.wanguanjinrong.mobile.wanguan.uitls.Global;
+import com.wanguanjinrong.mobile.wanguan.uitls.Utils;
+import com.wanguanjinrong.mobile.wanguan.uitls.eventbus.event.HttpEvent;
+import com.wanguanjinrong.mobile.wanguan.uitls.http.HttpTask;
 import com.wanguanjinrong.mobile.wanguan.uitls.ui.BaseFragment;
-import org.json.JSONObject;
+import org.apache.commons.lang3.StringUtils;
 
+import java.util.HashMap;
 import java.util.Timer;
 import java.util.TimerTask;
 
@@ -47,6 +51,10 @@ public class RegisterFragment extends BaseFragment {
     MaterialEditText mEtRegisterPasswordAgain;
     @BindView(R.id.et_register_inviter)
     MaterialEditText mEtRegisterInviter;
+    @BindView(R.id.et_register_pay_password)
+    MaterialEditText mEtRegisterPayPassword;
+    @BindView(R.id.et_register_pay_password_again)
+    MaterialEditText mEtRegisterPayPasswordAgain;
 
     public static BaseFragment newInstance() {
         BaseFragment fragment = new RegisterFragment();
@@ -75,9 +83,37 @@ public class RegisterFragment extends BaseFragment {
             @Override
             public boolean onMenuItemClick(MenuItem item) {
                 switch (item.getItemId()) {
-                    case R.id.action_commit:
+                    case R.id.action_next:
                         Logger.e("action_register");
-                        SMSSDK.submitVerificationCode("86", mEtRegisterPhone.getText().toString(),mEtRegisterCode.getText().toString());
+                        if (StringUtils.isEmpty(mEtRegisterPhone.getText().toString())){
+                            mEtRegisterPhone.setError("请输入手机号");
+                            mEtRegisterPhone.requestFocus();
+                        }else if (!Utils.isMobileNumber(mEtRegisterPhone.getText().toString())){
+                            mEtRegisterPhone.setError("请输入正确的手机号");
+                            mEtRegisterPhone.requestFocus();
+                        }else if (StringUtils.isEmpty(mEtRegisterCode.getText().toString())){
+                            mEtRegisterCode.setError("请输入验证码");
+                            mEtRegisterCode.requestFocus();
+                        }else if (StringUtils.isEmpty(mEtRegisterPassword.getText().toString())){
+                            mEtRegisterPassword.setError("请输入密码");
+                            mEtRegisterPassword.requestFocus();
+                        }else if (!StringUtils.equalsIgnoreCase(mEtRegisterPassword.getText().toString(),mEtRegisterPasswordAgain.getText().toString())){
+                            mEtRegisterPasswordAgain.setError("请输入正确的密码");
+                            mEtRegisterPasswordAgain.requestFocus();
+                        }else if (StringUtils.isEmpty(mEtRegisterPayPassword.getText().toString())){
+                            mEtRegisterPayPassword.setError("请输入支付密码");
+                            mEtRegisterPayPassword.requestFocus();
+                        }else if (!StringUtils.equalsIgnoreCase(mEtRegisterPayPassword.getText().toString(),mEtRegisterPayPasswordAgain.getText().toString())){
+                            mEtRegisterPayPasswordAgain.setError("请输入正确的支付密码");
+                            mEtRegisterPayPasswordAgain.requestFocus();
+                        }else {
+                            HashMap<String, String> map = new HashMap<>();
+                            map.put("mobile", mEtRegisterPhone.getText().toString());
+                            map.put("mobile_code", mEtRegisterCode.getText().toString());
+                            map.put("user_pwd", mEtRegisterPassword.getText().toString());
+                            map.put("user_pwd_confirm", mEtRegisterPasswordAgain.getText().toString());
+                            new HttpTask(_mActivity, Global.REGISTER_MSG, Global.REGISTER_TAG, new Gson().toJson(map)).execute();
+                        }
                         break;
                 }
                 return true;
@@ -103,69 +139,42 @@ public class RegisterFragment extends BaseFragment {
     }
 
     @OnClick(R.id.btn_code)
-    public void sendCode(){
-        SMSSDK.getVerificationCode("86", mEtRegisterPhone.getText().toString());
+    public void sendCode() {
+        if (!Utils.isMobileNumber(mEtRegisterPhone.getText().toString())) {
+            showToast("请输入正确的手机号");
+        } else {
+            new HttpTask(_mActivity, Global.SEND_REGISTER_CODE_MSG, Global.SEND_REGISTER_CODE_TAG,
+                    "{\"mobile\":\"" + mEtRegisterPhone.getText().toString() + "\"}").execute();
+        }
     }
 
-    EventHandler eh=new EventHandler(){
-        @Override
-        public void afterEvent(int event, int result, Object data) {
-            Logger.e(result+"afterEvent"+event);
-
-            if (result == SMSSDK.RESULT_COMPLETE) {
-                //回调完成
-                if (event == SMSSDK.EVENT_SUBMIT_VERIFICATION_CODE) {
-                    //提交验证码成功
-                    //// TODO: 2016/7/26  register
-                    new Handler(Looper.getMainLooper()).post(new Runnable() {
-                        @Override
-                        public void run() {
-                            Toast.makeText(_mActivity, "验证码正确", Toast.LENGTH_SHORT).show();
-                        }
-                    });
-                }else if (event == SMSSDK.EVENT_GET_VERIFICATION_CODE){
-                    //获取验证码成功
+    @Subscribe
+    public void onHttpEvent(HttpEvent event) {
+        if (event == null || StringUtils.isEmpty(event.getResponse())) {
+            showToast("网络连接错误，请稍后重试。");
+        } else {
+            if (StringUtils.equalsIgnoreCase(Global.SEND_REGISTER_CODE_TAG, event.getTag())) {
+                BaseBean bean = new Gson().fromJson(event.getResponse(), BaseBean.class);
+                if (bean.getResponse_code() != 1) {
+                    showToast(bean.getShow_err());
+                } else {
                     startTimer();
                 }
-            }else{
-                // 根据服务器返回的网络错误，给toast提示
-                try {
-                    ((Throwable) data).printStackTrace();
-                    Throwable throwable = (Throwable) data;
-
-                    JSONObject object = new JSONObject(
-                            throwable.getMessage());
-                    final String des = object.optString("detail");
-                    int status = object.optInt("status");
-                    if (!TextUtils.isEmpty(des)) {
-                        Logger.e(des+"----"+status);
-                        new Handler(Looper.getMainLooper()).post(new Runnable() {
-                            @Override
-                            public void run() {
-                                Toast.makeText(_mActivity, des, Toast.LENGTH_SHORT).show();
-                            }
-                        });
-                        return;
-                    }
-                } catch (Exception e) {
-                    Logger.e(e.toString());
+            }else if (StringUtils.equalsIgnoreCase(Global.REGISTER_MSG, event.getTag())) {
+                BaseBean bean = new Gson().fromJson(event.getResponse(), BaseBean.class);
+                if (bean.getResponse_code() != 1) {
+                    showToast(bean.getShow_err());
+                } else {
+                    showToast(bean.getShow_err());
                 }
             }
         }
-    };
-
-    @Override
-    public void onResume() {
-        super.onResume();
-        SMSSDK.initSDK(_mActivity, "1543694879524", "e649155554c22e99173f58d8a3fdff83");
-        SMSSDK.registerEventHandler(eh);
     }
 
     @Override
     public void onPause() {
         super.onPause();
-        SMSSDK.unregisterAllEventHandler();
-        if (timer != null){
+        if (timer != null) {
             timer.cancel();
         }
     }
@@ -173,7 +182,8 @@ public class RegisterFragment extends BaseFragment {
     public static int DEFAULT_DELAY = 60;
     private Timer timer;
     private int last = 0;
-    private void startTimer(){
+
+    private void startTimer() {
         timer = new Timer();
         last = DEFAULT_DELAY;
         timer.schedule(new TimerTask() {
@@ -188,7 +198,7 @@ public class RegisterFragment extends BaseFragment {
                             mBtnCode.setText(last + "秒后重新发送");
                         }
                     });
-                }else if (last == 0) {
+                } else if (last == 0) {
                     new Handler(Looper.getMainLooper()).post(new Runnable() {
                         @Override
                         public void run() {

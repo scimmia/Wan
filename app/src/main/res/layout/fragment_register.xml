@@ -87,6 +87,26 @@
                     app:met_singleLineEllipsis="true"/>
             <com.rengwuxian.materialedittext.MaterialEditText
                     style="@style/one_line_material"
+                    android:id="@+id/et_register_pay_password"
+                    android:hint="@string/register_pay_password"
+                    android:inputType="textPassword"
+                    app:met_baseColor="@color/material_base_color"
+                    app:met_primaryColor="@color/material_primary_color"
+                    app:met_floatingLabelTextSize ="@dimen/material_label_textsize"
+                    app:met_floatingLabel="highlight"
+                    app:met_singleLineEllipsis="true"  />
+            <com.rengwuxian.materialedittext.MaterialEditText
+                    style="@style/one_line_material"
+                    android:id="@+id/et_register_pay_password_again"
+                    android:hint="@string/register_pay_password_again"
+                    android:inputType="textPassword"
+                    app:met_baseColor="@color/material_base_color"
+                    app:met_primaryColor="@color/material_primary_color"
+                    app:met_floatingLabel="highlight"
+                    app:met_floatingLabelTextSize ="@dimen/material_label_textsize"
+                    app:met_singleLineEllipsis="true"/>
+            <com.rengwuxian.materialedittext.MaterialEditText
+                    style="@style/one_line_material"
                     android:id="@+id/et_register_inviter"
                     android:hint="@string/register_inviter"
                     app:met_baseColor="@color/material_base_color"

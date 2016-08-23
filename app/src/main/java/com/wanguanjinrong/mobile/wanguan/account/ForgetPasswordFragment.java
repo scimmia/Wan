@@ -3,15 +3,18 @@ package com.wanguanjinrong.mobile.wanguan.account;
 import android.os.Handler;
 import android.os.Looper;
 import android.support.v7.widget.Toolbar;
-import android.text.TextUtils;
 import android.widget.Button;
-import android.widget.Toast;
 import butterknife.BindView;
 import butterknife.OnClick;
-import cn.smssdk.EventHandler;
-import cn.smssdk.SMSSDK;
+import com.google.gson.Gson;
 import com.orhanobut.logger.Logger;
 import com.rengwuxian.materialedittext.MaterialEditText;
+import com.squareup.otto.Subscribe;
+import com.wanguanjinrong.mobile.wanguan.bean.BaseBean;
+import com.wanguanjinrong.mobile.wanguan.uitls.Global;
+import com.wanguanjinrong.mobile.wanguan.uitls.Utils;
+import com.wanguanjinrong.mobile.wanguan.uitls.eventbus.event.HttpEvent;
+import com.wanguanjinrong.mobile.wanguan.uitls.http.HttpTask;
 import com.wanguanjinrong.mobile.wanguan.uitls.ui.BaseFragment;
 import android.os.Bundle;
 import android.view.LayoutInflater;
@@ -20,8 +23,9 @@ import android.view.ViewGroup;
 import butterknife.ButterKnife;
 import butterknife.Unbinder;
 import com.wanguanjinrong.mobile.wanguan.R;
-import org.json.JSONObject;
+import org.apache.commons.lang3.StringUtils;
 
+import java.util.HashMap;
 import java.util.Timer;
 import java.util.TimerTask;
 
@@ -82,72 +86,68 @@ public class ForgetPasswordFragment extends BaseFragment{
     @OnClick(R.id.btn_commit_password)
     public void commit(){
         Logger.e("commit");
-        SMSSDK.submitVerificationCode("86", mEtRegisterPhone.getText().toString(),mEtRegisterCode.getText().toString());
+        if (StringUtils.isEmpty(mEtRegisterPhone.getText().toString())){
+            mEtRegisterPhone.setError("请输入手机号");
+            mEtRegisterPhone.requestFocus();
+        }else if (!Utils.isMobileNumber(mEtRegisterPhone.getText().toString())){
+            mEtRegisterPhone.setError("请输入正确的手机号");
+            mEtRegisterPhone.requestFocus();
+        }else if (StringUtils.isEmpty(mEtRegisterCode.getText().toString())){
+            mEtRegisterCode.setError("请输入验证码");
+            mEtRegisterCode.requestFocus();
+        }else if (StringUtils.isEmpty(mEtRegisterPassword.getText().toString())){
+            mEtRegisterPassword.setError("请输入密码");
+            mEtRegisterPassword.requestFocus();
+        }else if (!StringUtils.equalsIgnoreCase(mEtRegisterPassword.getText().toString(),mEtRegisterPasswordAgain.getText().toString())){
+            mEtRegisterPasswordAgain.setError("请输入正确的密码");
+            mEtRegisterPasswordAgain.requestFocus();
+        }else {
+            HashMap<String, String> map = new HashMap<>();
+            //// TODO: 2016/8/23 zhifumima
+            map.put("mobile", mEtRegisterPhone.getText().toString());
+            map.put("mobile_code", mEtRegisterCode.getText().toString());
+            map.put("user_pwd", mEtRegisterPassword.getText().toString());
+            map.put("user_pwd_confirm", mEtRegisterPasswordAgain.getText().toString());
+            new HttpTask(_mActivity, Global.SAVE_RESET_PWD_MSG, Global.SAVE_RESET_PWD_TAG, new Gson().toJson(map)).execute();
+        }
     }
 
     @OnClick(R.id.btn_code)
     public void sendCode(){
-        SMSSDK.getVerificationCode("86", mEtRegisterPhone.getText().toString());
+        if (!Utils.isMobileNumber(mEtRegisterPhone.getText().toString())){
+            showToast("请输入正确的手机号");
+        }else {
+            new HttpTask(_mActivity, Global.SEND_RESET_PWD_CODE_MSG, Global.SEND_RESET_PWD_CODE_TAG,
+                    "{\"mobile\":\""+mEtRegisterPhone.getText().toString()+"\"}").execute();
+        }
     }
 
-    EventHandler eh=new EventHandler(){
-        @Override
-        public void afterEvent(int event, int result, Object data) {
-            Logger.e(result+"afterEvent"+event);
-
-            if (result == SMSSDK.RESULT_COMPLETE) {
-                //回调完成
-                if (event == SMSSDK.EVENT_SUBMIT_VERIFICATION_CODE) {
-                    //提交验证码成功
-                    //// TODO: 2016/7/26  register
-                    new Handler(Looper.getMainLooper()).post(new Runnable() {
-                        @Override
-                        public void run() {
-                            Toast.makeText(_mActivity, "验证码正确", Toast.LENGTH_SHORT).show();
-                        }
-                    });
-                }else if (event == SMSSDK.EVENT_GET_VERIFICATION_CODE){
-                    //获取验证码成功
+    @Subscribe
+    public void onHttpEvent(HttpEvent event){
+        if (event == null || StringUtils.isEmpty(event.getResponse())) {
+            showToast("网络连接错误，请稍后重试。");
+        } else{
+            if (StringUtils.equalsIgnoreCase(Global.SEND_RESET_PWD_CODE_TAG,event.getTag())){
+                BaseBean bean = new Gson().fromJson(event.getResponse(),BaseBean.class);
+                if (bean.getResponse_code() != 1){
+                    showToast(bean.getShow_err());
+                }else {
                     startTimer();
                 }
-            }else{
-                // 根据服务器返回的网络错误，给toast提示
-                try {
-                    ((Throwable) data).printStackTrace();
-                    Throwable throwable = (Throwable) data;
-
-                    JSONObject object = new JSONObject(
-                            throwable.getMessage());
-                    final String des = object.optString("detail");
-                    int status = object.optInt("status");
-                    if (!TextUtils.isEmpty(des)) {
-                        Logger.e(des+"----"+status);
-                        new Handler(Looper.getMainLooper()).post(new Runnable() {
-                            @Override
-                            public void run() {
-                                Toast.makeText(_mActivity, des, Toast.LENGTH_SHORT).show();
-                            }
-                        });
-                        return;
-                    }
-                } catch (Exception e) {
-                    Logger.e(e.toString());
+            }else if (StringUtils.equalsIgnoreCase(Global.SAVE_RESET_PWD_TAG,event.getTag())){
+                BaseBean bean = new Gson().fromJson(event.getResponse(),BaseBean.class);
+                if (bean.getResponse_code() != 1){
+                    showToast(bean.getShow_err());
+                }else {
+                    showToast("1------"+bean.getShow_err());
                 }
             }
         }
-    };
-
-    @Override
-    public void onResume() {
-        super.onResume();
-        SMSSDK.initSDK(_mActivity, "1543694879524", "e649155554c22e99173f58d8a3fdff83");
-        SMSSDK.registerEventHandler(eh);
     }
 
     @Override
     public void onPause() {
         super.onPause();
-        SMSSDK.unregisterAllEventHandler();
         if (timer != null){
             timer.cancel();
         }

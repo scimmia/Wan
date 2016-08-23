@@ -1,5 +1,8 @@
 package com.wanguanjinrong.mobile.wanguan.uitls;
 
+import android.os.Environment;
+import java.io.File;
+
 /**
  * Created by A on 2016/6/27.
  */
@@ -22,6 +25,11 @@ public interface Global {
 
     int Toolbar_Color_Normal = 0xFFf71e1a;
     int Toolbar_Color_Red = 0xFFf71e1a;
+
+
+    String baseFolder = Environment.getExternalStorageDirectory().getPath()+ File.separator+"Wanguan"+ File.separator;
+    String updateFolder = baseFolder + "update" + File.separator;
+
     //http tag
     String _TAG = "";
     String _MSG = "";
@@ -37,6 +45,8 @@ public interface Global {
     String SEND_RESET_PWD_CODE_MSG = "";
     String UC_CENTER_TAG = "uc_center";
     String UC_CENTER_MSG = "更新用户信息...";
+    String DownloadNewFile_TAG = "DownloadNewFile";
+    String DownloadNewFile_MSG = "下载中...";
     String INIT_TAG = "init";
     String INIT_MSG = "init";
 }

@@ -30,57 +30,57 @@
                     app:met_floatingLabelTextSize ="@dimen/material_label_textsize"
                     app:met_floatingLabel="highlight"
                     app:met_singleLineEllipsis="true"  />
+            <LinearLayout
+                    android:orientation="horizontal"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:focusable="true"
+                    android:focusableInTouchMode="true">
+
+                <com.rengwuxian.materialedittext.MaterialEditText
+                        style="@style/one_line_material"
+                        android:layout_width="0dp"
+                        android:layout_weight="1"
+                        android:layout_height="wrap_content"
+                        android:id="@+id/et_borrow_phone"
+                        android:hint="@string/register_phone"
+                        android:inputType="phone"
+                        app:met_baseColor="@color/material_base_color"
+                        app:met_primaryColor="@color/material_primary_color"
+                        app:met_floatingLabelTextSize ="@dimen/material_label_textsize"
+                        app:met_floatingLabel="highlight"
+                        app:met_singleLineEllipsis="true"  />
+
+                <Button
+                        android:id="@+id/btn_borrow_code"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="@string/register_title_sms"
+                        android:paddingLeft="8dp"
+                        android:paddingRight="8dp"
+                        android:layout_marginTop="@dimen/size_4"
+                        android:layout_marginBottom="@dimen/size_4"
+                        android:textColor="#fff"
+                        android:layout_marginRight="16dp"
+                        android:background="@color/material_primary_green"/>
+
+            </LinearLayout>
             <com.rengwuxian.materialedittext.MaterialEditText
                     style="@style/one_line_material"
-                    android:id="@+id/et_borrow_idcard"
-                    android:hint="@string/borrow_idcard"
+                    android:id="@+id/et_borrow_code"
+                    android:hint="@string/register_code"
+                    android:inputType="phone"
                     app:met_baseColor="@color/material_base_color"
                     app:met_primaryColor="@color/material_primary_color"
                     app:met_floatingLabelTextSize ="@dimen/material_label_textsize"
                     app:met_floatingLabel="highlight"
                     app:met_singleLineEllipsis="true"  />
-            <com.rengwuxian.materialedittext.MaterialEditText
-                    style="@style/one_line_material"
-                    android:id="@+id/et_borrow_marrystate"
-                    android:hint="@string/borrow_marrystate"
-                    android:editable="false"
-                    android:focusable="false"
-                    app:met_baseColor="@color/material_base_color"
-                    app:met_primaryColor="@color/material_primary_color"
-                    app:met_floatingLabel="highlight"
-                    app:met_floatingLabelTextSize ="@dimen/material_label_textsize"
-                    app:met_singleLineEllipsis="true"/>
-            <com.rengwuxian.materialedittext.MaterialEditText
-                    style="@style/one_line_material"
-                    android:id="@+id/xingming"
-                    android:hint="@string/borrow_phone"
-                    app:met_baseColor="@color/material_base_color"
-                    app:met_primaryColor="@color/material_primary_color"
-                    app:met_floatingLabel="highlight"
-                    app:met_floatingLabelTextSize ="@dimen/material_label_textsize"
-                    app:met_singleLineEllipsis="true"/>
-            <com.rengwuxian.materialedittext.MaterialEditText
-                    style="@style/one_line_material"
-                    android:id="@+id/et_borrow_hometown"
-                    android:hint="@string/borrow_hometown"
-                    app:met_baseColor="@color/material_base_color"
-                    app:met_primaryColor="@color/material_primary_color"
-                    app:met_floatingLabel="highlight"
-                    app:met_floatingLabelTextSize ="@dimen/material_label_textsize"
-                    app:met_singleLineEllipsis="true"/>
-            <com.rengwuxian.materialedittext.MaterialEditText
-                    style="@style/one_line_material"
-                    android:id="@+id/et_borrow_address"
-                    android:hint="@string/borrow_address"
-                    app:met_baseColor="@color/material_base_color"
-                    app:met_primaryColor="@color/material_primary_color"
-                    app:met_floatingLabel="highlight"
-                    app:met_floatingLabelTextSize ="@dimen/material_label_textsize"
-                    app:met_singleLineEllipsis="true"/>
+
             <com.rengwuxian.materialedittext.MaterialEditText
                     style="@style/one_line_material"
                     android:id="@+id/et_borrow_money"
                     android:hint="@string/borrow_money"
+                    android:inputType="numberDecimal"
                     app:met_baseColor="@color/material_base_color"
                     app:met_primaryColor="@color/material_primary_color"
                     app:met_floatingLabel="highlight"
@@ -88,17 +88,8 @@
                     app:met_singleLineEllipsis="true"/>
             <com.rengwuxian.materialedittext.MaterialEditText
                     style="@style/one_line_material"
-                    android:id="@+id/et_borrow_days"
-                    android:hint="@string/borrow_days"
-                    app:met_baseColor="@color/material_base_color"
-                    app:met_primaryColor="@color/material_primary_color"
-                    app:met_floatingLabel="highlight"
-                    app:met_floatingLabelTextSize ="@dimen/material_label_textsize"
-                    app:met_singleLineEllipsis="true"/>
-            <com.rengwuxian.materialedittext.MaterialEditText
-                    style="@style/one_line_material"
-                    android:id="@+id/et_borrow_hascar"
-                    android:hint="@string/borrow_hascar"
+                    android:id="@+id/et_borrow_house_address"
+                    android:hint="@string/borrow_house_address"
                     android:editable="false"
                     android:focusable="false"
                     app:met_baseColor="@color/material_base_color"
@@ -108,8 +99,8 @@
                     app:met_singleLineEllipsis="true"/>
             <com.rengwuxian.materialedittext.MaterialEditText
                     style="@style/one_line_material"
-                    android:id="@+id/et_borrow_hashouse"
-                    android:hint="@string/borrow_hashouse"
+                    android:id="@+id/et_borrow_house_type"
+                    android:hint="@string/borrow_house_type"
                     android:editable="false"
                     android:focusable="false"
                     app:met_baseColor="@color/material_base_color"
@@ -117,36 +108,6 @@
                     app:met_floatingLabel="highlight"
                     app:met_floatingLabelTextSize ="@dimen/material_label_textsize"
                     app:met_singleLineEllipsis="true"/>
-            <com.rengwuxian.materialedittext.MaterialEditText
-                    style="@style/one_line_material"
-                    android:id="@+id/et_borrow_houseaddress"
-                    android:hint="@string/borrow_houseaddress"
-                    android:visibility="gone"
-                    app:met_baseColor="@color/material_base_color"
-                    app:met_primaryColor="@color/material_primary_color"
-                    app:met_floatingLabel="highlight"
-                    app:met_floatingLabelTextSize ="@dimen/material_label_textsize"
-                    app:met_singleLineEllipsis="true"  />
-            <com.rengwuxian.materialedittext.MaterialEditText
-                    style="@style/one_line_material"
-                    android:id="@+id/et_borrow_haspolicy"
-                    android:hint="@string/borrow_haspolicy"
-                    android:editable="false"
-                    android:focusable="false"
-                    app:met_baseColor="@color/material_base_color"
-                    app:met_primaryColor="@color/material_primary_color"
-                    app:met_floatingLabel="highlight"
-                    app:met_floatingLabelTextSize ="@dimen/material_label_textsize"
-                    app:met_singleLineEllipsis="true"/>
-            <com.rengwuxian.materialedittext.MaterialEditText
-                    style="@style/one_line_material"
-                    android:id="@+id/et_borrow_wage"
-                    android:hint="@string/borrow_wage"
-                    app:met_baseColor="@color/material_base_color"
-                    app:met_primaryColor="@color/material_primary_color"
-                    app:met_floatingLabel="highlight"
-                    app:met_floatingLabelTextSize ="@dimen/material_label_textsize"
-                    app:met_singleLineEllipsis="true"  />
 
         </LinearLayout>
 

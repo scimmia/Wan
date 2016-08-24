@@ -35,6 +35,7 @@ public class HttpTask extends AsyncTask<Void,Void,String>{
         }else {
             this.mJson = "";
         }
+        Logger.e(mJson);
         this.mUrl = "http://192.168.0.156/wanguan/mapi/index.php"+"?act="+mAct+"&i_type=1&r_type=1";
     }
 

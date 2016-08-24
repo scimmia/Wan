@@ -19,6 +19,7 @@ import com.rengwuxian.materialedittext.MaterialEditText;
 import com.squareup.otto.Subscribe;
 import com.wanguanjinrong.mobile.wanguan.R;
 import com.wanguanjinrong.mobile.wanguan.bean.BaseBean;
+import com.wanguanjinrong.mobile.wanguan.bean.Login;
 import com.wanguanjinrong.mobile.wanguan.uitls.Global;
 import com.wanguanjinrong.mobile.wanguan.uitls.Utils;
 import com.wanguanjinrong.mobile.wanguan.uitls.eventbus.event.HttpEvent;
@@ -85,6 +86,7 @@ public class RegisterFragment extends BaseFragment {
                 switch (item.getItemId()) {
                     case R.id.action_next:
                         Logger.e("action_register");
+//                        new HttpTask(_mActivity, Global.REGISTER_MSG, Global.REGISTER_TAG, " {\"pay_pwd\":\"111111\",\"user_pwd\":\"123321\",\"user_pwd_confirm\":\"123321\",\"referer\":\"\",\"mobile_code\":\"787082\",\"pay_pwd_confirm\":\"111111\",\"mobile\":\"18660187425\"}").execute();
                         if (StringUtils.isEmpty(mEtRegisterPhone.getText().toString())){
                             mEtRegisterPhone.setError("请输入手机号");
                             mEtRegisterPhone.requestFocus();
@@ -112,6 +114,9 @@ public class RegisterFragment extends BaseFragment {
                             map.put("mobile_code", mEtRegisterCode.getText().toString());
                             map.put("user_pwd", mEtRegisterPassword.getText().toString());
                             map.put("user_pwd_confirm", mEtRegisterPasswordAgain.getText().toString());
+                            map.put("pay_pwd", mEtRegisterPayPassword.getText().toString());
+                            map.put("pay_pwd_confirm", mEtRegisterPayPasswordAgain.getText().toString());
+                            map.put("referer", mEtRegisterInviter.getText().toString());
                             new HttpTask(_mActivity, Global.REGISTER_MSG, Global.REGISTER_TAG, new Gson().toJson(map)).execute();
                         }
                         break;
@@ -160,12 +165,17 @@ public class RegisterFragment extends BaseFragment {
                 } else {
                     startTimer();
                 }
-            }else if (StringUtils.equalsIgnoreCase(Global.REGISTER_MSG, event.getTag())) {
-                BaseBean bean = new Gson().fromJson(event.getResponse(), BaseBean.class);
+            }else if (StringUtils.equalsIgnoreCase(Global.REGISTER_TAG, event.getTag())) {
+                Login bean = new Gson().fromJson(event.getResponse(), Login.class);
                 if (bean.getResponse_code() != 1) {
                     showToast(bean.getShow_err());
                 } else {
                     showToast(bean.getShow_err());
+                    Bundle bundle = new Bundle();
+                    bean.setUser_pwd(mEtRegisterPassword.getText().toString());
+                    bundle.putString("register", new Gson().toJson(bean));
+                    setFramgentResult(RESULT_OK, bundle);
+                    pop();
                 }
             }
         }

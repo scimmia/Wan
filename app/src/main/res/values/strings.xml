@@ -20,7 +20,9 @@
     <string name="borrow_phone">联系电话</string>
     <string name="borrow_hometown">户籍地址</string>
     <string name="borrow_address">现居住地</string>
-    <string name="borrow_money">申请金额</string>
+    <string name="borrow_money">申请金额(万元)</string>
+    <string name="borrow_house_address">抵押物所在地</string>
+    <string name="borrow_house_type">抵押物产权类型</string>
     <string name="borrow_days">贷款期限</string>
     <string name="borrow_hascar">是否有车</string>
     <string name="borrow_hashouse">是否有房</string>

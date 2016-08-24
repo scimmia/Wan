@@ -32,6 +32,7 @@ import java.util.HashMap;
  * Created by A on 2016/7/22.
  */
 public class LoginFragment extends BaseFragment {
+    final int Req_Register = 1000;
     protected Unbinder unbinder;
 
     @BindView(R.id.toolbar_login)
@@ -63,7 +64,8 @@ public class LoginFragment extends BaseFragment {
             public boolean onMenuItemClick(MenuItem item) {
                 switch (item.getItemId()) {
                     case R.id.action_register:
-                        BusProvider.getInstance().post(new StartBrotherEvent(RegisterFragment.newInstance()));
+                        startForResult(RegisterFragment.newInstance(), Req_Register);
+//                        BusProvider.getInstance().post(new StartBrotherEvent(RegisterFragment.newInstance()));
                         break;
                 }
                 return true;
@@ -71,6 +73,22 @@ public class LoginFragment extends BaseFragment {
         });
     }
 
+    @Override
+    public void onFragmentResult(int requestCode, int resultCode, Bundle data) {
+        super.onFragmentResult(requestCode, resultCode, data);
+        try {
+            if (requestCode == Req_Register && resultCode == RESULT_OK ) {
+                String str = data.getString("register");//str即为回传的值
+                Login bean = new Gson().fromJson(str,Login.class);
+                Utils.login(_mActivity, bean);
+                hideSoftInput();
+                BusProvider.getInstance().post(new LoginEvent(Global.LoginStateIn));
+                pop();
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+    }
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {

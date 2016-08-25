@@ -26,7 +26,13 @@ public class HttpTask extends AsyncTask<Void,Void,String>{
     String mTag;
     String mJson;
 
+    HttpListener mHttpListener;
+
     public HttpTask(Context mContent, String msgToShow, String mAct, String json) {
+        this(mContent,msgToShow,mAct,json,null);
+    }
+
+    public HttpTask(Context mContent, String msgToShow, String mAct, String json,HttpListener httpListener) {
         this.mContent = mContent;
         this.msgToShow = msgToShow;
         this.mTag = mAct;
@@ -35,10 +41,11 @@ public class HttpTask extends AsyncTask<Void,Void,String>{
         }else {
             this.mJson = "";
         }
+        mHttpListener = httpListener;
         Logger.e(mJson);
-        this.mUrl = "http://192.168.0.156/wanguan/mapi/index.php"+"?act="+mAct+"&i_type=1&r_type=1";
+        this.mUrl = "http://192.168.0.167/mapi/index.php"+"?act="+mAct+"&i_type=1&r_type=1";
+//        this.mUrl = "http://192.168.0.167/wanguan/mapi/index.php"+"?act="+mAct+"&i_type=1&r_type=1";
     }
-
     @Override
     protected void onPreExecute(){
         super.onPreExecute();
@@ -88,7 +95,11 @@ public class HttpTask extends AsyncTask<Void,Void,String>{
         if (mpDialog != null) {
             mpDialog.dismiss();
         }
-        BusProvider.getInstance().post(new HttpEvent(mTag,result));
+        if (mHttpListener != null){
+            mHttpListener.onSuccess(mTag,result);
+        }else {
+            BusProvider.getInstance().post(new HttpEvent(mTag, result));
+        }
     }
 
     @Override

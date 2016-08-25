@@ -52,6 +52,6 @@
 
     <style name="title_right" parent="title_left">
         <item name="android:gravity">center_vertical|right</item>
-        <item name="android:textColor">@color/colorPrimary</item>
+        <item name="android:textColor">@android:color/black</item>
     </style>
 </resources>

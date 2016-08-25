@@ -1,13 +1,20 @@
 package com.wanguanjinrong.mobile.wanguan.uitls.ui;
 
 
+import android.app.AlertDialog;
+import android.content.DialogInterface;
 import android.support.v4.widget.SwipeRefreshLayout;
 import android.support.v7.widget.Toolbar;
 import android.view.View;
+import android.widget.EditText;
 import android.widget.Toast;
+import com.orhanobut.logger.Logger;
 import com.wanguanjinrong.mobile.wanguan.R;
 import com.wanguanjinrong.mobile.wanguan.uitls.eventbus.BusProvider;
+import com.wanguanjinrong.mobile.wanguan.uitls.http.HttpListener;
+import com.wanguanjinrong.mobile.wanguan.uitls.http.HttpTask;
 import me.yokeyword.fragmentation.SupportFragment;
+import org.apache.commons.lang3.ArrayUtils;
 
 public class BaseFragment extends SupportFragment {
    /*
@@ -136,5 +143,68 @@ import com.wanguanjinrong.mobile.wanguan.R;
         if (appMsg!=null){
             appMsg.cancel();
         }
+    }
+
+    public AlertDialog mAlertDialog;
+
+    public DialogListener getSingleDialogListener(final EditText editText) {
+        return new DialogListener() {
+            @Override
+            public void onSelected(String name, String id) {
+                Logger.e(name + "\t" + id);
+                editText.setTag(id);
+                editText.setText(name);
+            }
+
+            @Override
+            public void onClear() {
+                Logger.e("onClear");
+                editText.setTag("");
+                editText.setText("");
+            }
+        };
+    }
+
+    public void showSingleDialog(String title, final String[] itemNames, final String[] itemIDs, String itemSelected, final DialogListener dialogListener) {
+        if (mAlertDialog != null) {
+            mAlertDialog.dismiss();
+            mAlertDialog = null;
+        }
+        if (itemNames != null && itemIDs != null && itemNames.length == itemIDs.length) {
+            int selectedPos = ArrayUtils.indexOf(itemIDs, itemSelected);
+            mAlertDialog = new AlertDialog.Builder(_mActivity).setTitle(title)
+                    .setSingleChoiceItems(itemNames, selectedPos, new DialogInterface.OnClickListener() {
+                        @Override
+                        public void onClick(DialogInterface dialog, int which) {
+                            if (dialogListener != null) {
+                                dialogListener.onSelected(itemNames[which], itemIDs[which]);
+                            }
+                            dialog.dismiss();
+                        }
+                    })
+                    .setNegativeButton("取消选择", new DialogInterface.OnClickListener() {
+                        @Override
+                        public void onClick(DialogInterface dialog, int which) {
+                            if (dialogListener != null) {
+                                dialogListener.onClear();
+                            }
+                        }
+                    })
+                    .setNeutralButton("返回", new DialogInterface.OnClickListener() {
+                        @Override
+                        public void onClick(DialogInterface dialog, int which) {
+                            dialog.dismiss();
+                        }
+                    })
+                    .create();
+            mAlertDialog.show();
+        }
+    }
+
+    public void http(String msgToShow, String mAct, String json){
+        new HttpTask(_mActivity, msgToShow, mAct, json).execute();
+    }
+    public void http(String msgToShow, String mAct, String json, HttpListener httpListener){
+        new HttpTask(_mActivity, msgToShow, mAct, json,httpListener).execute();
     }
 }

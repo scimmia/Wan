@@ -13,6 +13,10 @@ public class Login extends BaseBean{
      * user_pwd : 96e79218965eb72c92a549dd5a330112
      * user_money : null
      * user_money_format : ￥0.00
+     * real_name :
+     * bankcard : 11111111111
+     * idno :
+     * mobile : 18660187425
      */
 
     private int user_login_status;
@@ -23,6 +27,10 @@ public class Login extends BaseBean{
     private String user_pwd;
     private Object user_money;
     private String user_money_format;
+    private String real_name;
+    private String bankcard;
+    private String idno;
+    private String mobile;
 
     public int getUser_login_status() {
         return user_login_status;
@@ -86,5 +94,37 @@ public class Login extends BaseBean{
 
     public void setUser_money_format(String user_money_format) {
         this.user_money_format = user_money_format;
+    }
+
+    public String getReal_name() {
+        return real_name;
+    }
+
+    public void setReal_name(String real_name) {
+        this.real_name = real_name;
+    }
+
+    public String getBankcard() {
+        return bankcard;
+    }
+
+    public void setBankcard(String bankcard) {
+        this.bankcard = bankcard;
+    }
+
+    public String getIdno() {
+        return idno;
+    }
+
+    public void setIdno(String idno) {
+        this.idno = idno;
+    }
+
+    public String getMobile() {
+        return mobile;
+    }
+
+    public void setMobile(String mobile) {
+        this.mobile = mobile;
     }
 }

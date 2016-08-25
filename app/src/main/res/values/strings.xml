@@ -81,6 +81,14 @@
     <string name="forget_password">忘记密码</string>
     <string name="change_password">输入新密码</string>
     <string name="change_password_again">请再次输入新密码</string>
+    <string name="rp_title">修改登录密码</string>
+    <string name="rp_old_password">输入原密码</string>
     <string name="next_step">下一步</string>
     <string name="commit">提交</string>
+    <string name="abc_title">添加银行卡</string>
+    <string name="abc_choose_bank">请选择开户行</string>
+    <string name="abc_bankcard_no">请输入银行卡号</string>
+    <string name="abc_realname">请输入您的姓名</string>
+    <string name="abc_cardid">请输入您的身份证号</string>
+    <string name="abc_phone">银行预留手机号</string>
 </resources>

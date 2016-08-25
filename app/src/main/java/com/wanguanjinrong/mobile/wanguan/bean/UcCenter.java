@@ -36,6 +36,8 @@ public class UcCenter extends BaseBean{
      * ips_lock_format : ￥0.00
      * ips_needstl_format : ￥0.00
      * program_title : 会员中心
+     * mobile : 18660187425
+     * bankcard : 6612345211266521
      * act_2 :
      */
 
@@ -71,6 +73,8 @@ public class UcCenter extends BaseBean{
     private String ips_needstl_format;
     private String program_title;
     private String act_2;
+    private String mobile;
+    private String bankcard;
 
     public int getUser_login_status() {
         return user_login_status;
@@ -326,5 +330,21 @@ public class UcCenter extends BaseBean{
 
     public void setAct_2(String act_2) {
         this.act_2 = act_2;
+    }
+
+    public String getMobile() {
+        return mobile;
+    }
+
+    public void setMobile(String mobile) {
+        this.mobile = mobile;
+    }
+
+    public String getBankcard() {
+        return bankcard;
+    }
+
+    public void setBankcard(String bankcard) {
+        this.bankcard = bankcard;
     }
 }

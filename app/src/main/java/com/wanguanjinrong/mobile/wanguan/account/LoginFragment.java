@@ -78,9 +78,6 @@ public class LoginFragment extends BaseFragment {
         super.onFragmentResult(requestCode, resultCode, data);
         try {
             if (requestCode == Req_Register && resultCode == RESULT_OK ) {
-                String str = data.getString("register");//str即为回传的值
-                Login bean = new Gson().fromJson(str,Login.class);
-                Utils.login(_mActivity, bean);
                 hideSoftInput();
                 BusProvider.getInstance().post(new LoginEvent(Global.LoginStateIn));
                 pop();
@@ -135,26 +132,7 @@ public class LoginFragment extends BaseFragment {
 
     @OnClick(R.id.btn_forget)
     public void onForgetPassword(){
-        BusProvider.getInstance().post(new StartBrotherEvent(ForgetPasswordFragment.newInstance()));
-//        SMSSDK.initSDK(_mActivity, "1543694879524", "e649155554c22e99173f58d8a3fdff83");
-//        //打开注册页面
-//        RegisterPage registerPage = new RegisterPage();
-//        registerPage.setRegisterCallback(new EventHandler() {
-//            public void afterEvent(int event, int result, Object data) {
-//        // 解析注册结果
-//                if (result == SMSSDK.RESULT_COMPLETE) {
-//                    @SuppressWarnings("unchecked")
-//                    HashMap<String,Object> phoneMap = (HashMap<String, Object>) data;
-//                    String country = (String) phoneMap.get("country");
-//                    String phone = (String) phoneMap.get("phone");
-//
-//        // 提交用户信息
-//                    Logger.e(country+"----"+ phone);
-////                    registerUser(country, phone);
-//                }
-//            }
-//        });
-//        registerPage.show(_mActivity);
+        start(ForgetPasswordFragment.newInstance());
     }
 
 

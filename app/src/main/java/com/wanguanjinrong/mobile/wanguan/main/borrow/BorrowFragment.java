@@ -189,64 +189,6 @@ public class BorrowFragment extends BaseFragment implements Toolbar.OnMenuItemCl
         showSingleDialog("", houseTypeNames, houseTypeIDs, (String) mEtBorrowHouseType.getTag(), getSingleDialogListener(mEtBorrowHouseType));
     }
 
-    public AlertDialog mAlertDialog;
-
-    public DialogListener getSingleDialogListener(final EditText editText) {
-        return new DialogListener() {
-            @Override
-            public void onSelected(String name, String id) {
-                Logger.e(name + "\t" + id);
-                editText.setTag(id);
-                editText.setText(name);
-            }
-
-            @Override
-            public void onClear() {
-                Logger.e("onClear");
-                editText.setTag("");
-                editText.setText("");
-            }
-        };
-    }
-
-    public void showSingleDialog(String title, final String[] itemNames, final String[] itemIDs, String itemSelected, final DialogListener dialogListener) {
-        if (mAlertDialog != null) {
-            mAlertDialog.dismiss();
-            mAlertDialog = null;
-        }
-//        String[] itemNames = getResource(itemTpye);
-//        String[] itemIDs = getResource(itemTpye);
-        if (itemNames != null && itemIDs != null && itemNames.length == itemIDs.length) {
-            int selectedPos = ArrayUtils.indexOf(itemIDs, itemSelected);
-            mAlertDialog = new AlertDialog.Builder(_mActivity).setTitle(title)
-                    .setSingleChoiceItems(itemNames, selectedPos, new DialogInterface.OnClickListener() {
-                        @Override
-                        public void onClick(DialogInterface dialog, int which) {
-                            if (dialogListener != null) {
-                                dialogListener.onSelected(itemNames[which], itemIDs[which]);
-                            }
-                            dialog.dismiss();
-                        }
-                    })
-                    .setNegativeButton("取消选择", new DialogInterface.OnClickListener() {
-                        @Override
-                        public void onClick(DialogInterface dialog, int which) {
-                            if (dialogListener != null) {
-                                dialogListener.onClear();
-                            }
-                        }
-                    })
-                    .setNeutralButton("返回", new DialogInterface.OnClickListener() {
-                        @Override
-                        public void onClick(DialogInterface dialog, int which) {
-                            dialog.dismiss();
-                        }
-                    })
-                    .create();
-            mAlertDialog.show();
-        }
-    }
-
     @Override
     public boolean onMenuItemClick(MenuItem item) {
         switch (item.getItemId()) {

@@ -171,16 +171,32 @@ public class RegisterFragment extends BaseFragment {
                     showToast(bean.getShow_err());
                 } else {
                     showToast(bean.getShow_err());
-                    Bundle bundle = new Bundle();
+//                    bean.setUser_pwd("123321");
                     bean.setUser_pwd(mEtRegisterPassword.getText().toString());
-                    bundle.putString("register", new Gson().toJson(bean));
-                    setFramgentResult(RESULT_OK, bundle);
-                    pop();
+                    Utils.login(_mActivity,bean);
+                    startForResult(AddBankCardFragment.newInstance(), 1000);
                 }
             }
         }
     }
-
+    @Override
+    public void onFragmentResult(int requestCode, int resultCode, Bundle data) {
+        super.onFragmentResult(requestCode, resultCode, data);
+        try {
+            if (requestCode == 1000){
+                switch (resultCode){
+                    case RESULT_OK:
+                    case Global.ResultCancel:
+                        Bundle bundle = new Bundle();
+                        setFramgentResult(RESULT_OK, bundle);
+                        pop();
+                        break;
+                }
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+    }
     @Override
     public void onPause() {
         super.onPause();

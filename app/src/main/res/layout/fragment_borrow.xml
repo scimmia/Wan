@@ -96,7 +96,9 @@
                     app:met_primaryColor="@color/material_primary_color"
                     app:met_floatingLabel="highlight"
                     app:met_floatingLabelTextSize ="@dimen/material_label_textsize"
-                    app:met_singleLineEllipsis="true"/>
+                    app:met_singleLineEllipsis="true"
+                    android:drawableRight="@drawable/iv_account_tip_right"
+                    android:drawablePadding="@dimen/activity_vertical_margin"/>
             <com.rengwuxian.materialedittext.MaterialEditText
                     style="@style/one_line_material"
                     android:id="@+id/et_borrow_house_type"
@@ -107,7 +109,9 @@
                     app:met_primaryColor="@color/material_primary_color"
                     app:met_floatingLabel="highlight"
                     app:met_floatingLabelTextSize ="@dimen/material_label_textsize"
-                    app:met_singleLineEllipsis="true"/>
+                    app:met_singleLineEllipsis="true"
+                    android:drawableRight="@drawable/iv_account_tip_right"
+                    android:drawablePadding="@dimen/activity_vertical_margin"/>
 
         </LinearLayout>
 

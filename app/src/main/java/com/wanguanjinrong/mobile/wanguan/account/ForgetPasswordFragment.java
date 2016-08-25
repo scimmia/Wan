@@ -102,8 +102,8 @@ public class ForgetPasswordFragment extends BaseFragment{
             mEtRegisterPasswordAgain.setError("请输入正确的密码");
             mEtRegisterPasswordAgain.requestFocus();
         }else {
+            hideSoftInput();
             HashMap<String, String> map = new HashMap<>();
-            //// TODO: 2016/8/23 zhifumima
             map.put("mobile", mEtRegisterPhone.getText().toString());
             map.put("mobile_code", mEtRegisterCode.getText().toString());
             map.put("user_pwd", mEtRegisterPassword.getText().toString());
@@ -139,7 +139,7 @@ public class ForgetPasswordFragment extends BaseFragment{
                 if (bean.getResponse_code() != 1){
                     showToast(bean.getShow_err());
                 }else {
-                    showToast("1------"+bean.getShow_err());
+                    showToast(bean.getShow_err());
                 }
             }
         }

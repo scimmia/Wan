@@ -158,6 +158,37 @@
                     android:text="  *首次充值或者提现，将会验证真实姓名和身份证号码\n真实姓名和身份证号码认证后不可更改"
             />
 
+            <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="horizontal"
+            >
+                <Button
+                        android:id="@+id/btn_reset_login"
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="1"
+                        android:layout_marginTop="@dimen/size_16"
+                        android:layout_marginRight="@dimen/size_8"
+                        android:background="@color/counter_text_color"
+                        android:text="@string/reset_login"
+                        android:textSize="@dimen/text_size_16"
+                        android:textColor="@android:color/white"
+                        android:textStyle="bold"/>
+                <Button
+                        android:id="@+id/btn_reset_pay"
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="1"
+                        android:layout_marginTop="@dimen/size_16"
+                        android:layout_marginLeft="@dimen/size_8"
+                        android:background="@color/counter_text_color"
+                        android:text="@string/reset_pay"
+                        android:textSize="@dimen/text_size_16"
+                        android:textColor="@android:color/white"
+                        android:textStyle="bold"/>
+            </LinearLayout>
+
             <Button
                     android:id="@+id/btn_logout"
                     android:layout_width="match_parent"
@@ -168,7 +199,6 @@
                     android:textSize="@dimen/text_size_16"
                     android:textColor="@android:color/white"
                     android:textStyle="bold"/>
-
         </LinearLayout>
 
     </ScrollView>

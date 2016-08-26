@@ -184,4 +184,14 @@ public class PersonalInfoFragment extends BaseFragment {
             e.printStackTrace();
         }
     }
+
+    @OnClick(R.id.btn_reset_login)
+    public void onResetLogin() {
+        start(ResetPasswordFragment.newInstance());
+    }
+
+    @OnClick(R.id.btn_reset_pay)
+    public void onResetPay() {
+        start(ForgetPasswordFragment.newInstance(Global.resetPayPassword));
+    }
 }

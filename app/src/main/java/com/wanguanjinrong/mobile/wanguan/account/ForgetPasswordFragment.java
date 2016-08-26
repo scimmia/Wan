@@ -33,6 +33,8 @@ import java.util.TimerTask;
  * Created by A on 2016/8/5.
  */
 public class ForgetPasswordFragment extends BaseFragment{
+    int mFragmentType;
+    String mHttpType;
 
     @BindView(R.id.toolbar_forget)
     Toolbar mToolbar;
@@ -48,9 +50,10 @@ public class ForgetPasswordFragment extends BaseFragment{
     MaterialEditText mEtRegisterPasswordAgain;
 
     protected Unbinder unbinder;
-    public static BaseFragment newInstance() {
+    public static BaseFragment newInstance(int fragmentType) {
         BaseFragment fragment = new ForgetPasswordFragment();
         Bundle args = new Bundle();
+        args.putInt("fragmentType",fragmentType);
         fragment.setArguments(args);
         return fragment;
     }
@@ -58,12 +61,26 @@ public class ForgetPasswordFragment extends BaseFragment{
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        Bundle bundle = getArguments();
+        if (bundle != null) {
+            mFragmentType = bundle.getInt("fragmentType", Global.forgetPassword);
+        }
     }
 
     private void initView(View view) {
-        mToolbar.setTitle(R.string.forget_password);
         mToolbar.setBackgroundColor(0xFFf71e1a);
         initToobarBack(mToolbar);
+        switch (mFragmentType){
+            case Global.resetPayPassword:
+                mToolbar.setTitle(R.string.reset_pay);
+                mHttpType = "pay";
+                break;
+            case Global.forgetPassword:
+            default:
+                mToolbar.setTitle(R.string.forget_password);
+                mHttpType = "login";
+                break;
+        }
     }
 
     @Override
@@ -108,6 +125,7 @@ public class ForgetPasswordFragment extends BaseFragment{
             map.put("mobile_code", mEtRegisterCode.getText().toString());
             map.put("user_pwd", mEtRegisterPassword.getText().toString());
             map.put("user_pwd_confirm", mEtRegisterPasswordAgain.getText().toString());
+            map.put("type", mHttpType);
             new HttpTask(_mActivity, Global.SAVE_RESET_PWD_MSG, Global.SAVE_RESET_PWD_TAG, new Gson().toJson(map)).execute();
         }
     }

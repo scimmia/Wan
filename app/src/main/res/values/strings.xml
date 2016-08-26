@@ -65,6 +65,8 @@
     <string name="my_title_dongjiejine">冻结金额(元)</string>
     <string name="login">登陆</string>
     <string name="logout">退出登录</string>
+    <string name="reset_login">重置登录密码</string>
+    <string name="reset_pay">重置支付密码</string>
     <string name="register">注册</string>
     <string name="register_now">立即注册</string>
     <string name="personal_info">个人信息</string>

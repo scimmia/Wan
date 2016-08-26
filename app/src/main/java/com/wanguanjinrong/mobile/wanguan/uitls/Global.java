@@ -13,6 +13,9 @@ public interface Global {
     int LoginStateIn = 1;
     int LoginStateOut = 0;
 
+    int resetPayPassword = 1;
+    int forgetPassword = 0;
+
     double LOGIN_AVALIBAL_TIME = 3600000 * 72;
     String LOGIN_TIME = "LOGIN_TIME";
     String LOGIN_INFO = "LOGIN_INFO";

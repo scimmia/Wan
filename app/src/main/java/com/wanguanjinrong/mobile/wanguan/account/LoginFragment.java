@@ -132,7 +132,7 @@ public class LoginFragment extends BaseFragment {
 
     @OnClick(R.id.btn_forget)
     public void onForgetPassword(){
-        start(ForgetPasswordFragment.newInstance());
+        start(ForgetPasswordFragment.newInstance(Global.forgetPassword));
     }
 
 

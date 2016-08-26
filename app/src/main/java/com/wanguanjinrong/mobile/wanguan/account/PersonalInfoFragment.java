@@ -13,14 +13,18 @@ import butterknife.BindView;
 import butterknife.ButterKnife;
 import butterknife.OnClick;
 import butterknife.Unbinder;
+import com.google.gson.Gson;
 import com.wanguanjinrong.mobile.wanguan.R;
 import com.wanguanjinrong.mobile.wanguan.bean.Login;
 import com.wanguanjinrong.mobile.wanguan.uitls.Global;
 import com.wanguanjinrong.mobile.wanguan.uitls.Utils;
 import com.wanguanjinrong.mobile.wanguan.uitls.eventbus.BusProvider;
 import com.wanguanjinrong.mobile.wanguan.uitls.eventbus.event.LoginEvent;
+import com.wanguanjinrong.mobile.wanguan.uitls.http.HttpListener;
 import com.wanguanjinrong.mobile.wanguan.uitls.ui.BaseFragment;
 import org.apache.commons.lang3.StringUtils;
+
+import java.util.HashMap;
 
 
 /**
@@ -108,7 +112,34 @@ public class PersonalInfoFragment extends BaseFragment {
         if (mLogin != null && StringUtils.isEmpty(mLogin.getBankcard())) {
             startForResult(AddBankCardFragment.newInstance(), 1000);
         }else {
-//// TODO: 2016/8/25
+            HashMap<String, String> map = new HashMap<>();
+            map.put("uid",mLogin.getId()+"");
+            map.put("email", mLogin.getUser_name());
+            map.put("pwd", mLogin.getUser_pwd());
+            map.put("id", mLogin.getBankcard());
+            http(Global.UC_DEL_BANK_MSG, Global.UC_DEL_BANK_TAG, new Gson().toJson(map),
+                    new HttpListener() {
+                        @Override
+                        public void onSuccess(String tag, String content) {
+                            if (StringUtils.isEmpty(content)) {
+                                showToast("网络连接错误，请稍后重试。");
+                            } else {
+                                Login bean = new Gson().fromJson(content, Login.class);
+                                if (bean.getResponse_code() != 1) {
+                                    showToast(bean.getShow_err());
+                                } else {
+                                    if (bean.getUser_login_status() != 1) {
+                                        showToast(bean.getShow_err());
+                                    } else {
+                                        mLogin.setBankcard("");
+                                        Utils.login(_mActivity, mLogin);
+                                        mPerCardno.setText("");
+                                        mPerCardnoEdit.setText("未绑定");
+                                    }
+                                }
+                            }
+                        }
+                    });
         }
     }
 
@@ -153,25 +184,4 @@ public class PersonalInfoFragment extends BaseFragment {
             e.printStackTrace();
         }
     }
-//    @Subscribe
-//    public void onHttpEvent(HttpEvent event){
-//        if (event == null || StringUtils.isEmpty(event.getResponse())) {
-//            showToast("网络连接错误，请稍后重试。");
-//        } else{
-//            if (StringUtils.equalsIgnoreCase(Global.LOGIN_TAG,event.getTag())){
-//                Login bean = new Gson().fromJson(event.getResponse(),Login.class);
-//                if (bean.getResponse_code() != 1){
-//                    showToast(bean.getShow_err());
-//                }else {
-//                    if (bean.getUser_login_status() != 1){
-//                        showToast(bean.getShow_err());
-//                    }else {
-//                        bean.setUser_pwd(mLogin.getUser_pwd());
-//                        Utils.login(_mActivity, bean);
-//                        refreshItems();
-//                    }
-//                }
-//            }
-//        }
-//    }
 }

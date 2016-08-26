@@ -86,15 +86,39 @@ public class AddBankCardFragment extends BaseFragment implements HttpListener{
             public boolean onMenuItemClick(MenuItem item) {
                 switch (item.getItemId()) {
                     case R.id.action_commit:
-                        HashMap<String, String> map = new HashMap<>();
-                        map.put("uid",mLogin.getId()+"");
-                        map.put("email", mLogin.getUser_name());
-                        map.put("pwd", mLogin.getUser_pwd());
-                        map.put("bank_id", (String)mEtAbcChooseBank.getTag());
-                        map.put("bankcard", mEtAbcBankcardNo.getText().toString());
-                        map.put("idno", mEtAbcCardid.getText().toString());
-                        map.put("real_name", mEtAbcRealname.getText().toString());
-                        new HttpTask(_mActivity, Global.UC_SAVE_BANK_MSG, Global.UC_SAVE_BANK_TAG, new Gson().toJson(map)).execute();
+                        if (StringUtils.isEmpty((String) mEtAbcChooseBank.getTag())){
+                            mEtAbcChooseBank.setError("请选择开户行");
+                        }else if (StringUtils.isEmpty(mEtAbcBankcardNo.getText().toString())){
+                            mEtAbcBankcardNo.setError("请输入银行卡号");
+                            mEtAbcBankcardNo.requestFocus();
+                        }else if (StringUtils.isEmpty(mEtAbcRealname.getText().toString())){
+                            mEtAbcRealname.setError("请输入姓名");
+                            mEtAbcRealname.requestFocus();
+                        }else if (StringUtils.isEmpty(mEtAbcCardid.getText().toString())){
+                            mEtAbcCardid.setError("请输入身份证号");
+                            mEtAbcCardid.requestFocus();
+                            //// TODO: 2016/8/26  
+//                        }else if (StringUtils.isEmpty(mEtAbcCardid.getText().toString())){
+//                            mEtRegisterPhone.setError("请输入手机号");
+//                            mEtRegisterPhone.requestFocus();
+//                        }else if (!Utils.isMobileNumber(mEtRegisterPhone.getText().toString())){
+//                            mEtRegisterPhone.setError("请输入正确的手机号");
+//                            mEtRegisterPhone.requestFocus();
+//                        }else if (StringUtils.isEmpty(mEtRegisterCode.getText().toString())){
+//                            mEtRegisterCode.setError("请输入验证码");
+//                            mEtRegisterCode.requestFocus();
+                        }else {
+                            HashMap<String, String> map = new HashMap<>();
+                            map.put("uid", mLogin.getId() + "");
+                            map.put("email", mLogin.getUser_name());
+                            map.put("pwd", mLogin.getUser_pwd());
+                            map.put("bank_id", (String) mEtAbcChooseBank.getTag());
+                            map.put("bankcard", mEtAbcBankcardNo.getText().toString());
+                            map.put("idno", mEtAbcCardid.getText().toString());
+                            map.put("real_name", mEtAbcRealname.getText().toString());
+                            new HttpTask(_mActivity, Global.UC_SAVE_BANK_MSG, Global.UC_SAVE_BANK_TAG, new Gson().toJson(map)).execute();
+                        }
+//                        new HttpTask(_mActivity, Global.UC_SAVE_BANK_MSG, Global.UC_SAVE_BANK_TAG, "{\"bank_id\":\"2\",\"uid\":\"2041\",\"pwd\":\"1\",\"idno\":\"444445\",\"email\":\"18660187425qu\",\"real_name\":\"急急急\",\"bankcard\":\"666888859888885555\"}").execute();
                         break;
                 }
                 return true;

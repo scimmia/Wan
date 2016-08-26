@@ -8,16 +8,24 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
+import com.google.gson.Gson;
 import com.orhanobut.logger.Logger;
+import com.squareup.otto.Subscribe;
 import com.wanguanjinrong.mobile.wanguan.R;
+import com.wanguanjinrong.mobile.wanguan.bean.HomeInit;
 import com.wanguanjinrong.mobile.wanguan.main.home.gonggao.GonggaoListFragment;
-import com.wanguanjinrong.mobile.wanguan.main.touzilicai.dingqi.DingqiBuyFragment;
+import com.wanguanjinrong.mobile.wanguan.main.touzilicai.dingqi.DingqiDetailFragment;
 import com.wanguanjinrong.mobile.wanguan.main.touzilicai.dingqi.Dingqilicai;
+import com.wanguanjinrong.mobile.wanguan.uitls.Global;
 import com.wanguanjinrong.mobile.wanguan.uitls.TestUtils;
 import com.wanguanjinrong.mobile.wanguan.uitls.eventbus.BusProvider;
+import com.wanguanjinrong.mobile.wanguan.uitls.eventbus.event.HttpEvent;
 import com.wanguanjinrong.mobile.wanguan.uitls.eventbus.event.StartBrotherEvent;
+import com.wanguanjinrong.mobile.wanguan.uitls.http.HttpListener;
+import com.wanguanjinrong.mobile.wanguan.uitls.http.HttpTask;
 import com.wanguanjinrong.mobile.wanguan.uitls.ui.BaseFragment;
 import com.wanguanjinrong.mobile.wanguan.uitls.ui.listener.OnItemClickListener;
+import org.apache.commons.lang3.StringUtils;
 
 import java.util.ArrayList;
 
@@ -34,6 +42,7 @@ public class HomeFragment extends BaseFragment {
     HomeAdapter mItemAdapter;
     ArrayList<Dingqilicai> mItems;
 
+    HomeInit mHomeInit;
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -66,7 +75,7 @@ public class HomeFragment extends BaseFragment {
         mItems.add(Dingqilicai.generRandomData());
         mItems.add(Dingqilicai.generRandomData());
         mItems.add(Dingqilicai.generRandomData());
-        mItemAdapter.setDatas(mADUrls,mGonggaos,mItems);
+//        mItemAdapter.setDatas(mADUrls,mGonggaos,mItems);
         mItemAdapter.setOnItemClickListener(new OnItemClickListener() {
             @Override
             public void onItemClick(int position, View view, RecyclerView.ViewHolder vh) {
@@ -79,7 +88,9 @@ public class HomeFragment extends BaseFragment {
                 }else {
                     int temp = position - HomeAdapter.space;
                     if (temp >= 0 && temp < mItems.size()) {
-                        BusProvider.getInstance().post(new StartBrotherEvent(DingqiBuyFragment.newInstance(mItems.get(temp))));
+//                        BusProvider.getInstance().post(new StartBrotherEvent(DingqiBuyFragment.newInstance(mItems.get(temp))));
+                        HomeInit.IndexListBean.DealListBean dealListBean = mHomeInit.getIndex_list().getDeal_list().get(temp);
+                        BusProvider.getInstance().post(new StartBrotherEvent(DingqiDetailFragment.newInstance(dealListBean.getName(),dealListBean.getApp_url())));
                     }
                 }
             }
@@ -87,6 +98,7 @@ public class HomeFragment extends BaseFragment {
 //        mRecyclerView.setHasFixedSize(true);
         mRecyclerView.setLayoutManager(new LinearLayoutManager(_mActivity));
         mRecyclerView.setAdapter(mItemAdapter);
+        refreshData();
     }
 
     @Override
@@ -95,6 +107,33 @@ public class HomeFragment extends BaseFragment {
         View view = inflater.inflate(R.layout.fragment_home, container, false);
         initView(view);
         return view;
+    }
+
+    private void refreshData(){
+        new HttpTask(_mActivity, Global.INIT_MSG, Global.INIT_TAG, "", new HttpListener() {
+            @Override
+            public void onSuccess(String tag, String content) {
+                if (StringUtils.isEmpty(content)) {
+                    showToast("网络连接错误，请稍后重试。");
+                } else{
+                    if (StringUtils.equalsIgnoreCase(Global.INIT_TAG,tag)){
+                        try {
+                            mHomeInit = new Gson().fromJson(content,HomeInit.class);
+                            if (mHomeInit.getResponse_code() != 1){
+                                Logger.e(mHomeInit.getShow_err());
+                            } else {
+                                mItemAdapter.setDatas(mHomeInit);
+                                mItemAdapter.notifyDataSetChanged();
+
+
+                            }
+                        } catch (Exception e) {
+                            e.printStackTrace();
+                        }
+                    }
+                }
+            }
+        }).execute();
     }
 }
 //public class HomeFragment extends BaseFragment {

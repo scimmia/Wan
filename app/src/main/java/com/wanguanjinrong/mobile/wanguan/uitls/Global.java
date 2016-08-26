@@ -61,5 +61,5 @@ public interface Global {
     String DownloadNewFile_TAG = "DownloadNewFile";
     String DownloadNewFile_MSG = "下载中...";
     String INIT_TAG = "init";
-    String INIT_MSG = "init";
+    String INIT_MSG = "更新中...";
 }

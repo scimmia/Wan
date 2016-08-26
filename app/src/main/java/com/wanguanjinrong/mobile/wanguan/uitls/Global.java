@@ -41,6 +41,8 @@ public interface Global {
     String REGISTER_MSG = "提交中...";
     String UC_ADD_BANK_TAG = "uc_add_bank";
     String UC_ADD_BANK_MSG = "更新银行信息...";
+    String UC_DEL_BANK_TAG = "uc_del_bank";
+    String UC_DEL_BANK_MSG = "解绑银行卡...";
     String UC_SAVE_BANK_TAG = "uc_save_bank";
     String UC_SAVE_BANK_MSG = "提交中...";
     String SEND_REGISTER_CODE_TAG = "send_register_code";

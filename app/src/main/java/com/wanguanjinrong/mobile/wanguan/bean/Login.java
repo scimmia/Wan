@@ -13,6 +13,10 @@ public class Login extends BaseBean{
      * user_pwd : 96e79218965eb72c92a549dd5a330112
      * user_money : null
      * user_money_format : ￥0.00
+     * lock_money : 3210.00
+     * lock_money_format : ￥3,210.00
+     * total_money : 103210
+     * total_money_format : ￥103,210.00
      * real_name :
      * bankcard : 11111111111
      * idno :
@@ -25,12 +29,25 @@ public class Login extends BaseBean{
     private String user_email;
     private String act_2;
     private String user_pwd;
-    private Object user_money;
+    private String user_money;
     private String user_money_format;
     private String real_name;
     private String bankcard;
     private String idno;
     private String mobile;
+    private String lock_money;
+    private String lock_money_format;
+    private int total_money;
+    private String total_money_format;
+    private String realPassword;
+
+    public String getRealPassword() {
+        return realPassword;
+    }
+
+    public void setRealPassword(String realPassword) {
+        this.realPassword = realPassword;
+    }
 
     public int getUser_login_status() {
         return user_login_status;
@@ -80,11 +97,11 @@ public class Login extends BaseBean{
         this.user_pwd = user_pwd;
     }
 
-    public Object getUser_money() {
+    public String getUser_money() {
         return user_money;
     }
 
-    public void setUser_money(Object user_money) {
+    public void setUser_money(String user_money) {
         this.user_money = user_money;
     }
 
@@ -126,5 +143,37 @@ public class Login extends BaseBean{
 
     public void setMobile(String mobile) {
         this.mobile = mobile;
+    }
+
+    public String getLock_money() {
+        return lock_money;
+    }
+
+    public void setLock_money(String lock_money) {
+        this.lock_money = lock_money;
+    }
+
+    public String getLock_money_format() {
+        return lock_money_format;
+    }
+
+    public void setLock_money_format(String lock_money_format) {
+        this.lock_money_format = lock_money_format;
+    }
+
+    public int getTotal_money() {
+        return total_money;
+    }
+
+    public void setTotal_money(int total_money) {
+        this.total_money = total_money;
+    }
+
+    public String getTotal_money_format() {
+        return total_money_format;
+    }
+
+    public void setTotal_money_format(String total_money_format) {
+        this.total_money_format = total_money_format;
     }
 }

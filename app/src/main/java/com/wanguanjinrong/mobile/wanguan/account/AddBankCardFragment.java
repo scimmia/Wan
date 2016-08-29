@@ -264,7 +264,9 @@ public class AddBankCardFragment extends BaseFragment implements HttpListener{
 
     @Override
     public void onSuccess(String tag, String content) {
-        if (StringUtils.equalsIgnoreCase(Global.LOGIN_TAG,tag)){
+        if (StringUtils.isEmpty(content)) {
+            showToast("网络连接错误，请稍后重试。");
+        } else if (StringUtils.equalsIgnoreCase(Global.LOGIN_TAG,tag)){
             Login bean = new Gson().fromJson(content,Login.class);
             if (bean.getResponse_code() != 1){
                 showToast(bean.getShow_err());

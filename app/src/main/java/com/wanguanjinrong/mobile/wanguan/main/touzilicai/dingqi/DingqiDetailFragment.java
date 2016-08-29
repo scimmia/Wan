@@ -10,6 +10,7 @@ import android.widget.Button;
 import butterknife.BindView;
 import butterknife.ButterKnife;
 import butterknife.Unbinder;
+import com.google.gson.Gson;
 import com.wanguanjinrong.mobile.wanguan.R;
 import com.wanguanjinrong.mobile.wanguan.uitls.Global;
 import com.wanguanjinrong.mobile.wanguan.uitls.ui.BaseFragment;
@@ -21,8 +22,6 @@ public class DingqiDetailFragment extends BaseFragment {
     String title;
     String url;
 
-    static final String KEY_TITLE = "title";
-    static final String KEY_URL = "url";
     protected Unbinder unbinder;
     @BindView(R.id.tb_dingqi_detail)
     Toolbar mToolbar;
@@ -30,12 +29,12 @@ public class DingqiDetailFragment extends BaseFragment {
     WebView mWvDingqiDetail;
     @BindView(R.id.btn_dingqi_buy)
     Button mBtnDingqiBuy;
+    private Dingqilicai mDingqilicai;
 
-    public static BaseFragment newInstance(String title, String url) {
-        BaseFragment fragment = new DingqiDetailFragment();
+    public static DingqiDetailFragment newInstance(Dingqilicai dingqilicai) {
+        DingqiDetailFragment fragment = new DingqiDetailFragment();
         Bundle args = new Bundle();
-        args.putString(KEY_TITLE, title);
-        args.putString(KEY_URL, url);
+        args.putString("args", new Gson().toJson(dingqilicai));
         fragment.setArguments(args);
         return fragment;
     }
@@ -44,9 +43,10 @@ public class DingqiDetailFragment extends BaseFragment {
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         Bundle bundle = getArguments();
-        if (bundle != null) {
-            title = bundle.getString(KEY_TITLE, "");
-            url = bundle.getString(KEY_URL, "");
+        if (bundle != null &&bundle.containsKey("args")){
+            mDingqilicai = new Gson().fromJson(bundle.getString("args"),Dingqilicai.class);
+            title = mDingqilicai.getName();
+            url = mDingqilicai.getItemUrl();
         }
     }
 
@@ -61,6 +61,15 @@ public class DingqiDetailFragment extends BaseFragment {
             }
         });
         mWvDingqiDetail.loadUrl(url);
+        if (mDingqilicai != null && mDingqilicai.getBuyState() != 1){
+            mBtnDingqiBuy.setVisibility(View.GONE);
+        }
+        mBtnDingqiBuy.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                start(DingqiBuyFragment.newInstance(mDingqilicai));
+            }
+        });
     }
 
     @Override

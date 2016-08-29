@@ -8,13 +8,19 @@ import android.support.v7.widget.Toolbar;
 import android.view.View;
 import android.widget.EditText;
 import android.widget.Toast;
+import com.google.gson.Gson;
 import com.orhanobut.logger.Logger;
 import com.wanguanjinrong.mobile.wanguan.R;
+import com.wanguanjinrong.mobile.wanguan.bean.Login;
+import com.wanguanjinrong.mobile.wanguan.uitls.Global;
+import com.wanguanjinrong.mobile.wanguan.uitls.Utils;
 import com.wanguanjinrong.mobile.wanguan.uitls.eventbus.BusProvider;
 import com.wanguanjinrong.mobile.wanguan.uitls.http.HttpListener;
 import com.wanguanjinrong.mobile.wanguan.uitls.http.HttpTask;
 import me.yokeyword.fragmentation.SupportFragment;
 import org.apache.commons.lang3.ArrayUtils;
+
+import java.util.HashMap;
 
 public class BaseFragment extends SupportFragment {
    /*
@@ -206,5 +212,15 @@ import com.wanguanjinrong.mobile.wanguan.R;
     }
     public void http(String msgToShow, String mAct, String json, HttpListener httpListener){
         new HttpTask(_mActivity, msgToShow, mAct, json,httpListener).execute();
+    }
+
+    public void refreshLogin(HttpListener httpListener){
+        Login login = Utils.getLoginInfo(_mActivity);
+        if (login != null){
+            HashMap<String,String> map = new HashMap<>();
+            map.put("email",login.getUser_name());
+            map.put("pwd",login.getUser_pwd());
+            http(Global.LOGIN_REFRESH_MSG, Global.LOGIN_TAG,new Gson().toJson(map),httpListener);
+        }
     }
 }

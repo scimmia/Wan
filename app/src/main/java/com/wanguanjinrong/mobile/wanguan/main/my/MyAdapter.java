@@ -11,6 +11,7 @@ import android.widget.TextView;
 import butterknife.BindView;
 import butterknife.ButterKnife;
 import com.wanguanjinrong.mobile.wanguan.R;
+import com.wanguanjinrong.mobile.wanguan.bean.Login;
 import com.wanguanjinrong.mobile.wanguan.bean.UcCenter;
 import com.wanguanjinrong.mobile.wanguan.uitls.Utils;
 import com.wanguanjinrong.mobile.wanguan.uitls.ui.listener.OnItemClickListener;
@@ -101,10 +102,10 @@ public class MyAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> {
                 if (Utils.isLogin(mContext)){
                     ((HeaderViewHolder)holder).mMyNotLogin.setVisibility(View.GONE);
                     ((HeaderViewHolder)holder).mMyLogin.setVisibility(View.VISIBLE);
-                    UcCenter ucCenter = Utils.getUserInfo(mContext);
+                    Login ucCenter = Utils.getLoginInfo(mContext);
                     if (ucCenter != null){
                         ((HeaderViewHolder)holder).mTvMyTotal.setText(ucCenter.getTotal_money_format());
-                        ((HeaderViewHolder)holder).mMyZuorishouyi.setText(ucCenter.getMoney_format());
+                        ((HeaderViewHolder)holder).mMyZuorishouyi.setText(ucCenter.getUser_money_format());
                         ((HeaderViewHolder)holder).mMyKeyongyue.setText(ucCenter.getLock_money_format());
                     }
                 }else {

@@ -12,9 +12,13 @@ import com.tencent.mm.sdk.modelmsg.WXMediaMessage;
 import com.tencent.mm.sdk.modelmsg.WXWebpageObject;
 import com.tencent.mm.sdk.openapi.*;
 import com.wanguanjinrong.mobile.wanguan.R;
+import com.wanguanjinrong.mobile.wanguan.bean.Deals;
+import com.wanguanjinrong.mobile.wanguan.bean.HomeInit;
 import com.wanguanjinrong.mobile.wanguan.bean.Login;
 import com.wanguanjinrong.mobile.wanguan.bean.UcCenter;
+import com.wanguanjinrong.mobile.wanguan.main.touzilicai.dingqi.Dingqilicai;
 import org.apache.commons.lang3.StringUtils;
+import org.apache.commons.lang3.math.NumberUtils;
 
 import java.io.ByteArrayOutputStream;
 import java.util.Date;
@@ -278,4 +282,44 @@ public class Utils {
         }
     }
 
+
+    public static Dingqilicai homtItemToDingqilicai(HomeInit.IndexListBean.DealListBean dealListBean){
+        try {
+            Dingqilicai dingqilicai = new Dingqilicai();
+            dingqilicai.setId(dealListBean.getId());
+            dingqilicai.setName(dealListBean.getName());
+            dingqilicai.setMoneyRate(dealListBean.getRate());
+            dingqilicai.setBuyState(NumberUtils.toInt(dealListBean.getDeal_status()));
+            dingqilicai.setDays(NumberUtils.toInt(dealListBean.getDay()));
+            dingqilicai.setMoneyStart(NumberUtils.toDouble(dealListBean.getMin_loan_money()));
+            dingqilicai.setMoneyTotal(NumberUtils.toDouble(dealListBean.getBorrow_amount()));
+            dingqilicai.setMoneyLeft((int) (dingqilicai.getMoneyTotal() * dingqilicai.getProgress()));
+            dingqilicai.setProgress(dealListBean.getProgress_point());
+            dingqilicai.setItemUrl(dealListBean.getApp_url());
+            return dingqilicai;
+        } catch (Exception e) {
+            e.printStackTrace();
+            return null;
+        }
+    }
+
+    public static Dingqilicai dealItemToDingqilicai(Deals.ItemBean dealListBean){
+        try {
+            Dingqilicai dingqilicai = new Dingqilicai();
+            dingqilicai.setId(dealListBean.getId());
+            dingqilicai.setName(dealListBean.getName());
+            dingqilicai.setMoneyRate(dealListBean.getRate());
+            dingqilicai.setBuyState(NumberUtils.toInt(dealListBean.getDeal_status()));
+            dingqilicai.setDays(NumberUtils.toInt(dealListBean.getDay()));
+            dingqilicai.setMoneyStart(NumberUtils.toDouble(dealListBean.getMin_loan_money()));
+            dingqilicai.setMoneyTotal(NumberUtils.toDouble(dealListBean.getBorrow_amount()));
+            dingqilicai.setMoneyLeft((int) (dingqilicai.getMoneyTotal() * dingqilicai.getProgress()));
+            dingqilicai.setProgress(dealListBean.getProgress_point());
+            dingqilicai.setItemUrl(dealListBean.getApp_url());
+            return dingqilicai;
+        } catch (Exception e) {
+            e.printStackTrace();
+            return null;
+        }
+    }
 }

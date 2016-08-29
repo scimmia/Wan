@@ -27,8 +27,6 @@ public class MainFragment extends BaseFragment {
     @BindView(R.id.bottom_navigation_bar)
     BottomNavigationBar mBottomNavigationBar;
 
-    BadgeItem numberBadgeItem;
-
     private SupportFragment[] mFragments = new SupportFragment[4];
 
     public static MainFragment newInstance() {
@@ -74,20 +72,13 @@ public class MainFragment extends BaseFragment {
     }
 
     private void initView(View view) {
-        numberBadgeItem = new BadgeItem()
-                .setBorderWidth(4)
-                .setBackgroundColorResource(R.color.blue)
-                .setText("67")
-                .setHideOnSelect(true);
-
         mBottomNavigationBar.setMode(BottomNavigationBar.MODE_FIXED);
         mBottomNavigationBar.setBackgroundStyle(BottomNavigationBar.BACKGROUND_STYLE_RIPPLE);
         mBottomNavigationBar
-                .addItem(new BottomNavigationItem(R.drawable.bottom_bar_1_press, "首页").setInactiveIconResource(R.drawable.bottom_bar_1_normal).setActiveColorResource(R.color.orange).setBadgeItem(numberBadgeItem))
+                .addItem(new BottomNavigationItem(R.drawable.bottom_bar_1_press, "首页").setInactiveIconResource(R.drawable.bottom_bar_1_normal).setActiveColorResource(R.color.orange))
                 .addItem(new BottomNavigationItem(R.drawable.bottom_bar_2_press, "理财产品").setInactiveIconResource(R.drawable.bottom_bar_2_normal).setActiveColorResource(R.color.teal))
                 .addItem(new BottomNavigationItem(R.drawable.bottom_bar_5_press, "我要借款").setInactiveIconResource(R.drawable.bottom_bar_5_normal).setActiveColorResource(R.color.blue))
                 .addItem(new BottomNavigationItem(R.drawable.bottom_bar_3_press, "我的财富").setInactiveIconResource(R.drawable.bottom_bar_3_normal).setActiveColorResource(R.color.brown))
-//                .addItem(new BottomNavigationItem(R.drawable.ic_videogame_asset_white_24dp, "Games").setActiveColorResource(R.color.grey))
                 .initialise();
 
         mBottomNavigationBar.setTabSelectedListener(new BottomNavigationBar.OnTabSelectedListener(){

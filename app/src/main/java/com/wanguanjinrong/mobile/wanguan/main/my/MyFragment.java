@@ -242,16 +242,12 @@ public class MyFragment extends BaseFragment implements Toolbar.OnMenuItemClickL
     @Subscribe
     public void onLoginEvent(LoginEvent event) {
         if (event != null) {
-//            mItemAdapter.setMoney(MyMoney.generRandomData());
-            if (event.getLoginState() == Global.LoginStateOut) {
-                mItemAdapter.notifyItemChanged(0);
-            }else {
-                refreshUcCenter();
-            }
+            mItemAdapter.notifyItemChanged(0);
         }
     }
 
     private void refreshUcCenter(){
+
         Login login = Utils.getLoginInfo(_mActivity);
         if (login != null) {
             HashMap<String, String> map = new HashMap<>();

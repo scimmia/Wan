@@ -11,9 +11,27 @@ public class Dingqilicai {
     String moneyRate;
     int buyState;
     int days;
-    int moneyStart;
-    int moneyLeft;
+    double moneyStart;
+    double moneyLeft;
+    double moneyTotal;
     double progress;
+    String itemUrl;
+
+    public String getItemUrl() {
+        return itemUrl;
+    }
+
+    public void setItemUrl(String itemUrl) {
+        this.itemUrl = itemUrl;
+    }
+
+    public double getMoneyTotal() {
+        return moneyTotal;
+    }
+
+    public void setMoneyTotal(double moneyTotal) {
+        this.moneyTotal = moneyTotal;
+    }
 
     public Dingqilicai() {
     }
@@ -58,19 +76,19 @@ public class Dingqilicai {
         this.days = days;
     }
 
-    public int getMoneyStart() {
+    public double getMoneyStart() {
         return moneyStart;
     }
 
-    public void setMoneyStart(int moneyStart) {
+    public void setMoneyStart(double moneyStart) {
         this.moneyStart = moneyStart;
     }
 
-    public int getMoneyLeft() {
+    public double getMoneyLeft() {
         return moneyLeft;
     }
 
-    public void setMoneyLeft(int moneyLeft) {
+    public void setMoneyLeft(double moneyLeft) {
         this.moneyLeft = moneyLeft;
     }
 

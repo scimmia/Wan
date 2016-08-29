@@ -37,6 +37,7 @@ public interface Global {
     //http tag
     String _TAG = "";
     String _MSG = "";
+    String NULL_MSG = "";
     String LOGIN_TAG = "login";
     String LOGIN_MSG = "登陆中...";
     String LOGIN_REFRESH_MSG = "更新信息中...";
@@ -62,4 +63,11 @@ public interface Global {
     String DownloadNewFile_MSG = "下载中...";
     String INIT_TAG = "init";
     String INIT_MSG = "更新中...";
+    String DEALS_TAG = "deals";
+    String DEALS_MSG = "加载中...";
+    String DEAL_DOBID_TAG = "deal_dobid";
+    String DEAL_DOBID_MSG = "购买中...";
+    String BORROW_TAG = "borrow";
+    String BORROW_MSG = "提交中...";
+    String send_apply_verify_code_TAG = "send_apply_verify_code";
 }

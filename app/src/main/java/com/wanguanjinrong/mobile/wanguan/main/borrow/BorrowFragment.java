@@ -21,11 +21,8 @@ import com.wanguanjinrong.mobile.wanguan.R;
 import com.wanguanjinrong.mobile.wanguan.bean.BaseBean;
 import com.wanguanjinrong.mobile.wanguan.uitls.Global;
 import com.wanguanjinrong.mobile.wanguan.uitls.Utils;
-import com.wanguanjinrong.mobile.wanguan.uitls.eventbus.event.HttpEvent;
-import com.wanguanjinrong.mobile.wanguan.uitls.http.HttpTask;
+import com.wanguanjinrong.mobile.wanguan.uitls.http.HttpListener;
 import com.wanguanjinrong.mobile.wanguan.uitls.ui.BaseFragment;
-import com.wanguanjinrong.mobile.wanguan.uitls.ui.DialogListener;
-import org.apache.commons.lang3.ArrayUtils;
 import org.apache.commons.lang3.StringUtils;
 
 import java.util.HashMap;
@@ -94,24 +91,22 @@ public class BorrowFragment extends BaseFragment implements Toolbar.OnMenuItemCl
         if (!Utils.isMobileNumber(mEtBorrowPhone.getText().toString())) {
             showToast("请输入正确的手机号");
         } else {
-            new HttpTask(_mActivity, Global.SEND_REGISTER_CODE_MSG, Global.SEND_REGISTER_CODE_TAG,
-                    "{\"mobile\":\"" + mEtBorrowPhone.getText().toString() + "\"}").execute();
-        }
-    }
-
-    @Subscribe
-    public void onHttpEvent(HttpEvent event) {
-        if (event == null || StringUtils.isEmpty(event.getResponse())) {
-            showToast("网络连接错误，请稍后重试。");
-        } else {
-            if (StringUtils.equalsIgnoreCase(Global.SEND_REGISTER_CODE_TAG, event.getTag())) {
-                BaseBean bean = new Gson().fromJson(event.getResponse(), BaseBean.class);
-                if (bean.getResponse_code() != 1) {
-                    showToast(bean.getShow_err());
-                } else {
-                    startTimer();
-                }
-            }
+            http(Global.NULL_MSG, Global.send_apply_verify_code_TAG,
+                    "{\"mobile\":\"" + mEtBorrowPhone.getText().toString() + "\"}", new HttpListener() {
+                        @Override
+                        public void onSuccess(String tag, String content) {
+                            if (StringUtils.isEmpty(content)) {
+                                showToast("网络连接错误，请稍后重试。");
+                            } else if (StringUtils.equalsIgnoreCase(Global.SEND_REGISTER_CODE_TAG,tag)){
+                                BaseBean bean = new Gson().fromJson(content, BaseBean.class);
+                                if (bean.getResponse_code() != 1) {
+                                    showToast(bean.getShow_err());
+                                } else {
+                                    startTimer();
+                                }
+                            }
+                        }
+                    });
         }
     }
 
@@ -157,9 +152,9 @@ public class BorrowFragment extends BaseFragment implements Toolbar.OnMenuItemCl
     }
 
     String[] houseAddressNames = {"上海", "北京",};
-    String[] houseAddressIDs = {"0", "1",};
+    String[] houseAddressIDs = {"1", "2",};
     String[] houseTypeNames = {"住宅", "商铺", "办公楼",};
-    String[] houseTypeIDs = {"0", "1", "2",};
+    String[] houseTypeIDs = {"1", "2","3",};
     String[] youwuNames = {"无", "有",};
     String[] youwuIDs = {"0", "1",};
 
@@ -216,15 +211,28 @@ public class BorrowFragment extends BaseFragment implements Toolbar.OnMenuItemCl
                     mEtBorrowHouseType.setError("请选择抵押物产权类型");
                     mEtBorrowHouseType.requestFocus();
                 }else {
-                    //// TODO: 2016/8/24
-//                    HashMap<String, String> map = new HashMap<>();
-//                    map.put("mobile", mEtBorrowName.getText().toString());
-//                    map.put("mobile", mEtBorrowPhone.getText().toString());
-//                    map.put("mobile_code", mEtBorrowCode.getText().toString());
-//                    map.put("user_pwd", mEtBorrowMoney.getText().toString());
-//                    map.put("user_pwd_confirm", mEtBorrowHouseAddress.getText().toString());
-//                    map.put("pay_pwd", mEtBorrowHouseType.getText().toString());
-//                    new HttpTask(_mActivity, Global.REGISTER_MSG, Global.REGISTER_TAG, new Gson().toJson(map)).execute();
+                    HashMap<String, String> map = new HashMap<>();
+                    map.put("borrow_name", mEtBorrowName.getText().toString());
+                    map.put("tel", mEtBorrowPhone.getText().toString());
+                    map.put("payauthcode", mEtBorrowCode.getText().toString());
+                    map.put("apply_amount", mEtBorrowMoney.getText().toString());
+                    map.put("pledge_area", (String)mEtBorrowHouseAddress.getTag());
+                    map.put("pledge_property", (String)mEtBorrowHouseType.getTag());
+                    http(Global.BORROW_MSG, Global.BORROW_TAG, new Gson().toJson(map), new HttpListener() {
+                        @Override
+                        public void onSuccess(String tag, String content) {
+                            if (StringUtils.isEmpty(content)) {
+                                showToast("网络连接错误，请稍后重试。");
+                            } else if (StringUtils.equalsIgnoreCase(Global.BORROW_TAG,tag)){
+                                BaseBean bean = new Gson().fromJson(content,BaseBean.class);
+                                if (bean.getResponse_code() != 1){
+                                    showToast(bean.getShow_err());
+                                }else {
+                                    showToast(bean.getShow_err());
+                                }
+                            }
+                        }
+                    });
                 }
                 break;
         }

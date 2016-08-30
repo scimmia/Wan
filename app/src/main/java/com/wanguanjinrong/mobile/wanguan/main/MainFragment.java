@@ -6,13 +6,11 @@ import android.view.View;
 import android.view.ViewGroup;
 import butterknife.BindView;
 import butterknife.ButterKnife;
-import com.ashokvarma.bottomnavigation.BadgeItem;
 import com.ashokvarma.bottomnavigation.BottomNavigationBar;
 import com.ashokvarma.bottomnavigation.BottomNavigationItem;
 import com.orhanobut.logger.Logger;
 import com.squareup.otto.Subscribe;
 import com.wanguanjinrong.mobile.wanguan.R;
-import com.wanguanjinrong.mobile.wanguan.login.ImageFragment;
 import com.wanguanjinrong.mobile.wanguan.main.borrow.BorrowFragment;
 import com.wanguanjinrong.mobile.wanguan.main.home.HomeFragment;
 import com.wanguanjinrong.mobile.wanguan.main.my.MyFragment;
@@ -74,11 +72,12 @@ public class MainFragment extends BaseFragment {
     private void initView(View view) {
         mBottomNavigationBar.setMode(BottomNavigationBar.MODE_FIXED);
         mBottomNavigationBar.setBackgroundStyle(BottomNavigationBar.BACKGROUND_STYLE_RIPPLE);
+        mBottomNavigationBar.setActiveColor(R.color.orange);
         mBottomNavigationBar
-                .addItem(new BottomNavigationItem(R.drawable.bottom_bar_1_press, "首页").setInactiveIconResource(R.drawable.bottom_bar_1_normal).setActiveColorResource(R.color.orange))
-                .addItem(new BottomNavigationItem(R.drawable.bottom_bar_2_press, "理财产品").setInactiveIconResource(R.drawable.bottom_bar_2_normal).setActiveColorResource(R.color.teal))
-                .addItem(new BottomNavigationItem(R.drawable.bottom_bar_5_press, "我要借款").setInactiveIconResource(R.drawable.bottom_bar_5_normal).setActiveColorResource(R.color.blue))
-                .addItem(new BottomNavigationItem(R.drawable.bottom_bar_3_press, "我的财富").setInactiveIconResource(R.drawable.bottom_bar_3_normal).setActiveColorResource(R.color.brown))
+                .addItem(new BottomNavigationItem(R.drawable.bottom_bar_1_press, "首页").setInactiveIconResource(R.drawable.bottom_bar_1_normal))
+                .addItem(new BottomNavigationItem(R.drawable.bottom_bar_2_press, "理财产品").setInactiveIconResource(R.drawable.bottom_bar_2_normal))
+                .addItem(new BottomNavigationItem(R.drawable.bottom_bar_5_press, "我要借款").setInactiveIconResource(R.drawable.bottom_bar_5_normal))
+                .addItem(new BottomNavigationItem(R.drawable.bottom_bar_3_press, "我的财富").setInactiveIconResource(R.drawable.bottom_bar_3_normal))
                 .initialise();
 
         mBottomNavigationBar.setTabSelectedListener(new BottomNavigationBar.OnTabSelectedListener(){

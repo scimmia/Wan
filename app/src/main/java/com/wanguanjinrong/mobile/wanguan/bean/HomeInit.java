@@ -301,8 +301,17 @@ public class HomeInit extends BaseBean {
             private int remain_time;
             private String borrow_amount_format;
             private String load_money_format;
+            private String need_money;
             private String rate_foramt;
             private String app_url;
+
+            public String getNeed_money() {
+                return need_money;
+            }
+
+            public void setNeed_money(String need_money) {
+                this.need_money = need_money;
+            }
 
             public String getDeal_status() {
                 return deal_status;

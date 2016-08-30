@@ -47,10 +47,10 @@ public class DingqiBuyFragment extends BaseFragment {
     TextView mTvDingqiBuyMoneyrate;
     @BindView(R.id.tv_dingqi_buy_days)
     TextView mTvDingqiBuyDays;
-    @BindView(R.id.tv_dingqi_buy_sellway)
-    TextView mTvDingqiBuySellway;
-    @BindView(R.id.tv_dingqi_buy_moneyleft)
-    TextView mTvDingqiBuyMoneyleft;
+    @BindView(R.id.tv_dingqi_buy_moneymin)
+    TextView mTvDingqiBuyMoneymin;
+    @BindView(R.id.tv_dingqi_buy_needmoney)
+    TextView mTvDingqiBuyNeedmoney;
     @BindView(R.id.et_dingqi_buy_money)
     EditText mEtDingqiBuyMoney;
     @BindView(R.id.tv_dingqi_buy_myleft)
@@ -116,10 +116,11 @@ public class DingqiBuyFragment extends BaseFragment {
             mTvDingqiBuyName.setText(mDingqilicai.getName());
             mTvDingqiBuyMoneyrate.setText(Html.fromHtml("<big><big>" + mDingqilicai.getMoneyRate() + "</big></big>%"));
             mTvDingqiBuyDays.setText(mDingqilicai.getDays() + "天");
-            mTvDingqiBuyMoneyleft.setText(Utils.moneyFormatWithYuan(mDingqilicai.getMoneyLeft()));
+            mTvDingqiBuyNeedmoney.setText(mDingqilicai.getMoneyLeft());
+            mTvDingqiBuyMoneymin.setText(Utils.moneyFormatWithYuan(mDingqilicai.getMoneyStart()));
             if (mLogin != null) {
                 mTvDingqiBuyMyleft.setText(mLogin.getUser_money_format());
-            }else {
+            } else {
                 mTvDingqiBuyMyleft.setText("请先登录");
             }
         }
@@ -143,10 +144,10 @@ public class DingqiBuyFragment extends BaseFragment {
     }
 
     @OnClick(R.id.btn_dingqi_buy)
-    public void onBuy(){
-        if (!Utils.isLogin(_mActivity)){
+    public void onBuy() {
+        if (!Utils.isLogin(_mActivity)) {
             BusProvider.getInstance().post(new StartBrotherEvent(LoginFragment.newInstance()));
-        }else if (StringUtils.isEmpty(mEtDingqiBuyMoney.getText().toString())){
+        } else if (StringUtils.isEmpty(mEtDingqiBuyMoney.getText().toString())) {
             mEtDingqiBuyMoney.setError("请输入投资金额");
             mEtDingqiBuyMoney.requestFocus();
 //        }else if (StringUtils.isEmpty(mEtAbcBankcardNo.getText().toString())){
@@ -155,10 +156,10 @@ public class DingqiBuyFragment extends BaseFragment {
 //        }else if (StringUtils.isEmpty(mEtAbcRealname.getText().toString())){
 //            mEtAbcRealname.setError("请输入姓名");
 //            mEtAbcRealname.requestFocus();
-        }else if (StringUtils.isEmpty(mEtDqPayPassword.getText().toString())){
+        } else if (StringUtils.isEmpty(mEtDqPayPassword.getText().toString())) {
             mEtDqPayPassword.setError("请输入支付密码");
             mEtDqPayPassword.requestFocus();
-        }else {
+        } else {
             HashMap<String, String> map = new HashMap<>();
             map.put("uid", mLogin.getId() + "");
             map.put("email", mLogin.getUser_name());
@@ -171,25 +172,24 @@ public class DingqiBuyFragment extends BaseFragment {
                 public void onSuccess(String tag, String content) {
                     if (StringUtils.isEmpty(content)) {
                         showToast("网络连接错误，请稍后重试。");
-                    } else if (StringUtils.equalsIgnoreCase(Global.DEAL_DOBID_TAG,tag)){
-                        Login bean = new Gson().fromJson(content,Login.class);
-                        if (bean.getResponse_code() != 1){
+                    } else if (StringUtils.equalsIgnoreCase(Global.DEAL_DOBID_TAG, tag)) {
+                        Login bean = new Gson().fromJson(content, Login.class);
+                        if (bean.getResponse_code() != 1) {
                             showToast(bean.getShow_err());
-                        }else {
-                            if (bean.getUser_login_status() != 1){
+                        } else {
+                            if (bean.getUser_login_status() != 1) {
                                 showToast(bean.getShow_err());
-                            }else {
+                            } else {
                                 showToast(bean.getShow_err());
                                 refreshLogin(new HttpListener() {
                                     @Override
                                     public void onSuccess(String tag, String content) {
                                         if (StringUtils.isEmpty(content)) {
                                             showToast("网络连接错误，请稍后重试。");
-                                        } else if (StringUtils.equalsIgnoreCase(Global.SEND_REGISTER_CODE_TAG,tag)){
+                                        } else {
                                             Login bean = new Gson().fromJson(content, Login.class);
-                                            if (bean.getResponse_code() == 1){
-                                                if (bean.getUser_login_status() == 1){
-                                                    bean.setUser_pwd(mLogin.getUser_pwd());
+                                            if (bean.getResponse_code() == 1) {
+                                                if (bean.getUser_login_status() == 1) {
                                                     Utils.login(_mActivity, bean);
                                                     mLogin = bean;
                                                     mTvDingqiBuyMyleft.setText(mLogin.getUser_money_format());
@@ -212,8 +212,8 @@ public class DingqiBuyFragment extends BaseFragment {
             mLogin = Utils.getLoginInfo(_mActivity);
             if (mLogin != null) {
                 mTvDingqiBuyMyleft.setText(mLogin.getUser_money_format());
-            }else {
-                mTvDingqiBuyMyleft.setText("请先登录");
+            } else {
+                showToast("请先登录");
             }
         }
     }

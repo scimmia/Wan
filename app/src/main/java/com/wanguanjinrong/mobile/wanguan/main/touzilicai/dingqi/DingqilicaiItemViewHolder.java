@@ -42,23 +42,4 @@ public class DingqilicaiItemViewHolder extends RecyclerView.ViewHolder{
         }
     }
     
-    public void setData(Dingqilicai dingqilicai){
-        mTvDingqiName.setText(dingqilicai.getName());
-        mTvDingqiId.setText(dingqilicai.getId());
-        mTvDingqiMoneyrate.setText(Html.fromHtml("<big><big>"+dingqilicai.getMoneyRate()+"</big></big>%"));
-        switch (dingqilicai.getBuyState()){
-            case 0:
-                mTvDingqiBuystate.setText("预购");
-                mTvDingqiBuystate.setTextColor(Color.RED);
-                break;
-            case 1:
-                mTvDingqiBuystate.setText("计息中");
-                mTvDingqiBuystate.setTextColor(Color.GRAY);
-                break;
-        }
-        mTvDingqiDays.setText(dingqilicai.getDays()+"天");
-        mTvDingqiMoneyleft.setText(String.format("%.2f万元",(dingqilicai.getMoneyLeft()/10000.0)));
-        mPbDingqiProgress.setProgress((int) (dingqilicai.getProgress()*100));
-        mTvDingqiProgress.setText((int) (dingqilicai.getProgress()*100)+"%");
-    }
 }

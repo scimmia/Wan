@@ -13,6 +13,7 @@ import butterknife.BindView;
 import butterknife.ButterKnife;
 import com.orhanobut.logger.Logger;
 import com.wanguanjinrong.mobile.wanguan.R;
+import com.wanguanjinrong.mobile.wanguan.uitls.Utils;
 import com.wanguanjinrong.mobile.wanguan.uitls.ui.listener.OnItemClickListener;
 
 import java.util.LinkedList;
@@ -61,18 +62,34 @@ public class DingqilicaiAdapter extends RecyclerView.Adapter<RecyclerView.ViewHo
         ((DingqilicaiItemViewHolder) holder).mTvDingqiMoneyrate.setText(Html.fromHtml("<big><big>"+dingqilicai.getMoneyRate()+"</big></big>%"));
         switch (dingqilicai.getBuyState()){
             case 0:
-                ((DingqilicaiItemViewHolder) holder).mTvDingqiBuystate.setText("预购");
-                ((DingqilicaiItemViewHolder) holder).mTvDingqiBuystate.setTextColor(Color.RED);
+                ((DingqilicaiItemViewHolder) holder).mTvDingqiBuystate.setText("待等材料");
+                ((DingqilicaiItemViewHolder) holder).mTvDingqiBuystate.setTextColor(Color.GRAY);
                 break;
             case 1:
-                ((DingqilicaiItemViewHolder) holder).mTvDingqiBuystate.setText("计息中");
-                ((DingqilicaiItemViewHolder) holder).mTvDingqiBuystate.setTextColor(Color.GRAY);
+                ((DingqilicaiItemViewHolder) holder).mTvDingqiBuystate.setText("进行中");
+                ((DingqilicaiItemViewHolder) holder).mTvDingqiBuystate.setTextColor(Color.RED);
+                break;
+            case 2:
+                ((DingqilicaiItemViewHolder) holder).mTvDingqiBuystate.setText("满标");
+                ((DingqilicaiItemViewHolder) holder).mTvDingqiBuystate.setTextColor(Color.BLUE);
+                break;
+            case 3:
+                ((DingqilicaiItemViewHolder) holder).mTvDingqiBuystate.setText("流标");
+                ((DingqilicaiItemViewHolder) holder).mTvDingqiBuystate.setTextColor(Color.YELLOW);
+                break;
+            case 4:
+                ((DingqilicaiItemViewHolder) holder).mTvDingqiBuystate.setText("还款中");
+                ((DingqilicaiItemViewHolder) holder).mTvDingqiBuystate.setTextColor(Color.BLACK);
+                break;
+            case 5:
+                ((DingqilicaiItemViewHolder) holder).mTvDingqiBuystate.setText("已还清");
+                ((DingqilicaiItemViewHolder) holder).mTvDingqiBuystate.setTextColor(Color.BLUE);
                 break;
         }
         ((DingqilicaiItemViewHolder) holder).mTvDingqiDays.setText(dingqilicai.getDays()+"天");
-        ((DingqilicaiItemViewHolder) holder).mTvDingqiMoneyleft.setText(String.format("%.2f万元",(dingqilicai.getMoneyLeft()/10000.0)));
-        ((DingqilicaiItemViewHolder) holder).mPbDingqiProgress.setProgress((int) (dingqilicai.getProgress()*100));
-        ((DingqilicaiItemViewHolder) holder).mTvDingqiProgress.setText((int) (dingqilicai.getProgress()*100)+"%");
+        ((DingqilicaiItemViewHolder) holder).mTvDingqiMoneyleft.setText(dingqilicai.getMoneyLeft());
+        ((DingqilicaiItemViewHolder) holder).mPbDingqiProgress.setProgress((int) (dingqilicai.getProgress()));
+        ((DingqilicaiItemViewHolder) holder).mTvDingqiProgress.setText(Utils.moneyFormat(dingqilicai.getProgress())+"%");
 
     }
 

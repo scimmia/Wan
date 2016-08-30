@@ -85,17 +85,16 @@
                     android:orientation="horizontal"
                     android:background="@android:color/background_light"
                     android:padding="@dimen/activity_horizontal_margin"
-                    android:visibility="gone"
             >
                 <TextView
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:text="@string/dingqi_buy_sellway"
+                        android:text="@string/dingqi_buy_needmoney"
                         android:textColor="@android:color/black"
                         android:layout_marginRight="@dimen/activity_horizontal_margin"
                 />
                 <TextView
-                        android:id="@+id/tv_dingqi_buy_sellway"
+                        android:id="@+id/tv_dingqi_buy_needmoney"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:textColor="@android:color/black"
@@ -107,73 +106,21 @@
                     android:layout_height="wrap_content"
                     android:orientation="horizontal"
                     android:background="@android:color/background_light"
-                    android:layout_marginTop="@dimen/activity_horizontal_margin"
-                    android:paddingLeft="@dimen/activity_horizontal_margin"
-                    android:paddingRight="@dimen/activity_horizontal_margin"
-                    android:paddingTop="@dimen/list_padding"
+                    android:padding="@dimen/activity_horizontal_margin"
             >
                 <TextView
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:text="@string/dingqi_buy_moneyleft"
+                        android:text="@string/dingqi_buy_moneymin"
                         android:textColor="@android:color/black"
                         android:layout_marginRight="@dimen/activity_horizontal_margin"
                 />
                 <TextView
-                        android:id="@+id/tv_dingqi_buy_moneyleft"
+                        android:id="@+id/tv_dingqi_buy_moneymin"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:textColor="@android:color/black"
                         android:layout_marginLeft="@dimen/activity_vertical_margin"
-                />
-            </LinearLayout>
-
-            <LinearLayout
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:orientation="horizontal"
-                    android:background="@android:color/background_light"
-                    android:paddingLeft="@dimen/activity_horizontal_margin"
-                    android:paddingRight="@dimen/activity_horizontal_margin"
-                    android:paddingBottom="@dimen/list_padding"
-            >
-                <TextView
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:text="@string/dingqi_buy_money"
-                        android:textColor="@android:color/black"
-                        android:textSize="@dimen/text_size_14"
-                        android:textAppearance="?android:attr/textAppearanceMedium"
-                        android:gravity="center"
-                        android:layout_gravity="center"
-                        android:layout_marginRight="@dimen/activity_horizontal_margin"
-                />
-
-                <EditText
-                        android:id="@+id/et_dingqi_buy_money"
-                        android:layout_width="0dp"
-                        android:layout_height="wrap_content"
-                        android:layout_weight="1"
-                        android:hint="@string/dingqi_buy_money_hint"
-                        android:textColor="@android:color/black"
-                        android:textSize="@dimen/text_size_14"
-                        android:textAppearance="?android:attr/textAppearanceMedium"
-                        android:inputType="numberDecimal"
-                        android:gravity="center"
-                        android:layout_gravity="center"
-                        android:layout_marginLeft="@dimen/activity_vertical_margin"
-                />
-                <TextView
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:text="@string/dingqi_buy_money_yuan"
-                        android:textColor="@android:color/black"
-                        android:textSize="@dimen/text_size_14"
-                        android:textAppearance="?android:attr/textAppearanceMedium"
-                        android:gravity="center"
-                        android:layout_gravity="center"
-                        android:layout_marginLeft="@dimen/activity_horizontal_margin"
-                        android:layout_marginRight="@dimen/activity_horizontal_margin"
                 />
             </LinearLayout>
 
@@ -183,7 +130,7 @@
                     android:orientation="horizontal"
                     android:background="@android:color/background_light"
                     android:padding="@dimen/activity_horizontal_margin"
-                    android:layout_marginTop="3dp"
+                    android:layout_marginTop="@dimen/size_16"
             >
                 <LinearLayout
                         android:layout_width="0dp"
@@ -240,6 +187,55 @@
                     android:layout_height="wrap_content"
                     android:orientation="horizontal"
                     android:background="@android:color/background_light"
+                    android:layout_marginTop="@dimen/size_4"
+                    android:paddingLeft="@dimen/activity_horizontal_margin"
+                    android:paddingRight="@dimen/activity_horizontal_margin"
+                    android:paddingBottom="@dimen/list_padding"
+            >
+                <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="@string/dingqi_buy_money"
+                        android:textColor="@android:color/black"
+                        android:textSize="@dimen/text_size_14"
+                        android:textAppearance="?android:attr/textAppearanceMedium"
+                        android:gravity="center"
+                        android:layout_gravity="center"
+                        android:layout_marginRight="@dimen/activity_horizontal_margin"
+                />
+
+                <EditText
+                        android:id="@+id/et_dingqi_buy_money"
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="1"
+                        android:hint="@string/dingqi_buy_money_hint"
+                        android:textColor="@android:color/black"
+                        android:textSize="@dimen/text_size_14"
+                        android:textAppearance="?android:attr/textAppearanceMedium"
+                        android:inputType="numberDecimal"
+                        android:gravity="center"
+                        android:layout_gravity="center"
+                        android:layout_marginLeft="@dimen/activity_vertical_margin"
+                />
+                <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="@string/dingqi_buy_money_yuan"
+                        android:textColor="@android:color/black"
+                        android:textSize="@dimen/text_size_14"
+                        android:textAppearance="?android:attr/textAppearanceMedium"
+                        android:gravity="center"
+                        android:layout_gravity="center"
+                        android:layout_marginLeft="@dimen/activity_horizontal_margin"
+                        android:layout_marginRight="@dimen/activity_horizontal_margin"
+                />
+            </LinearLayout>
+            <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="horizontal"
+                    android:background="@android:color/background_light"
                     android:paddingLeft="@dimen/activity_horizontal_margin"
                     android:paddingRight="@dimen/activity_horizontal_margin"
                     android:paddingBottom="@dimen/list_padding"
@@ -269,7 +265,22 @@
                         android:layout_gravity="center"
                         android:layout_marginLeft="@dimen/activity_vertical_margin"
                 />
+
+                <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:visibility="invisible"
+                        android:text="@string/dingqi_buy_money_yuan"
+                        android:textColor="@android:color/black"
+                        android:textSize="@dimen/text_size_14"
+                        android:textAppearance="?android:attr/textAppearanceMedium"
+                        android:gravity="center"
+                        android:layout_gravity="center"
+                        android:layout_marginLeft="@dimen/activity_horizontal_margin"
+                        android:layout_marginRight="@dimen/activity_horizontal_margin"
+                />
             </LinearLayout>
+
 
             <Button
                     android:id="@+id/btn_dingqi_buy"

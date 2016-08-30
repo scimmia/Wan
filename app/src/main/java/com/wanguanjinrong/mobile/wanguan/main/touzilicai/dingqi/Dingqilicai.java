@@ -12,7 +12,7 @@ public class Dingqilicai {
     int buyState;
     int days;
     double moneyStart;
-    double moneyLeft;
+    String moneyLeft;
     double moneyTotal;
     double progress;
     String itemUrl;
@@ -84,11 +84,11 @@ public class Dingqilicai {
         this.moneyStart = moneyStart;
     }
 
-    public double getMoneyLeft() {
+    public String getMoneyLeft() {
         return moneyLeft;
     }
 
-    public void setMoneyLeft(double moneyLeft) {
+    public void setMoneyLeft(String moneyLeft) {
         this.moneyLeft = moneyLeft;
     }
 
@@ -113,7 +113,7 @@ public class Dingqilicai {
         dingqilicai.setBuyState(r.nextInt(2));
         dingqilicai.setDays(r.nextInt(360));
         dingqilicai.setMoneyStart(moneyStarts[r.nextInt(moneyStarts.length)]);
-        dingqilicai.setMoneyLeft(10000+r.nextInt(36000));
+        dingqilicai.setMoneyLeft(""+(10000+r.nextInt(36000)));
         dingqilicai.setProgress(r.nextDouble());
 
         return dingqilicai;

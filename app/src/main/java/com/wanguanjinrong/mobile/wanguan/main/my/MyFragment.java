@@ -19,6 +19,7 @@ import com.wanguanjinrong.mobile.wanguan.account.PersonalInfoFragment;
 import com.wanguanjinrong.mobile.wanguan.bean.Login;
 import com.wanguanjinrong.mobile.wanguan.bean.UcCenter;
 import com.wanguanjinrong.mobile.wanguan.main.my.zijinguanli.ZijinguanliFragment;
+import com.wanguanjinrong.mobile.wanguan.main.touzilicai.dingqi.DingqiMyListFragment;
 import com.wanguanjinrong.mobile.wanguan.main.touzilicai.huoqi.HuoqiBuyFragment;
 import com.wanguanjinrong.mobile.wanguan.main.touzilicai.huoqi.HuoqiRedeemFragment;
 import com.wanguanjinrong.mobile.wanguan.uitls.Global;
@@ -74,7 +75,7 @@ public class MyFragment extends BaseFragment implements Toolbar.OnMenuItemClickL
 
     private void initView(View view) {
         mToolbar.setTitle("我的财富");
-        mToolbar.setBackgroundColor(0xFFf71e1a);
+        mToolbar.setBackgroundColor(Global.Toolbar_Color_Red);
         mToolbar.inflateMenu(R.menu.my);
         mToolbar.setOnMenuItemClickListener(this);
 
@@ -116,6 +117,11 @@ public class MyFragment extends BaseFragment implements Toolbar.OnMenuItemClickL
                     MyItem myItem = mItems.get(position -1);
                     switch (myItem.getTitleId()){
                         case R.string.item_my_bought:
+                            if (Utils.isLogin(_mActivity)){
+                                BusProvider.getInstance().post(new StartBrotherEvent(DingqiMyListFragment.newInstance()));
+                            }else {
+                                BusProvider.getInstance().post(new StartBrotherEvent(LoginFragment.newInstance()));
+                            }
                             break;
                         case R.string.item_my_huoqi:
                             BusProvider.getInstance().post(new TabSelectedEvent(1));

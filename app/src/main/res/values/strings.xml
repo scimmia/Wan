@@ -44,8 +44,10 @@
     <string name="dingqi_buy_moneyrate">年化利率</string>
     <string name="dingqi_buy_days">投资期限</string>
     <string name="dingqi_buy_sellway">还款方式</string>
+    <string name="dingqi_buy_needmoney">可投金额</string>
+    <string name="dingqi_buy_moneymin">起投金额</string>
     <string name="dingqi_buy_moneyleft">最大加入金额:</string>
-    <string name="dingqi_buy_money">金额</string>
+    <string name="dingqi_buy_money">金额\t\t</string>
     <string name="dingqi_buy_money_hint">请输入投资金额</string>
     <string name="dingqi_buy_money_yuan">元</string>
     <string name="dingqi_buy_myleft">可用余额</string>

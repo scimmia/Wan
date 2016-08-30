@@ -90,7 +90,7 @@ public class Login extends BaseBean{
     }
 
     public String getUser_pwd() {
-        return user_pwd;
+        return realPassword;
     }
 
     public void setUser_pwd(String user_pwd) {

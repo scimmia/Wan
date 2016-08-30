@@ -64,6 +64,10 @@ public class Utils {
         try {
             SharedPreferences.Editor editor = PreferenceManager.getDefaultSharedPreferences(context).edit();
             editor.putLong(Global.LOGIN_TIME,new Date().getTime());
+            Login login = getLoginInfo(context);
+            if (login != null && StringUtils.isEmpty(account.getRealPassword())){
+                account.setRealPassword(login.getRealPassword());
+            }
             editor.putString(Global.LOGIN_INFO,new Gson().toJson(account));
             editor.apply();
         } catch (Exception e) {
@@ -303,23 +307,4 @@ public class Utils {
         }
     }
 
-    public static Dingqilicai dealItemToDingqilicai(Deals.ItemBean dealListBean){
-        try {
-            Dingqilicai dingqilicai = new Dingqilicai();
-            dingqilicai.setId(dealListBean.getId());
-            dingqilicai.setName(dealListBean.getName());
-            dingqilicai.setMoneyRate(dealListBean.getRate());
-            dingqilicai.setBuyState(NumberUtils.toInt(dealListBean.getDeal_status()));
-            dingqilicai.setDays(NumberUtils.toInt(dealListBean.getDay()));
-            dingqilicai.setMoneyStart(NumberUtils.toDouble(dealListBean.getMin_loan_money()));
-            dingqilicai.setMoneyTotal(NumberUtils.toDouble(dealListBean.getBorrow_amount()));
-            dingqilicai.setMoneyLeft((int) (dingqilicai.getMoneyTotal() * dingqilicai.getProgress()));
-            dingqilicai.setProgress(dealListBean.getProgress_point());
-            dingqilicai.setItemUrl(dealListBean.getApp_url());
-            return dingqilicai;
-        } catch (Exception e) {
-            e.printStackTrace();
-            return null;
-        }
-    }
 }

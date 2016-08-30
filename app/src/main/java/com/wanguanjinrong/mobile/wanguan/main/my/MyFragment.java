@@ -28,7 +28,7 @@ import com.wanguanjinrong.mobile.wanguan.uitls.eventbus.event.HttpEvent;
 import com.wanguanjinrong.mobile.wanguan.uitls.eventbus.event.LoginEvent;
 import com.wanguanjinrong.mobile.wanguan.uitls.eventbus.event.StartBrotherEvent;
 import com.wanguanjinrong.mobile.wanguan.uitls.eventbus.event.TabSelectedEvent;
-import com.wanguanjinrong.mobile.wanguan.uitls.http.HttpTask;
+import com.wanguanjinrong.mobile.wanguan.uitls.http.HttpListener;
 import com.wanguanjinrong.mobile.wanguan.uitls.ui.BaseFragment;
 import android.os.Bundle;
 import android.view.LayoutInflater;
@@ -247,15 +247,23 @@ public class MyFragment extends BaseFragment implements Toolbar.OnMenuItemClickL
     }
 
     private void refreshUcCenter(){
+        refreshLogin(new HttpListener() {
+            @Override
+            public void onSuccess(String tag, String content) {
 
-        Login login = Utils.getLoginInfo(_mActivity);
-        if (login != null) {
-            HashMap<String, String> map = new HashMap<>();
-            map.put("uid",login.getId()+"");
-            map.put("email", login.getUser_name());
-            map.put("pwd", login.getUser_pwd());
-            new HttpTask(_mActivity, Global.UC_CENTER_MSG, Global.UC_CENTER_TAG, new Gson().toJson(map)).execute();
-        }
+                if (StringUtils.isEmpty(content)) {
+                    showToast("网络连接错误，请稍后重试。");
+                } else {
+                    Login bean = new Gson().fromJson(content, Login.class);
+                    if (bean.getResponse_code() == 1){
+                        if (bean.getUser_login_status() == 1){
+                            Utils.login(_mActivity, bean);
+                            mItemAdapter.notifyItemChanged(0);
+                        }
+                    }
+                }
+            }
+        });
     }
 
     @Subscribe

@@ -172,7 +172,7 @@ public class RegisterFragment extends BaseFragment {
                 } else {
                     showToast(bean.getShow_err());
 //                    bean.setUser_pwd("123321");
-                    bean.setUser_pwd(mEtRegisterPassword.getText().toString());
+                    bean.setRealPassword(mEtRegisterPassword.getText().toString());
                     Utils.login(_mActivity,bean);
                     startForResult(AddBankCardFragment.newInstance(), 1000);
                 }

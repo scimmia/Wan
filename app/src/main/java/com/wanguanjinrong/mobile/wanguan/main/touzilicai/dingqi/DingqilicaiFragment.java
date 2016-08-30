@@ -15,6 +15,7 @@ import com.google.gson.Gson;
 import com.orhanobut.logger.Logger;
 import com.wanguanjinrong.mobile.wanguan.R;
 import com.wanguanjinrong.mobile.wanguan.bean.Deals;
+import com.wanguanjinrong.mobile.wanguan.bean.HomeInit;
 import com.wanguanjinrong.mobile.wanguan.uitls.Global;
 import com.wanguanjinrong.mobile.wanguan.uitls.Utils;
 import com.wanguanjinrong.mobile.wanguan.uitls.eventbus.BusProvider;
@@ -145,8 +146,8 @@ public class DingqilicaiFragment extends BaseFragment implements SwipeRefreshLay
                         if (mPageCurrent == 1){
                             mItems.clear();
                         }
-                        for (Deals.ItemBean itemBean:bean.getItem()){
-                            mItems.add(Utils.dealItemToDingqilicai(itemBean));
+                        for (HomeInit.IndexListBean.DealListBean itemBean:bean.getItem()){
+                            mItems.add(Utils.homtItemToDingqilicai(itemBean));
                         }
                         mItemAdapter.notifyDataSetChanged();
                     }

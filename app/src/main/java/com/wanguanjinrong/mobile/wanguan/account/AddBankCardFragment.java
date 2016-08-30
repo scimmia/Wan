@@ -33,7 +33,7 @@ import java.util.TimerTask;
 /**
  * Created by A on 2016/8/24.
  */
-public class AddBankCardFragment extends BaseFragment implements HttpListener{
+public class AddBankCardFragment extends BaseFragment{
 
     SupportBank mSupportBank;
 
@@ -203,10 +203,28 @@ public class AddBankCardFragment extends BaseFragment implements HttpListener{
                     showToast(bean.getShow_err());
                 } else {
                     showToast(bean.getShow_err());
-                    HashMap<String,String> map = new HashMap<>();
-                    map.put("email",mLogin.getUser_name());
-                    map.put("pwd",mLogin.getUser_pwd());
-                    http(Global.LOGIN_REFRESH_MSG, Global.LOGIN_TAG,new Gson().toJson(map),this);
+                    refreshLogin(new HttpListener() {
+                        @Override
+                        public void onSuccess(String tag, String content) {
+                            if (StringUtils.isEmpty(content)) {
+                                showToast("网络连接错误，请稍后重试。");
+                            } else {
+                                Login bean = new Gson().fromJson(content,Login.class);
+                                if (bean.getResponse_code() != 1){
+                                    showToast(bean.getShow_err());
+                                }else {
+                                    if (bean.getUser_login_status() != 1){
+                                        showToast(bean.getShow_err());
+                                    }else {
+                                        Utils.login(_mActivity, bean);
+                                        Bundle bundle = new Bundle();
+                                        setFramgentResult(RESULT_OK, bundle);
+                                        pop();
+                                    }
+                                }
+                            }
+                        }
+                    });
                 }
             }
         }
@@ -262,25 +280,4 @@ public class AddBankCardFragment extends BaseFragment implements HttpListener{
         }, 0, 1000);
     }
 
-    @Override
-    public void onSuccess(String tag, String content) {
-        if (StringUtils.isEmpty(content)) {
-            showToast("网络连接错误，请稍后重试。");
-        } else if (StringUtils.equalsIgnoreCase(Global.LOGIN_TAG,tag)){
-            Login bean = new Gson().fromJson(content,Login.class);
-            if (bean.getResponse_code() != 1){
-                showToast(bean.getShow_err());
-            }else {
-                if (bean.getUser_login_status() != 1){
-                    showToast(bean.getShow_err());
-                }else {
-                    bean.setUser_pwd(mLogin.getUser_pwd());
-                    Utils.login(_mActivity, bean);
-                    Bundle bundle = new Bundle();
-                    setFramgentResult(RESULT_OK, bundle);
-                    pop();
-                }
-            }
-        }
-    }
 }

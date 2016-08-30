@@ -149,7 +149,7 @@ public class LoginFragment extends BaseFragment {
                     if (bean.getUser_login_status() != 1){
                         showToast(bean.getShow_err());
                     }else {
-                        bean.setUser_pwd(mEtLoginPassword.getText().toString());
+                        bean.setRealPassword(mEtLoginPassword.getText().toString());
                         Utils.login(_mActivity, bean);
                         hideSoftInput();
                         BusProvider.getInstance().post(new LoginEvent(Global.LoginStateIn));

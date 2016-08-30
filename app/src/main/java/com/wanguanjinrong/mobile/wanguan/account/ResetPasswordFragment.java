@@ -110,7 +110,7 @@ public class ResetPasswordFragment extends BaseFragment {
                 }else {
                     showToast(bean.getShow_err());
                     Login login = Utils.getLoginInfo(_mActivity);
-                    login.setUser_pwd(mEtRpPassword.getText().toString());
+                    login.setRealPassword(mEtRpPassword.getText().toString());
                     Utils.login(_mActivity,login);
                 }
             }

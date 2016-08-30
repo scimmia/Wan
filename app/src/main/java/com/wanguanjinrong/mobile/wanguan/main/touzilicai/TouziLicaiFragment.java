@@ -12,9 +12,9 @@ import android.view.View;
 import android.view.ViewGroup;
 
 import com.wanguanjinrong.mobile.wanguan.R;
-import com.wanguanjinrong.mobile.wanguan.login.DefaultFragment;
 import com.wanguanjinrong.mobile.wanguan.main.touzilicai.dingqi.DingqilicaiFragment;
 import com.wanguanjinrong.mobile.wanguan.main.touzilicai.huoqi.HuoqilicaiFragment;
+import com.wanguanjinrong.mobile.wanguan.main.touzilicai.zhuanrang.ZhuanrangListFragment;
 import com.wanguanjinrong.mobile.wanguan.uitls.ui.BaseFragment;
 import com.wanguanjinrong.mobile.wanguan.uitls.ui.SimpleFragmentPagerAdapter;
 import org.apache.commons.lang3.tuple.MutablePair;
@@ -52,6 +52,7 @@ public class TouziLicaiFragment extends BaseFragment {
         LinkedList<MutablePair<String,BaseFragment>> items = new LinkedList<>();
         items.add(new MutablePair<String, BaseFragment>("活期理财", HuoqilicaiFragment.newInstance()));
         items.add(new MutablePair<String, BaseFragment>("定期理财", DingqilicaiFragment.newInstance()));
+        items.add(new MutablePair<String, BaseFragment>("转让专区", ZhuanrangListFragment.newInstance()));
         pagerAdapter = new SimpleFragmentPagerAdapter(getChildFragmentManager(),items);
 
 //        pagerAdapter = new SimpleFragmentPagerAdapter(getFragmentManager());

@@ -71,5 +71,7 @@ public interface Global {
     String BORROW_MSG = "提交中...";
     String send_apply_verify_code_TAG = "send_apply_verify_code";
     String uc_invest_TAG = "uc_invest";
+    String transfer_TAG = "transfer";
+    String transfer_dobid_TAG = "transfer_dobid";
 
 }

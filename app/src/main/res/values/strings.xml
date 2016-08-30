@@ -52,7 +52,7 @@
     <string name="dingqi_buy_money_yuan">元</string>
     <string name="dingqi_buy_myleft">可用余额</string>
     <string name="dingqi_buy_myearn">到期收益</string>
-    <string name="dingqi_buy">加入</string>
+    <string name="dingqi_buy">购买</string>
     <string name="header_login">登陆/注册\n\n登陆后享更多优惠</string>
     <string name="item_my_bought">我的投资</string>
     <string name="item_my_buy">活期</string>

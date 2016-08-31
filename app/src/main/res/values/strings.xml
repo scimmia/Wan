@@ -62,6 +62,7 @@
     <string name="item_my_phone">客服电话</string>
     <string name="item_my_redeem">赎回</string>
     <string name="item_my_trade">我的交易</string>
+    <string name="item_my_money_log">账户日志</string>
     <string name="item_my_"></string>
     <string name="my_title_keyongyue">可用余额(元)</string>
     <string name="my_title_dongjiejine">冻结金额(元)</string>

@@ -138,7 +138,6 @@ public class ZhuanrangBuyFragment extends BaseFragment {
                     if (StringUtils.isEmpty(content)) {
                         showToast("网络连接错误，请稍后重试。");
                     } else {
-                        //// TODO: 2016/8/30  
                         Login bean = new Gson().fromJson(content, Login.class);
                         if (bean.getResponse_code() != 1) {
                             showToast(bean.getShow_err());

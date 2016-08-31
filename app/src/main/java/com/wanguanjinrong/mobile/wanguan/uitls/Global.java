@@ -73,5 +73,6 @@ public interface Global {
     String uc_invest_TAG = "uc_invest";
     String transfer_TAG = "transfer";
     String transfer_dobid_TAG = "transfer_dobid";
+    String uc_money_log_TAG = "uc_money_log";
 
 }

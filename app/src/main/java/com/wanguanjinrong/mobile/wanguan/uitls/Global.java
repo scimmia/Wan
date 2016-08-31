@@ -16,6 +16,9 @@ public interface Global {
     int resetPayPassword = 1;
     int forgetPassword = 0;
 
+    int typeTransferMyList = 1;
+    int typeTransferMyBought = 2;
+
     double LOGIN_AVALIBAL_TIME = 3600000 * 72;
     String LOGIN_TIME = "LOGIN_TIME";
     String LOGIN_INFO = "LOGIN_INFO";
@@ -74,5 +77,9 @@ public interface Global {
     String transfer_TAG = "transfer";
     String transfer_dobid_TAG = "transfer_dobid";
     String uc_money_log_TAG = "uc_money_log";
+    String uc_transfer_TAG = "uc_transfer";
+    String uc_transfer_buys_TAG = "uc_transfer_buys";
+    String uc_do_transfer_TAG = "uc_do_transfer";
+    String uc_do_reback_TAG = "uc_do_reback";
 
 }

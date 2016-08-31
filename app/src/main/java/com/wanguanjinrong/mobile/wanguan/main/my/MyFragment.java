@@ -19,6 +19,7 @@ import com.wanguanjinrong.mobile.wanguan.account.PersonalInfoFragment;
 import com.wanguanjinrong.mobile.wanguan.bean.Login;
 import com.wanguanjinrong.mobile.wanguan.bean.UcCenter;
 import com.wanguanjinrong.mobile.wanguan.main.my.moneylog.MoneyLogListFragment;
+import com.wanguanjinrong.mobile.wanguan.main.my.zhuanrang.ZhuanrangMyFragment;
 import com.wanguanjinrong.mobile.wanguan.main.touzilicai.dingqi.DingqiMyListFragment;
 import com.wanguanjinrong.mobile.wanguan.main.touzilicai.huoqi.HuoqiBuyFragment;
 import com.wanguanjinrong.mobile.wanguan.main.touzilicai.huoqi.HuoqiRedeemFragment;
@@ -84,6 +85,7 @@ public class MyFragment extends BaseFragment implements Toolbar.OnMenuItemClickL
 
         mItems = new LinkedList<>();
         mItems.add(new MyItem(R.string.item_my_bought,R.drawable.my_bought));
+        mItems.add(new MyItem(R.string.item_my_zhuanrang,R.drawable.my_transfer));
         mItems.add(new MyItem(R.string.item_my_huoqi,R.drawable.my_huoqi));
         mItems.add(new MyItem(R.string.item_my_money_log,R.drawable.my_trade));
         mItems.add(new MyItem(R.string.item_my_buy,R.drawable.my_buy));
@@ -123,8 +125,12 @@ public class MyFragment extends BaseFragment implements Toolbar.OnMenuItemClickL
                                 BusProvider.getInstance().post(new StartBrotherEvent(LoginFragment.newInstance()));
                             }
                             break;
-                        case R.string.item_my_huoqi:
-                            BusProvider.getInstance().post(new TabSelectedEvent(1));
+                        case R.string.item_my_zhuanrang:
+                            if (Utils.isLogin(_mActivity)){
+                                BusProvider.getInstance().post(new StartBrotherEvent(ZhuanrangMyFragment.newInstance()));
+                            }else {
+                                BusProvider.getInstance().post(new StartBrotherEvent(LoginFragment.newInstance()));
+                            }
                             break;
                         case R.string.item_my_money_log:
                             if (Utils.isLogin(_mActivity)){

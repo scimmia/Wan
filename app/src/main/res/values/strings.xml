@@ -63,6 +63,9 @@
     <string name="item_my_redeem">赎回</string>
     <string name="item_my_trade">我的交易</string>
     <string name="item_my_money_log">账户日志</string>
+    <string name="item_my_zhuanrang">转让专区</string>
+    <string name="zhuanrang_sell_money">转让金额</string>
+    <string name="zhuanrang_sell_money_hint">请输入转让价格</string>
     <string name="item_my_"></string>
     <string name="my_title_keyongyue">可用余额(元)</string>
     <string name="my_title_dongjiejine">冻结金额(元)</string>

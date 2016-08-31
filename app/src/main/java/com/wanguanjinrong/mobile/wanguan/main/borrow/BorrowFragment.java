@@ -19,6 +19,7 @@ import com.rengwuxian.materialedittext.MaterialEditText;
 import com.squareup.otto.Subscribe;
 import com.wanguanjinrong.mobile.wanguan.R;
 import com.wanguanjinrong.mobile.wanguan.bean.BaseBean;
+import com.wanguanjinrong.mobile.wanguan.bean.Login;
 import com.wanguanjinrong.mobile.wanguan.uitls.Global;
 import com.wanguanjinrong.mobile.wanguan.uitls.Utils;
 import com.wanguanjinrong.mobile.wanguan.uitls.http.HttpListener;
@@ -67,6 +68,12 @@ public class BorrowFragment extends BaseFragment implements Toolbar.OnMenuItemCl
         mToolbar.setTitle("我要借款");
         mToolbar.inflateMenu(R.menu.borrow);
         mToolbar.setOnMenuItemClickListener(this);
+
+        Login login = Utils.getLoginInfo(_mActivity);
+        if (login != null){
+            mEtBorrowName.setText(login.getReal_name());
+            mEtBorrowPhone.setText(login.getMobile());
+        }
     }
 
     @Override
@@ -97,7 +104,7 @@ public class BorrowFragment extends BaseFragment implements Toolbar.OnMenuItemCl
                         public void onSuccess(String tag, String content) {
                             if (StringUtils.isEmpty(content)) {
                                 showToast("网络连接错误，请稍后重试。");
-                            } else if (StringUtils.equalsIgnoreCase(Global.SEND_REGISTER_CODE_TAG,tag)){
+                            } else {
                                 BaseBean bean = new Gson().fromJson(content, BaseBean.class);
                                 if (bean.getResponse_code() != 1) {
                                     showToast(bean.getShow_err());
@@ -223,12 +230,16 @@ public class BorrowFragment extends BaseFragment implements Toolbar.OnMenuItemCl
                         public void onSuccess(String tag, String content) {
                             if (StringUtils.isEmpty(content)) {
                                 showToast("网络连接错误，请稍后重试。");
-                            } else if (StringUtils.equalsIgnoreCase(Global.BORROW_TAG,tag)){
+                            } else {
                                 BaseBean bean = new Gson().fromJson(content,BaseBean.class);
                                 if (bean.getResponse_code() != 1){
                                     showToast(bean.getShow_err());
                                 }else {
                                     showToast(bean.getShow_err());
+                                    mEtBorrowCode.setText("");
+                                    mEtBorrowMoney.setText("");
+                                    mEtBorrowHouseAddress.setText("");
+                                    mEtBorrowHouseType.setText("");
                                 }
                             }
                         }

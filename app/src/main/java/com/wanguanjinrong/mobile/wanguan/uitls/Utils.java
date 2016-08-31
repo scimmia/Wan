@@ -291,7 +291,12 @@ public class Utils {
             dingqilicai.setName(dealListBean.getName());
             dingqilicai.setMoneyRate(dealListBean.getRate());
             dingqilicai.setBuyState(NumberUtils.toInt(dealListBean.getDeal_status()));
-            dingqilicai.setDays(NumberUtils.toInt(dealListBean.getDay()));
+            int days = NumberUtils.toInt(dealListBean.getRepay_time(),0);
+            int daysType = NumberUtils.toInt(dealListBean.getRepay_time_type(),0);
+            if (daysType == 1){
+                days = days * 30;
+            }
+            dingqilicai.setDays(days);
             dingqilicai.setMoneyStart(NumberUtils.toDouble(dealListBean.getMin_loan_money()));
             dingqilicai.setMoneyTotal(NumberUtils.toDouble(dealListBean.getBorrow_amount()));
             dingqilicai.setMoneyLeft(dealListBean.getNeed_money());
@@ -311,7 +316,12 @@ public class Utils {
             dingqilicai.setName(dealListBean.getName());
             dingqilicai.setMoneyRate(dealListBean.getRate());
             dingqilicai.setBuyState(NumberUtils.toInt(dealListBean.getDeal_status()));
-            dingqilicai.setDays(NumberUtils.toInt(dealListBean.getDay()));
+            int days = NumberUtils.toInt(dealListBean.getRepay_time(),0);
+            int daysType = NumberUtils.toInt(dealListBean.getRepay_time_type(),0);
+            if (daysType == 1){
+                days = days * 30;
+            }
+            dingqilicai.setDays(days);
             dingqilicai.setMoneyStart(NumberUtils.toDouble(dealListBean.getMin_loan_money()));
             dingqilicai.setMoneyTotal(NumberUtils.toDouble(dealListBean.getBorrow_amount()));
             dingqilicai.setMoneyLeft(dealListBean.getNeed_money());

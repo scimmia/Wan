@@ -61,7 +61,11 @@ public class DingqiMyAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolde
         MyViewHolder myViewHolder = (MyViewHolder) holder;
         myViewHolder.mTvDingqiName.setText(dingqilicai.getName());
         myViewHolder.mTvDingqiMyPay.setText(Html.fromHtml("我的投资<br><big>"+dingqilicai.getU_load_money_format()+"</big>"));
-        myViewHolder.mTvDingqiMyDays.setText(Html.fromHtml("投资期限<br><big><big>"+dingqilicai.getRepay_time_type()+"</big></big>天"));
+        if (NumberUtils.toInt(dingqilicai.getRepay_time_type(),0) == 1){
+            myViewHolder.mTvDingqiMyDays.setText(Html.fromHtml("投资期限<br><big><big>"+dingqilicai.getRepay_time()+"</big></big>月"));
+        }else {
+            myViewHolder.mTvDingqiMyDays.setText(Html.fromHtml("投资期限<br><big><big>"+dingqilicai.getRepay_time()+"</big></big>天"));
+        }
         myViewHolder.mTvDingqiMyGots.setText(Html.fromHtml("年化收益<br><big><big>"+dingqilicai.getRate_foramt()+"</big></big>%"));
         switch (NumberUtils.toInt(dingqilicai.getDeal_status(),0)) {
             case 0:

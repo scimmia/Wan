@@ -258,7 +258,11 @@ public class HomeAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder>{
                     mTvDingqiBuystate.setTextColor(Color.RED);
                     break;
             }
-            mTvDingqiDays.setText(dealListBean.getDay()+"天");
+            if (NumberUtils.toInt(dealListBean.getRepay_time_type(),0) == 1){
+                mTvDingqiDays.setText(dealListBean.getRepay_time()+"月");
+            }else {
+                mTvDingqiDays.setText(dealListBean.getRepay_time()+"天");
+            }
             mTvDingqiMoneyleft.setText(dealListBean.getBorrow_amount_format());
             mPbDingqiProgress.setProgress((int) (dealListBean.getProgress_point()*100));
             mTvDingqiProgress.setText((int) (dealListBean.getProgress_point()*100)+"%");

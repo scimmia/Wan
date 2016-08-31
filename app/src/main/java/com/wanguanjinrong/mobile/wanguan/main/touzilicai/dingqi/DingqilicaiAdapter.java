@@ -86,7 +86,12 @@ public class DingqilicaiAdapter extends RecyclerView.Adapter<RecyclerView.ViewHo
                 ((DingqilicaiItemViewHolder) holder).mTvDingqiBuystate.setTextColor(Color.BLUE);
                 break;
         }
-        ((DingqilicaiItemViewHolder) holder).mTvDingqiDays.setText(dingqilicai.getDays()+"天");
+        int days = dingqilicai.getDays();
+        if (days>0 && days%30 == 0){
+            ((DingqilicaiItemViewHolder) holder).mTvDingqiDays.setText((days/30)+"月");
+        }else {
+            ((DingqilicaiItemViewHolder) holder).mTvDingqiDays.setText(dingqilicai.getDays()+"天");
+        }
         ((DingqilicaiItemViewHolder) holder).mTvDingqiMoneyleft.setText(dingqilicai.getMoneyLeft());
         ((DingqilicaiItemViewHolder) holder).mPbDingqiProgress.setProgress((int) (dingqilicai.getProgress()));
         ((DingqilicaiItemViewHolder) holder).mTvDingqiProgress.setText(Utils.moneyFormat(dingqilicai.getProgress())+"%");

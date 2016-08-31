@@ -37,7 +37,7 @@ public class Login extends BaseBean{
     private String mobile;
     private String lock_money;
     private String lock_money_format;
-    private int total_money;
+    private double total_money;
     private String total_money_format;
     private String realPassword;
 
@@ -161,11 +161,11 @@ public class Login extends BaseBean{
         this.lock_money_format = lock_money_format;
     }
 
-    public int getTotal_money() {
+    public double getTotal_money() {
         return total_money;
     }
 
-    public void setTotal_money(int total_money) {
+    public void setTotal_money(double total_money) {
         this.total_money = total_money;
     }
 

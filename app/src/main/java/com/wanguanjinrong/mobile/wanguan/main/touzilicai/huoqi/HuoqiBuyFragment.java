@@ -9,9 +9,13 @@ import android.widget.Button;
 import android.widget.TextView;
 import butterknife.BindView;
 import butterknife.ButterKnife;
+import butterknife.OnClick;
 import butterknife.Unbinder;
 import com.wanguanjinrong.mobile.wanguan.R;
+import com.wanguanjinrong.mobile.wanguan.main.MainFragment;
 import com.wanguanjinrong.mobile.wanguan.uitls.Utils;
+import com.wanguanjinrong.mobile.wanguan.uitls.eventbus.BusProvider;
+import com.wanguanjinrong.mobile.wanguan.uitls.eventbus.event.StartBrotherEvent;
 import com.wanguanjinrong.mobile.wanguan.uitls.ui.BaseFragment;
 
 /**
@@ -69,5 +73,11 @@ public class HuoqiBuyFragment extends BaseFragment {
         if (unbinder != null) {
             unbinder.unbind();
         }
+    }
+
+    @OnClick(R.id.btn_huoqi_buy)
+    public void onBuy(){
+        //// TODO: 2016/9/1  
+        BusProvider.getInstance().post(new StartBrotherEvent(MainFragment.newInstance()));
     }
 }

@@ -18,8 +18,8 @@ import com.wanguanjinrong.mobile.wanguan.main.touzilicai.dingqi.DingqiDetailFrag
 import com.wanguanjinrong.mobile.wanguan.main.touzilicai.dingqi.Dingqilicai;
 import com.wanguanjinrong.mobile.wanguan.uitls.Global;
 import com.wanguanjinrong.mobile.wanguan.uitls.TestUtils;
+import com.wanguanjinrong.mobile.wanguan.uitls.Utils;
 import com.wanguanjinrong.mobile.wanguan.uitls.eventbus.BusProvider;
-import com.wanguanjinrong.mobile.wanguan.uitls.eventbus.event.HttpEvent;
 import com.wanguanjinrong.mobile.wanguan.uitls.eventbus.event.StartBrotherEvent;
 import com.wanguanjinrong.mobile.wanguan.uitls.http.HttpListener;
 import com.wanguanjinrong.mobile.wanguan.uitls.http.HttpTask;
@@ -82,15 +82,15 @@ public class HomeFragment extends BaseFragment {
                 Logger.e(position +"");
                 if (position == 0){
                     Logger.e("banner clicked");
-                }else if (position == 1){
-                    Logger.e("gonggao clicked");
-                    BusProvider.getInstance().post(new StartBrotherEvent(GonggaoListFragment.newInstance()));
+//                }else if (position == 1){
+//                    Logger.e("gonggao clicked");
+//                    BusProvider.getInstance().post(new StartBrotherEvent(GonggaoListFragment.newInstance()));
                 }else {
                     int temp = position - HomeAdapter.space;
                     if (temp >= 0 && temp < mItems.size()) {
 //                        BusProvider.getInstance().post(new StartBrotherEvent(DingqiBuyFragment.newInstance(mItems.get(temp))));
                         HomeInit.IndexListBean.DealListBean dealListBean = mHomeInit.getIndex_list().getDeal_list().get(temp);
-                        BusProvider.getInstance().post(new StartBrotherEvent(DingqiDetailFragment.newInstance(dealListBean.getName(),dealListBean.getApp_url())));
+                        BusProvider.getInstance().post(new StartBrotherEvent(DingqiDetailFragment.newInstance(Utils.homtItemToDingqilicai(dealListBean))));
                     }
                 }
             }

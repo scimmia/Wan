@@ -8,6 +8,7 @@ import java.io.File;
  */
 public interface Global {
     String isFirstRun = "isFirstRun";
+    String version = "1";
 
     int ResultCancel = 10001;
     int LoginStateIn = 1;
@@ -82,6 +83,7 @@ public interface Global {
     String uc_do_transfer_TAG = "uc_do_transfer";
     String uc_do_reback_TAG = "uc_do_reback";
     String uc_do_reback_MSG = "撤销中...";
+    String version_TAG = "version";
 
     enum popEvent{
         MyZhuanrangSell, MyZhuanrangDetail,MyZhuanranglist,

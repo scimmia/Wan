@@ -1,5 +1,9 @@
 package com.wanguanjinrong.mobile.wanguan.main;
 
+import android.app.AlertDialog;
+import android.content.DialogInterface;
+import android.content.Intent;
+import android.net.Uri;
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -8,17 +12,25 @@ import butterknife.BindView;
 import butterknife.ButterKnife;
 import com.ashokvarma.bottomnavigation.BottomNavigationBar;
 import com.ashokvarma.bottomnavigation.BottomNavigationItem;
+import com.google.gson.Gson;
 import com.orhanobut.logger.Logger;
 import com.squareup.otto.Subscribe;
 import com.wanguanjinrong.mobile.wanguan.R;
+import com.wanguanjinrong.mobile.wanguan.bean.Version;
 import com.wanguanjinrong.mobile.wanguan.main.borrow.BorrowFragment;
 import com.wanguanjinrong.mobile.wanguan.main.home.HomeFragment;
 import com.wanguanjinrong.mobile.wanguan.main.my.MyFragment;
 import com.wanguanjinrong.mobile.wanguan.main.touzilicai.TouziLicaiFragment;
+import com.wanguanjinrong.mobile.wanguan.uitls.Global;
+import com.wanguanjinrong.mobile.wanguan.uitls.eventbus.event.HttpEvent;
 import com.wanguanjinrong.mobile.wanguan.uitls.eventbus.event.StartBrotherEvent;
 import com.wanguanjinrong.mobile.wanguan.uitls.eventbus.event.TabSelectedEvent;
+import com.wanguanjinrong.mobile.wanguan.uitls.http.HttpDownloadTask;
+import com.wanguanjinrong.mobile.wanguan.uitls.http.HttpListener;
 import com.wanguanjinrong.mobile.wanguan.uitls.ui.BaseFragment;
 import me.yokeyword.fragmentation.SupportFragment;
+import org.apache.commons.lang3.StringUtils;
+import java.io.File;
 
 public class MainFragment extends BaseFragment {
 
@@ -95,6 +107,7 @@ public class MainFragment extends BaseFragment {
                 Logger.e(mBottomNavigationBar.getCurrentSelectedPosition()+"onTabReselected---"+position);
             }
         });
+        checkUpdate();
     }
 
     @Subscribe
@@ -109,6 +122,60 @@ public class MainFragment extends BaseFragment {
     public void onStartBrother(StartBrotherEvent event){
         if (event != null && event.targetFragment != null){
             start(event.targetFragment);
+        }
+    }
+
+    void checkUpdate(){
+        http("", Global.version_TAG, "{\"dev_type\":\"android\",\"version\":\""+Global.version+"\"}", new HttpListener() {
+            @Override
+            public void onSuccess(String tag, String content) {
+                if (StringUtils.isNotEmpty(content)) {
+                    try {
+                        final Version bean = new Gson().fromJson(content, Version.class);
+                        if (bean.getResponse_code() == 1) {
+                            if (StringUtils.isNoneEmpty(bean.getFilename())
+                                    && StringUtils.equalsIgnoreCase("1",bean.getHasfile())) {
+                                new AlertDialog.Builder(_mActivity)
+                                        .setTitle("升级信息提示")
+                                        .setMessage("发现新版本："+bean.getServerVersion()
+                                                +"\n更新内容："+bean.getAndroid_upgrade())
+                                        .setNegativeButton("现在升级", new DialogInterface.OnClickListener() {
+                                            @Override
+                                            public void onClick(DialogInterface dialog, int which) {
+                                                new HttpDownloadTask(
+                                                        _mActivity,Global.DownloadNewFile_MSG,Global.DownloadNewFile_TAG,
+                                                        bean.getFilename(),
+                                                        Global.updateFolder+"Wanguan.apk").execute();
+                                            }
+                                        })
+                                        .setPositiveButton("以后再说",null)
+                                        .setCancelable(false)
+                                        .show();
+                            }
+                        }
+                    } catch (Exception e) {
+                        e.printStackTrace();
+                    }
+                }
+            }
+        });
+    }
+    @Subscribe
+    public void onHttpEvent(HttpEvent event){
+        if (event == null || StringUtils.isEmpty(event.getResponse())) {
+            showToast("网络连接错误，请稍后重试。");
+        } else{
+            if (StringUtils.equalsIgnoreCase(Global.DownloadNewFile_TAG,event.getTag())){
+                try {
+                    if (StringUtils.isNotEmpty(event.getResponse())) {
+                        Intent intent = new Intent(Intent.ACTION_VIEW);
+                        intent.setDataAndType(Uri.fromFile(new File(event.getResponse())), "application/vnd.android.package-archive");
+                        startActivity(intent);
+                    }
+                } catch (Exception e) {
+                    e.printStackTrace();
+                }
+            }
         }
     }
 }

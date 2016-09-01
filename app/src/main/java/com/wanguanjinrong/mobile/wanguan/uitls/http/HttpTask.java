@@ -42,7 +42,6 @@ public class HttpTask extends AsyncTask<Void,Void,String>{
             this.mJson = "";
         }
         mHttpListener = httpListener;
-        Logger.e(mAct+"---"+mJson);
         this.mUrl = "http://ceshi.wanguanjinrong.com/mapi/index.php?i_type=1&r_type=1&act="+mAct;
 //        this.mUrl = "http://192.168.0.167/mapi/index.php"+"?act="+mAct+"&i_type=1&r_type=1";
 //        this.mUrl = "http://192.168.0.167/wanguan/mapi/index.php"+"?act="+mAct+"&i_type=1&r_type=1";
@@ -80,7 +79,7 @@ public class HttpTask extends AsyncTask<Void,Void,String>{
                 Response response = okHttpClient.newCall(request).execute();
                 if(response.isSuccessful()){
                     String temp = response.body().string();
-                    Logger.e(temp);
+                    Logger.e(mTag+"---\n"+mJson+"---\n"+temp);
                     return temp;
                 }
             } catch (IOException e) {

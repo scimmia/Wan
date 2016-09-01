@@ -25,7 +25,7 @@ public class SplashActivity extends AppCompatActivity {
         @Override
         protected Object doInBackground(Object[] params) {
             try{
-                Thread.sleep(1000);
+                Thread.sleep(2000);
             } catch (InterruptedException e) {
                 e.printStackTrace();
             }
@@ -39,6 +39,9 @@ public class SplashActivity extends AppCompatActivity {
                 int savedVersion = sharedPreferences.getInt(Global.isFirstRun,0);
                 int currentVersion = getPackageManager().getPackageInfo(getPackageName(),0).versionCode;
                 if (savedVersion < currentVersion){
+                    SharedPreferences.Editor editor = sharedPreferences.edit();
+                    editor.putInt(Global.isFirstRun,currentVersion);
+                    editor.commit();
                     Intent intent = new Intent(SplashActivity.this, IntroActivity.class);
                     intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_EXCLUDE_FROM_RECENTS);
                     startActivity(intent);

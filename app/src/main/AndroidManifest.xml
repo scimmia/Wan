@@ -28,23 +28,17 @@
             android:theme="@style/AppTheme">
         <activity android:name=".SplashActivity"
                   android:theme="@style/FullscreenTheme">
-        </activity>
-        <activity android:name=".login.IntroActivity"
-                  android:theme="@style/FullscreenTheme">
-        </activity>
-        <activity android:name=".main.MainActivity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN"/>
 
                 <category android:name="android.intent.category.LAUNCHER"/>
             </intent-filter>
         </activity>
-
-        <activity
-                android:name="com.mob.tools.MobUIShell"
-                android:theme="@android:style/Theme.Translucent.NoTitleBar"
-                android:configChanges="keyboardHidden|orientation|screenSize"
-                android:windowSoftInputMode="stateHidden|adjustResize"/>
+        <activity android:name=".login.IntroActivity"
+                  android:theme="@style/FullscreenTheme">
+        </activity>
+        <activity android:name=".main.MainActivity">
+        </activity>
 
         <activity
                 android:name=".wxapi.WXEntryActivity"

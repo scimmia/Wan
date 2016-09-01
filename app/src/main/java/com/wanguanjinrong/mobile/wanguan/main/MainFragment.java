@@ -125,6 +125,20 @@ public class MainFragment extends BaseFragment {
         }
     }
 
+    // 再点一次退出程序时间设置
+    private static final long WAIT_TIME = 2000L;
+    private long TOUCH_TIME = 0;
+    @Override
+    public boolean onBackPressedSupport() {
+        if (System.currentTimeMillis() - TOUCH_TIME < WAIT_TIME) {
+            return false;
+        } else {
+            TOUCH_TIME = System.currentTimeMillis();
+            showToast("再按一次退出");
+            return true;
+        }
+    }
+
     void checkUpdate(){
         http("", Global.version_TAG, "{\"dev_type\":\"android\",\"version\":\""+Global.version+"\"}", new HttpListener() {
             @Override

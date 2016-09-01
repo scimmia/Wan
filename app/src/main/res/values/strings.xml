@@ -67,6 +67,7 @@
     <string name="zhuanrang_sell_money">转让金额</string>
     <string name="zhuanrang_sell_money_hint">请输入转让价格</string>
     <string name="zhuanrang_sell">转让</string>
+    <string name="item_my_deposit">充值</string>
     <string name="item_my_"></string>
     <string name="my_title_keyongyue">可用余额(元)</string>
     <string name="my_title_dongjiejine">冻结金额(元)</string>
@@ -100,4 +101,6 @@
     <string name="abc_realname">请输入您的姓名</string>
     <string name="abc_cardid">请输入您的身份证号</string>
     <string name="abc_phone">银行预留手机号</string>
+    <string name="press_again_exit">再按一次退出</string>
+    <string name="fd_deposit">请输入充值金额(元)</string>
 </resources>

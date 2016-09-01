@@ -15,10 +15,13 @@ import com.wanguanjinrong.mobile.wanguan.bean.Login;
 import com.wanguanjinrong.mobile.wanguan.uitls.Global;
 import com.wanguanjinrong.mobile.wanguan.uitls.Utils;
 import com.wanguanjinrong.mobile.wanguan.uitls.eventbus.BusProvider;
+import com.wanguanjinrong.mobile.wanguan.uitls.eventbus.event.FragmentFinishEvent;
+import com.wanguanjinrong.mobile.wanguan.uitls.eventbus.event.LoginEvent;
 import com.wanguanjinrong.mobile.wanguan.uitls.http.HttpListener;
 import com.wanguanjinrong.mobile.wanguan.uitls.http.HttpTask;
 import me.yokeyword.fragmentation.SupportFragment;
 import org.apache.commons.lang3.ArrayUtils;
+import org.apache.commons.lang3.StringUtils;
 
 import java.util.HashMap;
 
@@ -222,5 +225,31 @@ import com.wanguanjinrong.mobile.wanguan.R;
             map.put("pwd",login.getUser_pwd());
             http(Global.LOGIN_REFRESH_MSG, Global.LOGIN_TAG,new Gson().toJson(map),httpListener);
         }
+    }
+
+    public void refreshLogin(){
+        refreshLogin(new HttpListener() {
+            @Override
+            public void onSuccess(String tag, String content) {
+                if (StringUtils.isNotEmpty(content)) {
+                    try {
+                        Login bean = new Gson().fromJson(content, Login.class);
+                        if (bean.getResponse_code() == 1) {
+                            if (bean.getUser_login_status() == 1) {
+                                Utils.login(_mActivity, bean);
+                                BusProvider.getInstance().post(new LoginEvent(Global.LoginStateIn));
+                            }
+                        }
+                    } catch (Exception e) {
+                        e.printStackTrace();
+                    }
+                }
+            }
+        });
+    }
+
+    public void popResult(Global.popEvent popEvent){
+        BusProvider.getInstance().post(new FragmentFinishEvent(popEvent));
+        pop();
     }
 }

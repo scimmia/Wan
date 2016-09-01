@@ -81,5 +81,12 @@ public interface Global {
     String uc_transfer_buys_TAG = "uc_transfer_buys";
     String uc_do_transfer_TAG = "uc_do_transfer";
     String uc_do_reback_TAG = "uc_do_reback";
+    String uc_do_reback_MSG = "撤销中...";
 
+    enum popEvent{
+        MyZhuanrangSell, MyZhuanrangDetail,MyZhuanranglist,
+        ZhuanrangBuy, ZhuanrangDetail,Zhuanranglist,
+        DingqiBuy, DingqiDetail,Dingqilist,
+
+    };
 }

@@ -86,7 +86,7 @@ public class HomeInit extends BaseBean {
     }
 
     public static class IndexListBean {
-        private List<?> adv_list;
+        private List<AdvListBean> adv_list;
         /**
          * id : 20588
          * name : 借款测试1
@@ -249,11 +249,11 @@ public class HomeInit extends BaseBean {
 
         private List<DealListBean> deal_list;
 
-        public List<?> getAdv_list() {
+        public List<AdvListBean> getAdv_list() {
             return adv_list;
         }
 
-        public void setAdv_list(List<?> adv_list) {
+        public void setAdv_list(List<AdvListBean> adv_list) {
             this.adv_list = adv_list;
         }
 
@@ -264,7 +264,71 @@ public class HomeInit extends BaseBean {
         public void setDeal_list(List<DealListBean> deal_list) {
             this.deal_list = deal_list;
         }
+        public static class AdvListBean {
+            /**
+             * id : 34
+             * name : c
+             * img : http://ceshi.wanguanjinrong.com/mapi/../public/attachment/201609/01/11/57c7a2e31c80a_640x240.jpg
+             * type : 1
+             * open_url_type : 0
+             * data :
+             */
 
+            private String id;
+            private String name;
+            private String img;
+            private String type;
+            private String open_url_type;
+            private String data;
+
+            public String getId() {
+                return id;
+            }
+
+            public void setId(String id) {
+                this.id = id;
+            }
+
+            public String getName() {
+                return name;
+            }
+
+            public void setName(String name) {
+                this.name = name;
+            }
+
+            public String getImg() {
+                return img;
+            }
+
+            public void setImg(String img) {
+                this.img = img;
+            }
+
+            public String getType() {
+                return type;
+            }
+
+            public void setType(String type) {
+                this.type = type;
+            }
+
+            public String getOpen_url_type() {
+                return open_url_type;
+            }
+
+            public void setOpen_url_type(String open_url_type) {
+                this.open_url_type = open_url_type;
+            }
+
+            public String getData() {
+                return data;
+            }
+
+            public void setData(String data) {
+                this.data = data;
+            }
+        }
         public static class DealListBean {
             private String id;
             private String name;

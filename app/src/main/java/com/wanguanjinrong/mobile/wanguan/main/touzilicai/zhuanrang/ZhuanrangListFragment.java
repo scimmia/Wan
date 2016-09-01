@@ -13,6 +13,7 @@ import butterknife.ButterKnife;
 import butterknife.Unbinder;
 import com.google.gson.Gson;
 import com.orhanobut.logger.Logger;
+import com.squareup.otto.Subscribe;
 import com.wanguanjinrong.mobile.wanguan.R;
 import com.wanguanjinrong.mobile.wanguan.bean.Login;
 import com.wanguanjinrong.mobile.wanguan.bean.Transfer;
@@ -22,6 +23,7 @@ import com.wanguanjinrong.mobile.wanguan.main.touzilicai.dingqi.DingqiMyAdapter;
 import com.wanguanjinrong.mobile.wanguan.uitls.Global;
 import com.wanguanjinrong.mobile.wanguan.uitls.Utils;
 import com.wanguanjinrong.mobile.wanguan.uitls.eventbus.BusProvider;
+import com.wanguanjinrong.mobile.wanguan.uitls.eventbus.event.FragmentFinishEvent;
 import com.wanguanjinrong.mobile.wanguan.uitls.eventbus.event.StartBrotherEvent;
 import com.wanguanjinrong.mobile.wanguan.uitls.http.HttpListener;
 import com.wanguanjinrong.mobile.wanguan.uitls.ui.BaseFragment;
@@ -101,6 +103,19 @@ public class ZhuanrangListFragment extends BaseFragment implements SwipeRefreshL
         loadMoreData();
     }
 
+    @Subscribe
+    public void onPopEvent(FragmentFinishEvent event) {
+        if (event != null) {
+            switch (event.getPopEvent()){
+                case ZhuanrangDetail:
+                    mPageTotal = 0;
+                    mPageCurrent = 0;
+                    isLoadingMore = false;
+                    loadMoreData();
+                    break;
+            }
+        }
+    }
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {

@@ -11,11 +11,13 @@ import butterknife.BindView;
 import butterknife.ButterKnife;
 import butterknife.Unbinder;
 import com.google.gson.Gson;
+import com.squareup.otto.Subscribe;
 import com.wanguanjinrong.mobile.wanguan.R;
 import com.wanguanjinrong.mobile.wanguan.bean.Login;
 import com.wanguanjinrong.mobile.wanguan.bean.UcTransfer;
 import com.wanguanjinrong.mobile.wanguan.uitls.Global;
 import com.wanguanjinrong.mobile.wanguan.uitls.Utils;
+import com.wanguanjinrong.mobile.wanguan.uitls.eventbus.event.FragmentFinishEvent;
 import com.wanguanjinrong.mobile.wanguan.uitls.http.HttpListener;
 import com.wanguanjinrong.mobile.wanguan.uitls.ui.BaseFragment;
 import org.apache.commons.lang3.StringUtils;
@@ -114,7 +116,7 @@ public class ZhuanrangDetailFragment extends BaseFragment {
                                 map.put("email", login.getUser_name());
                                 map.put("pwd", login.getUser_pwd());
                                 map.put("dltid", mItemBean.getDltid());
-                                http(Global.DEAL_DOBID_MSG, Global.uc_do_reback_TAG, new Gson().toJson(map), new HttpListener() {
+                                http(Global.uc_do_reback_MSG, Global.uc_do_reback_TAG, new Gson().toJson(map), new HttpListener() {
                                     @Override
                                     public void onSuccess(String tag, String content) {
                                         if (StringUtils.isEmpty(content)) {
@@ -128,6 +130,7 @@ public class ZhuanrangDetailFragment extends BaseFragment {
                                                     showToast(bean.getShow_err());
                                                 } else {
                                                     showToast(bean.getShow_err());
+                                                    popResult(Global.popEvent.MyZhuanrangDetail);
                                                 }
                                             }
                                         }
@@ -140,7 +143,16 @@ public class ZhuanrangDetailFragment extends BaseFragment {
             });
         }
     }
-
+    @Subscribe
+    public void onPopEvent(FragmentFinishEvent event) {
+        if (event != null) {
+            switch (event.getPopEvent()){
+                case MyZhuanrangSell:
+                    popResult(Global.popEvent.MyZhuanrangDetail);
+                    break;
+            }
+        }
+    }
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {

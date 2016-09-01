@@ -4,7 +4,6 @@ import android.os.Bundle;
 import android.support.v4.widget.SwipeRefreshLayout;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
-import android.support.v7.widget.Toolbar;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -13,15 +12,14 @@ import butterknife.ButterKnife;
 import butterknife.Unbinder;
 import com.google.gson.Gson;
 import com.orhanobut.logger.Logger;
+import com.squareup.otto.Subscribe;
 import com.wanguanjinrong.mobile.wanguan.R;
 import com.wanguanjinrong.mobile.wanguan.bean.Login;
-import com.wanguanjinrong.mobile.wanguan.bean.UcMoneyLog;
 import com.wanguanjinrong.mobile.wanguan.bean.UcTransfer;
-import com.wanguanjinrong.mobile.wanguan.main.my.moneylog.MoneyLogAdapter;
-import com.wanguanjinrong.mobile.wanguan.main.my.moneylog.MoneyLogListFragment;
 import com.wanguanjinrong.mobile.wanguan.uitls.Global;
 import com.wanguanjinrong.mobile.wanguan.uitls.Utils;
 import com.wanguanjinrong.mobile.wanguan.uitls.eventbus.BusProvider;
+import com.wanguanjinrong.mobile.wanguan.uitls.eventbus.event.FragmentFinishEvent;
 import com.wanguanjinrong.mobile.wanguan.uitls.eventbus.event.StartBrotherEvent;
 import com.wanguanjinrong.mobile.wanguan.uitls.http.HttpListener;
 import com.wanguanjinrong.mobile.wanguan.uitls.ui.BaseFragment;
@@ -105,7 +103,19 @@ public class ZhuanrangMyListFragment extends BaseFragment implements SwipeRefres
         });
         loadMoreData();
     }
-
+    @Subscribe
+    public void onLoginEvent(FragmentFinishEvent event) {
+        if (event != null) {
+            switch (event.getPopEvent()){
+                case MyZhuanrangDetail:
+                    mPageTotal = 0;
+                    mPageCurrent = 0;
+                    isLoadingMore = false;
+                    loadMoreData();
+                    break;
+            }
+        }
+    }
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {

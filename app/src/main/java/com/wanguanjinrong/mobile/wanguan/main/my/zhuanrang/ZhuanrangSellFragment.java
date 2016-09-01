@@ -26,7 +26,6 @@ import com.wanguanjinrong.mobile.wanguan.uitls.eventbus.event.StartBrotherEvent;
 import com.wanguanjinrong.mobile.wanguan.uitls.http.HttpListener;
 import com.wanguanjinrong.mobile.wanguan.uitls.ui.BaseFragment;
 import org.apache.commons.lang3.StringUtils;
-import org.apache.commons.lang3.math.NumberUtils;
 
 import java.util.HashMap;
 
@@ -149,23 +148,8 @@ public class ZhuanrangSellFragment extends BaseFragment {
                                 showToast(bean.getShow_err());
                             } else {
                                 showToast(bean.getShow_err());
-                                refreshLogin(new HttpListener() {
-                                    @Override
-                                    public void onSuccess(String tag, String content) {
-                                        if (StringUtils.isEmpty(content)) {
-                                            showToast("网络连接错误，请稍后重试。");
-                                        } else {
-                                            Login bean = new Gson().fromJson(content, Login.class);
-                                            if (bean.getResponse_code() == 1) {
-                                                if (bean.getUser_login_status() == 1) {
-                                                    Utils.login(_mActivity, bean);
-                                                    mLogin = bean;
-                                                    mTvZhuanrangBuyMyleft.setText(mLogin.getUser_money_format());
-                                                }
-                                            }
-                                        }
-                                    }
-                                });
+                                refreshLogin();
+                                popResult(Global.popEvent.MyZhuanrangSell);
                             }
                         }
                     }

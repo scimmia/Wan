@@ -32,7 +32,7 @@ public class HomeAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder>{
     final int gonggaoType = 1;
     final int detailType = 2;
 
-    final static int space = 2;
+    final static int space = 1;
     private ArrayList<String> mADUrls;
     private ArrayList<String> mGonggaos;
     private ArrayList<HomeInit.IndexListBean.DealListBean> mItems;
@@ -61,7 +61,9 @@ public class HomeAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder>{
             HomeInit.IndexListBean indexListBean = homeInit.getIndex_list();
             if (indexListBean != null){
                 if (indexListBean.getAdv_list() != null){
-
+                    for (HomeInit.IndexListBean.AdvListBean advListBean : indexListBean.getAdv_list()){
+                        mADUrls.add(advListBean.getImg());
+                    }
                 }
                 if (indexListBean.getDeal_list() != null){
                     mItems.addAll(indexListBean.getDeal_list());
@@ -125,8 +127,6 @@ public class HomeAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder>{
                     mADUrls.add("http://www.wanguanjinrong.com/UF/Uploads/Ad/20160608182523780.jpg");
                     mADUrls.add("http://www.wanguanjinrong.com/UF/Uploads/Ad/20160608182317357.jpg");
                     mADUrls.add("http://www.wanguanjinrong.com/UF/Uploads/Ad/20160608182152656.jpg");
-                    mADUrls.add("http://www.wanguanjinrong.com/UF/Uploads/Ad/2016070417481198.jpg");
-                    mADUrls.add("http://www.wanguanjinrong.com/UF/Uploads/Ad/20160704184329348.jpg");
                 }
                 ADPagerAdapter adPagerAdapter = new ADPagerAdapter(mContext);
                 adPagerAdapter.setData(mADUrls);
@@ -159,9 +159,9 @@ public class HomeAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder>{
             case 0:
                 result = headType;
                 break;
-            case 1:
-                result = gonggaoType;
-                break;
+//            case 1:
+//                result = gonggaoType;
+//                break;
             default:
                 result = detailType;
                 break;

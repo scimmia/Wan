@@ -237,7 +237,7 @@
                     android:id="@+id/btn_zhuanrang_buy"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:text="@string/dingqi_buy"
+                    android:text="@string/zhuanrang_sell"
                     android:textColor="@android:color/white"
                     android:textSize="@dimen/text_size_18"
                     android:background="@android:color/holo_red_dark"

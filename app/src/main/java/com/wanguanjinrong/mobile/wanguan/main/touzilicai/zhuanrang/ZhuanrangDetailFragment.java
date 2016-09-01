@@ -11,10 +11,12 @@ import butterknife.BindView;
 import butterknife.ButterKnife;
 import butterknife.Unbinder;
 import com.google.gson.Gson;
+import com.squareup.otto.Subscribe;
 import com.wanguanjinrong.mobile.wanguan.R;
 import com.wanguanjinrong.mobile.wanguan.bean.Transfer;
 import com.wanguanjinrong.mobile.wanguan.main.touzilicai.dingqi.DingqiDetailFragment;
 import com.wanguanjinrong.mobile.wanguan.uitls.Global;
+import com.wanguanjinrong.mobile.wanguan.uitls.eventbus.event.FragmentFinishEvent;
 import com.wanguanjinrong.mobile.wanguan.uitls.ui.BaseFragment;
 import org.apache.commons.lang3.StringUtils;
 
@@ -79,7 +81,16 @@ public class ZhuanrangDetailFragment extends BaseFragment {
             }
         });
     }
-
+    @Subscribe
+    public void onPopEvent(FragmentFinishEvent event) {
+        if (event != null) {
+            switch (event.getPopEvent()){
+                case ZhuanrangBuy:
+                    popResult(Global.popEvent.ZhuanrangDetail);
+                    break;
+            }
+        }
+    }
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {

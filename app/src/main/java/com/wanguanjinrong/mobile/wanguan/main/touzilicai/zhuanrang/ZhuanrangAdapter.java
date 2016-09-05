@@ -63,14 +63,14 @@ public class ZhuanrangAdapter extends RecyclerView.Adapter<RecyclerView.ViewHold
         myViewHolder.mTvTransferName.setText(itemBean.getName());
         myViewHolder.mTvTransferBenxi.setText(Html.fromHtml("本息合计<br><big>" + Utils.moneyFormat(itemBean.getAll_must_repay_money()) + "</big>元"));
         myViewHolder.mTvTransferPay.setText(Html.fromHtml("转让价<br><font color=\"red\"><big>" + Utils.moneyFormat(NumberUtils.toDouble(itemBean.getTransfer_amount())) + "</big></font>元"));
-        myViewHolder.mTvTransferGots.setText(Html.fromHtml("收益<br><font color=\"red\"><big>" + Utils.moneyFormat(itemBean.getTransfer_income()) + "</big></font>元"));
+        myViewHolder.mTvTransferGots.setText(Html.fromHtml("可赚取<br><font color=\"red\"><big>" + Utils.moneyFormat(itemBean.getTransfer_income()) + "</big></font>元"));
         myViewHolder.mTvTransferGotTime.setText(Html.fromHtml("到期时间:" + itemBean.getFinal_repay_time_format() + ""));
 
         myViewHolder.mTvTransferState.setText("");
         myViewHolder.mTvTransferState.setTextColor(Color.GRAY);
         if (StringUtils.equalsIgnoreCase(itemBean.getT_user_id(),"0")){
             if (StringUtils.equalsIgnoreCase(itemBean.getStatus(),"1")){
-                myViewHolder.mTvTransferState.setText("可转让");
+                myViewHolder.mTvTransferState.setText("转让中");
                 myViewHolder.mTvTransferState.setTextColor(Color.RED);
             }else if (StringUtils.equalsIgnoreCase(itemBean.getStatus(),"0")){
                 myViewHolder.mTvTransferState.setText("已撤销");

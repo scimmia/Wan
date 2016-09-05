@@ -74,14 +74,19 @@ public class ZhuanrangMyAdapter extends RecyclerView.Adapter<RecyclerView.ViewHo
 
         myViewHolder.mTvTransferState.setText(itemBean.getTras_status_format());
         myViewHolder.mTvTransferState.setTextColor(Color.GRAY);
+        myViewHolder.mTvTransferSell.setVisibility(View.GONE);
         if (StringUtils.equalsIgnoreCase("转让中",itemBean.getTras_status_format())){
             myViewHolder.mTvTransferState.setTextColor(Color.GRAY);
+            myViewHolder.mTvTransferSell.setVisibility(View.VISIBLE);
+            myViewHolder.mTvTransferSell.setText("转让价格:"+Utils.moneyFormatWithYuan(NumberUtils.toDouble(itemBean.getTransfer_amount())));
         }else if (StringUtils.equalsIgnoreCase("已撤销",itemBean.getTras_status_format())){
             myViewHolder.mTvTransferState.setTextColor(Color.RED);
         }else if (StringUtils.equalsIgnoreCase("可转让",itemBean.getTras_status_format())){
             myViewHolder.mTvTransferState.setTextColor(Color.RED);
         }else if (StringUtils.equalsIgnoreCase("已转让",itemBean.getTras_status_format())){
             myViewHolder.mTvTransferState.setTextColor(Color.BLUE);
+            myViewHolder.mTvTransferSell.setVisibility(View.VISIBLE);
+            myViewHolder.mTvTransferSell.setText("转让价格:"+Utils.moneyFormatWithYuan(NumberUtils.toDouble(itemBean.getTransfer_amount())));
         }
     }
 
@@ -101,6 +106,8 @@ public class ZhuanrangMyAdapter extends RecyclerView.Adapter<RecyclerView.ViewHo
         TextView mTvTransferGots;
         @BindView(R.id.tv_transfer_got_time)
         TextView mTvTransferGotTime;
+       @BindView(R.id.tv_transfer_sell)
+        TextView mTvTransferSell;
 
         MyViewHolder(View view) {
             super(view);

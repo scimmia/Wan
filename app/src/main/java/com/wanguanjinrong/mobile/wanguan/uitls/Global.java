@@ -81,6 +81,7 @@ public interface Global {
     String uc_transfer_TAG = "uc_transfer";
     String uc_transfer_buys_TAG = "uc_transfer_buys";
     String uc_do_transfer_TAG = "uc_do_transfer";
+    String uc_do_transfer_MSG = "转让中...";
     String uc_do_reback_TAG = "uc_do_reback";
     String uc_do_reback_MSG = "撤销中...";
     String version_TAG = "version";

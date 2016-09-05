@@ -65,6 +65,7 @@
                     android:orientation="horizontal"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
+                    android:visibility="gone"
                     android:focusable="true"
                     android:focusableInTouchMode="true">
 
@@ -101,6 +102,7 @@
                     android:id="@+id/et_abc_code"
                     android:hint="@string/register_code"
                     android:inputType="phone"
+                    android:visibility="gone"
                     app:met_baseColor="@color/material_base_color"
                     app:met_primaryColor="@color/material_primary_color"
                     app:met_floatingLabelTextSize ="@dimen/material_label_textsize"

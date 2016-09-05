@@ -134,7 +134,7 @@ public class ZhuanrangSellFragment extends BaseFragment {
             map.put("dltid", mItemBean.getDltid());
             map.put("transfer_money", mEtDingqiBuyMoney.getText().toString());
             map.put("paypassword", mEtDqPayPassword.getText().toString());
-            http(Global.DEAL_DOBID_MSG, Global.uc_do_transfer_TAG, new Gson().toJson(map), new HttpListener() {
+            http(Global.uc_do_transfer_MSG, Global.uc_do_transfer_TAG, new Gson().toJson(map), new HttpListener() {
                 @Override
                 public void onSuccess(String tag, String content) {
                     if (StringUtils.isEmpty(content)) {
